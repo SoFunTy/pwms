@@ -3,6 +3,8 @@
  *     //权限等级 3<2<1
  * @params a 等级
  */
+var data = JSON.parse(window.sessionStorage.getItem("data"))
+
 function userTypeCheck(a) {
     switch (a) {
         case 3:
@@ -25,15 +27,12 @@ function userTypeCheck(a) {
  * description: 参数填入
  */
 function setData() {
-    var data = JSON.parse(window.sessionStorage.getItem("data"))
-
     setsexOption()
     setAdd1Option()
-
-    setDataInto(data)
+    setDataInto()
 }
 
-function setDataInto(data) {
+function setDataInto() {
     $("div[class='rounded-circle avat float-left']").attr("class","rounded-circle avat avatar" + data.headIcon + " float-left")
 
     $("div[class*='employee-name']").html(data.employeeName)
@@ -49,9 +48,6 @@ function setDataInto(data) {
     $("select[name='sex']").find("option:contains('" + data.sex.dicValue + "')").attr("selected","selected")
     $("input[name='age']").val(data.age)
 
-    $("select[name='nattional'] > option[value='" + data.nattional.dicId + "']").attr("selected","selected")
-    $("select[name='natives01'] > option[value='" + data.natives01.dicId + "']").attr("selected","selected")
-    $("select[name='natives02'] > option[value='" + data.natives02.dicId + "']").attr("selected","selected")
     $("select[name='pol'] > option[value='" + data.pol.dicId + "']").attr("selected","selected")
     $("input[name='brith']").val(data.brith)
     $("input[name='idNumber']").val(data.idNumber)
@@ -60,9 +56,12 @@ function setDataInto(data) {
     $("input[name='university']").val(data.university)
     $("input[name='major']").val(data.major)
 
+    $("select[name='natives01'] > option[value='" + data.natives01.dicId + "']").attr("selected","selected")
+    $("select[name='natives02'] > option[value='" + data.natives02.dicId + "']").attr("selected","selected")
     $("select[name='homeAddress1'] > option[value='" + data.homeAddress1.dicValue + "']").attr("selected","selected")
     $("select[name='homeAddress2'] > option[value='" + data.homeAddress2.dicValue + "']").attr("selected","selected")
     $("select[name='homeAddress3'] > option[value='" + data.homeAddress3.dicValue + "']").attr("selected","selected")
+
     $("input[name='homeNote']").val(data.homeNote)
 
     $("input[name='phone']").val(data.phone)
@@ -87,9 +86,10 @@ function setsexOption(){
             if (result.resultCode == 200) {
                 var natdata = result.data
                 for (i = 0; i < natdata.length ; i++){
-                    var optionsex =  "<option value = '" + natdata[i].dicId + "'>" + natdata[i].dicValue + "</option>";
-                    $("#ENationnal").append(optionsex)
+                    var option =  "<option value = '" + natdata[i].dicId + "'>" + natdata[i].dicValue + "</option>";
+                    $("#ENationnal").append(option)
                 }
+                $("select[name='nattional'] > option[value='" + data.nattional.dicId + "']").attr("selected","selected")
             }
         },
         error: function () {
