@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.pwms.dao.DataDictionaryDao">
+    <resultMap id="DataDictionary" type="com.yx.pwms.entity.DataDictionary">
+        <id column="DIC_ID" jdbcType="INTEGER" property="dicId"/>
+        <result column="DIC_NOTE" jdbcType="VARCHAR" property="dicNote"/>
+        <result column="DIC_VALUE" jdbcType="VARCHAR" property="dicValue"/>
+        <result column="DIC_RELATION" jdbcType="VARCHAR" property="dicRelation"/>
+    </resultMap>
+
+    <sql id="DataDictionary_Column_List">
+        DIC_ID, DIC_NOTE, DIC_VALUE, DIC_RELATION
+    </sql>
+
+    <insert id="insertDataDictionary" parameterType="com.yx.pwms.entity.DataDictionary">
+        insert into DATA_DICTIONARY
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dicNote != null">
+                DIC_NOTE,
+            </if>
+            <if test="dicValue != null">
+                DIC_VALUE,
+            </if>
+            <if test="dicRelation != null">
+                DIC_RELATION,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dicNote != null">
+                #{dicNote},
+            </if>
+            <if test="dicValue != null">
+                #{dicValue},
+            </if>
+            <if test="dicRelation != null">
+                #{dicRelation},
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delDataDictionary" parameterType="java.lang.Long">
+        delete from DATA_DICTIONARY
+        where DIC_ID = #{dicId}
+    </delete>
+
+    <select id="queryAll" resultMap="DataDictionary">
+        select
+        <include refid="DataDictionary_Column_List"/>
+        from DATA_DICTIONARY
+    </select>
+
+    <select id="queryBy" parameterType="java.util.Map" resultMap="DataDictionary">
+        select
+        <include refid="DataDictionary_Column_List"/>
+        from DATA_DICTIONARY
+        where 1 = 1
+        <if test="dicId != null and dicId!=''">
+            and DIC_ID = #{dicId}
+        </if>
+        <if test="dicValue != null and dicValue!=''">
+            and DIC_VALUE = #{dicValue}
+        </if>
+        <if test="dicNote != null and dicNote!=''">
+            and DIC_NOTE = #{dicNote}
+        </if>
+        <if test="dicRelation != null and dicRelation!=''">
+            and DIC_RELATION = #{dicRelation}
+        </if>
+    </select>
+
+    <select id="queryByDataDictionaryId" parameterType="java.lang.Long" resultMap="DataDictionary">
+        select
+        <include refid="DataDictionary_Column_List"/>
+        from DATA_DICTIONARY
+        where DIC_ID = #{dicId}
+    </select>
+
+    <update id="updateDataDictionary" parameterType="DataDictionary">
+        update DATA_DICTIONARY
+        set DIC_NOTE = #{dicNote},
+          DIC_VALUE = #{dicValue},
+          DIC_RELATION = #{dicRelation}
+        where DIC_ID = #{dicId}
+    </update>
+
+</mapper>

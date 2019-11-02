@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>由心-主页</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <meta name="msapplication-tap-highlight" content="no">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="../assets/style/public.css">
+    <link rel="stylesheet" href="../assets/style/lq.datetimepick.css">
+    <script src="../assets/scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-header header-shadow">
+        <div class="app-header__logo">
+            <div class="logo-src"></div>
+            <div class="header__pane ml-auto">
+                <div>
+                    <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="app-header__mobile-menu">
+            <div>
+                <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                </button>
+            </div>
+        </div>
+        <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+        </div>
+        <div class="app-header__content">
+            <div class="app-header-right">
+                <div class="header-btn-lg pr-0">
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="btn-group">
+                                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                       class="p-0 btn employee-crud">
+                                        <!--头像-->
+                                        <div class="rounded-circle avat float-left"></div>
+                                        <i class="fa fa-angle-down mt-3 ml-2 opacity-8"></i>
+                                    </a>
+                                    <div tabindex="-1" role="menu" aria-hidden="true"
+                                         class="dropdown-menu dropdown-menu-right">
+                                        <button type="button"  onclick="selectionActions(this,'account')" tabindex="0"
+                                                class="dropdown-item">修改个人资料
+                                        </button>
+                                        <button type="button" tabindex="1" class="dropdown-item" data-toggle="modal"
+                                                data-target=".bd-example-modal-lg">更换头像
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--人物信息-->
+                            <div class="widget-content-left  ml-3 header-user-info cursor-d">
+                                <div class="widget-heading employee-name">
+                                </div>
+                                <div class="widget-subheading employee-position">
+                                </div>
+                            </div>
+                            <div class="widget-content-right header-user-info ml-3 cursor-d">
+                                <small class="text-muted">
+                                    15:30
+                                    <br>
+                                    2019年9月6 星期五
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-main">
+        <div class="app-sidebar sidebar-shadow">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                        <span>
+                            <button type="button"
+                                    class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+            </div>
+            <div class="scrollbar-sidebar">
+                <div class="app-sidebar__inner mt-2">
+                    <ul class="vertical-nav-menu">
+                        <li name="common">
+                            <a href="JavaScript:" onclick="selectionActions(this,'index')" class="mm-active">
+                                <i class="metismenu-icon pe-7s-home"></i>
+                                个人主页
+                            </a>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">工资统计</li>
+                        <li name="admin">
+                            <a href="javascript:" onclick="selectionActions(this,'departmental_wage_month')">
+                                <i class="metismenu-icon pe-7s-date"></i>
+                                部门工资统计（月）
+                            </a>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" onclick="selectionActions(this,'departmental_wage_year')">
+                                <i class="metismenu-icon pe-7s-display1"></i>
+                                部门工资统计（年）
+                            </a>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">人事管理</li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-id"></i>
+                                员工人事管理
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'personnel_management_all')">
+                                        <i class="metismenu-icon"></i>
+                                        全部员工
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:"
+                                       onclick="selectionActions(this,'personnel_management_single')">
+                                        <i class="metismenu-icon"></i>
+                                        员工查询
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" onclick="selectionActions(this,'personnel_department_management')">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                人事部门管理
+                            </a>
+                        </li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-users"></i>
+                                员工管理
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'staff_induction')">
+                                        <i class="metismenu-icon"></i>
+                                        员工入职
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'staff_dimission')">
+                                        <i class="metismenu-icon"></i>
+                                        员工离职
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">工资管理</li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-credit"></i>
+                                员工工资管理
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'staff_salary_enquiry')">
+                                        <i class="metismenu-icon"></i>
+                                        员工工资查询
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'staff_salary_update')">
+                                        <i class="metismenu-icon"></i>
+                                        工资信息修改
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" onclick="selectionActions(this,'notice_managerment')">
+                                <i class="metismenu-icon pe-7s-news-paper"></i>
+                                公告管理
+                            </a>
+                        </li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-credit"></i>
+                                工资表导入/导出
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'export_wage_table')">
+                                        <i class="metismenu-icon"></i>
+                                        导出工资表
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'import_wage_table')">
+                                        <i class="metismenu-icon"></i>
+                                        导入工资表
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">账号管理</li>
+                        <li name="admin">
+                            <a href="javascript:" onclick="selectionActions(this,'account_update')">
+                                <i class="metismenu-icon pe-7s-user"></i>
+                                账号密码管理
+                            </a>
+                        </li>
+                        <li name="checker admin" class="app-sidebar__heading">考勤应用</li>
+                        <li name="checker admin">
+                            <a href="javascript:" onclick="selectionActions(this,'add_rewardandpenalty')">
+                                <i class="metismenu-icon pe-7s-news-paper"></i>
+                                员工奖罚
+                            </a>
+                        </li>
+                        <li name="common checker admin" class="app-sidebar__heading">个人应用</li>
+                        <li name="common checker admin">
+                            <a href="#" onclick="selectionActions(this,'index')">
+                                <i class="metismenu-icon pe-7s-piggy"></i>
+                                工资
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'wage_enquiry')">
+                                        <i class="metismenu-icon"></i>
+                                        工资查询
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'reward_and_penalty')">
+                                        <i class="metismenu-icon"></i>
+                                        奖罚查询
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" onclick="selectionActions(this,'flow_bill')">
+                                        <i class="metismenu-icon"></i>
+                                        流水账单
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="common checker admin">
+                            <a href="javascript:" onclick="selectionActions(this,'account')">
+                                <i class="metismenu-icon pe-7s-user"></i>
+                                账号
+                            </a>
+                        </li>
+                        <li name="common checker admin">
+                            <a href="javascript:" onclick="selectionActions(this,'notice')">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                公告
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <!--主页-->
+                <div name="common checker admin index">
+                    <div class="index app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-wallet icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>薪资
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index row">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-vicious-stance">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">上月工资</div>
+                                        <div class="widget-subheading">总工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 8680</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-success">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖励</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 500</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index row mt-3">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="mb-3 card">
+                                <div class="card-header-tab card-header">
+                                    <div class="card-header-title">
+                                        <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
+                                        最新公告
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active show" id="tab-eg-55">
+                                        <div class="widget-chart p-3">
+                                            <div style="height: 350px">
+                                                <div class="scroll-area-md">
+                                                    <div class="scrollbar-container ps--active-y ps">
+                                                        <p>
+                                                            安徽省第五届普通高等学校体育教师教学技能比赛于2019年9月20日至9月22日在安徽师范大学举行。经专家评审、现场公布参赛教师成绩、参赛老师现场签字确认等环节，已评选出甲组、乙组、丙组参赛教师的得分及获奖等次，现予以公示。
+                                                            公示时间为：2019年10月15日至2019年10月17日（3个工作日）。公示期间，如有异议，请以书面形式向省教育厅体卫艺处实名反映，并提供佐证资料，以便联系核实。
+                                                        </p>
+                                                        <div class="ps__rail-x" style="left: 0px; bottom: -165px;">
+                                                            <div class="ps__thumb-x" tabindex="0"
+                                                                 style="left: 0px; width: 0px;"></div>
+                                                        </div>
+                                                        <div class="ps__rail-y ps--clicking"
+                                                             style="top: 165px; height: 150px; right: 0px;">
+                                                            <div class="ps__thumb-y" tabindex="0"
+                                                                 style="top: 175px; height: 125px;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="copyright row col-md-12 mt-5">
+                        <div class="col-md-12 col-xl-12">
+                            <div class="card mb-4 widget-content bg-light">
+                                <div class="widget-content-wrapper pl-10">
+                                    <div class="text-center pl-10 text-muted">
+                                        许可备案：桂JS201304-018(教育审批号) 桂ICP备05001211号-1(网站备案号) 桂公网安备 45090202000116号<br>
+                                        地址：北京市朝阳区东直门外大街小关56号5幢一层110室
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--工资统计-->
+                <!--部门工资统计（月）-->
+                <div name="admin departmental_wage_month">
+                    <h1>部门工资统计（月）</h1>
+                </div>
+                <!--部门工资统计（年）-->
+                <div name="admin departmental_wage_year">
+                    <h1>部门工资统计（年）</h1>
+                </div>
+                <!--人事管理-->
+                <!--员工人事管理-->
+                <!--全部员工-->
+                <div name="admin personnel_management_all">
+                    <h1>全部员工</h1>
+                </div>
+                <!--员工查询-->
+                <div name="admin personnel_management_single">
+                    <h1>员工查询</h1>
+                </div>
+                <!--人事部门管理-->
+                <div name="admin personnel_department_management">
+                    <h1>人事部门管理</h1>
+                </div>
+
+                <!--员工管理-->
+                <!--员工入职-->
+                <div name="admin staff_induction">
+                    <h1>员工入职</h1>
+                </div>
+                <!--员工离职-->
+                <div name="admin staff_dimission">
+                    <h1>员工离职</h1>
+                </div>
+
+                <!--工资管理-->
+                <!--员工工资管理-->
+                <!--员工工资查询-->
+                <div name="admin staff_salary_enquiry">
+                    <h1>员工工资查询</h1>
+                </div>
+                <!--工资信息修改-->
+                <div name="admin staff_salary_update">
+                    <h1>工资信息修改</h1>
+                </div>
+
+                <!--公告管理-->
+                <div name="admin notice_managerment">
+                    <h1>公告管理</h1>
+                </div>
+
+                <!--工资表导入/导出-->
+                <!--导出工资表-->
+                <div name="admin export_wage_table">
+                    <h1>导出工资表</h1>
+                </div>
+                <!--导入工资表-->
+                <div name="admin import_wage_table">
+                    <h1>导入工资表</h1>
+                </div>
+
+                <!--账号密码管理-->
+                <div name="admin account_update">
+                    <h1>账号密码管理</h1>
+                </div>
+
+                <!--员工奖罚-->
+                <div name="checkeradmin add_rewardandpenalty">
+                    <h1>员工奖罚</h1>
+                </div>
+
+                <!--个人应用-->
+                <!--工资-->
+                <!--工资查询-->
+                <div name="common checker admin wage_enquiry">
+                    <div class="wage_enquiry app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-wallet icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>上月工资
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wage_enquiry row">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-vicious-stance">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">上月工资</div>
+                                        <div class="widget-subheading">总工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 8680</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wage_enquiry row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-success">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖励</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 500</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-success">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖励</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 500</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-success">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖励</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 500</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--奖罚查询-->
+                <div name="common checker admin reward_and_penalty">
+                    <div class="reward_and_penalty app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-filter icon-gradient bg-warm-flame">
+                                    </i>
+                                </div>
+                                <div>奖罚查询
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reward_and_penalty row">
+                        <div class="col-lg-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">订单总数</font></font></div>
+                                        <div class="widget-subheading"><font style="vertical-align: inherit;"><font
+                                                style="vertical-align: inherit;">去年费用</font></font></div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-success"><span><font
+                                                style="vertical-align: inherit;"><font style="vertical-align: inherit;">1896年</font></font></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--工资台账-->
+                <div name="common checker admin flow_bill">
+                    <div class="flow_bill app-page-title pl-5">
+                        <div class="page-title-wrapper pl-4">
+                            <div class="page-title-heading">
+                                <div>流水台账
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow_bill row rowlist">
+                        <div class="col-md-6 col-xl-12 box">
+                            <ul class="event_year">
+                                <li class="current">
+                                    <label class="lable-year" for="2013">2013</label>
+                                </li>
+                                <li>
+                                    <label class="lable-year" for="2012">2012</label>
+                                </li>
+                            </ul>
+                            <ul class="event_list">
+                                <div>
+                                    <h3 id="2013">2013</h3>
+                                    <li><span>5月</span>
+                                        <!--工资简列-->
+                                        <div class="row pl-4">
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading text-dark">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-danger"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">社保</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-danger"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <br><br>
+                                    <li><span>4月</span>
+                                        <!--工资简列-->
+                                        <div class="row pl-4">
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-danger"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">社保</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <br><br>
+                                    <li><span>3月</span>
+                                        <!--工资简列-->
+                                        <div class="row pl-4">
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">社保</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <br><br>
+                                    <br><br>
+                                    <li><span>2月</span>
+                                        <!--工资简列-->
+                                        <div class="row pl-4">
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">社保</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><span>1月</span>
+                                        <!--工资简列-->
+                                        <div class="row pl-4">
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">社保</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-success"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
+                                <div>
+                                    <h3 id="2012">2012</h3>
+                                    <li><span>9月</span>
+                                        <!--工资简列-->
+                                        <div class="row pl-4">
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">社保</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">基本工资</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 950</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">奖励</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 500</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-xl-3">
+                                                <div class="card mb-3 widget-content bg-light">
+                                                    <div class="widget-content-wrapper text-dark">
+                                                        <div class="widget-content-left">
+                                                            <div class="widget-heading">罚扣</div>
+                                                        </div>
+                                                        <div class="widget-content-right">
+                                                            <div class="widget-numbers text-dark"><span>￥ 280</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                        <!--版权信息-->
+                        <div class="row col-md-12 mt-5">
+                            <div class="col-md-12 col-xl-12">
+                                <div class="card mb-4 widget-content bg-light">
+                                    <div class="widget-content-wrapper pl-10">
+                                        <div class="text-center pl-10 text-muted">
+                                            许可备案：桂JS201304-018(教育审批号) 桂ICP备05001211号-1(网站备案号) 桂公网安备 45090202000116号<br>
+                                            地址：北京市朝阳区东直门外大街小关56号5幢一层110室
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--账号-->
+                <div name="common checker admin account">
+                    <div class="account main-card mb-3 card">
+                        <div class="card-body">
+                            <h3 class="card-title">账号信息：</h3>
+                            <form class="form-inline">
+                                <div class="col-12 float-left">
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                <label class="">员工编号：</label>
+                                                <label name="employeeId" class="ml-0 badge badge-info"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                <label class="">入职职位：</label>
+                                                <label name="positionId" class="ml-0 badge badge-info"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                <label class="">入职时间：</label>
+                                                <label name="oinTime" class="ml-0 badge badge-info"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </form>
+                            <div class="tab-pane tabs-animation fade active show" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body pl-5">
+                                        <form class="">
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EEmail"
+                                                           class=" col-3 col-form-label bg-light br-a">邮箱</label>
+                                                    <div class="col-6">
+                                                        <input name="email" id="EEmail" placeholder="邮箱" type="email"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EPassword"
+                                                           class=" col-3 col-form-label bg-light br-a">密码</label>
+                                                    <div class="col-6">
+                                                        <input name="epassword" id="EPassword" placeholder="密码"
+                                                               type="password" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EName"
+                                                           class=" col-3 col-form-label bg-light br-a">姓名</label>
+                                                    <div class="col-6">
+                                                        <input name="employeeName" id="EName" placeholder="姓名" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ESex"
+                                                           class=" col-3 col-form-label bg-light br-a">性别</label>
+                                                    <div class="col-6">
+                                                        <select name="sex" id="ESex" class="form-control">
+                                                            <option value="3622">请选择</option>
+                                                            <option value="1">男</option>
+                                                            <option value="2">女</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EAge"
+                                                           class=" col-3 col-form-label bg-light br-a">年龄</label>
+                                                    <div class="col-6">
+                                                        <input name="age" id="EAge"
+                                                               oninput="value=value.replace(/[^\d]/g,'')"
+                                                               placeholder="年龄"
+                                                               type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENationnal"
+                                                           class=" col-3 col-form-label bg-light br-a">民族</label>
+                                                    <div class="col-6">
+                                                        <select name="nattional" id="ENationnal" class="form-control">
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENatives"
+                                                           class=" col-3 col-form-label bg-light br-a">籍贯</label>
+                                                    <div class="col-6 row m-0 " id="ENatives">
+                                                        <select name="natives01" id="Natives01" onchange="setNatives02(this)" class="col-5 form-control">
+                                                        </select>
+                                                        <select name="natives02" id="Natives02" class="col-5 ml-2 form-control">
+                                                            <option name='7101' value = '3568'>请选择</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EPol"
+                                                           class=" col-3 col-form-label bg-light br-a">政治面貌</label>
+                                                    <div class="col-6">
+                                                        <select name="pol" id="EPol" class="form-control">
+                                                            <option value="3621">请选择</option>
+                                                            <option value="3581">共青团员</option>
+                                                            <option value="3582">党员</option>
+                                                            <option value="3583">预备党员</option>
+                                                            <option value="3584">无党派人士</option>
+                                                            <option value="3585">群众</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EBrith"
+                                                           class=" col-3 col-form-label bg-light br-a">出生日期</label>
+                                                    <div class="col-6" id="EBrith">
+                                                        <div class="form-group mb-0 float-left w-100">
+                                                            <input name="brith" type="text" name="datepicker" id="datetimepicker3"
+                                                                   class="form-control" value="1990-1-1"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EId_Number"
+                                                           class=" col-3 col-form-label bg-light br-a">身份证</label>
+                                                    <div class="col-6">
+                                                        <input name="idNumber" id="EId_Number" maxlength="18"
+                                                               placeholder="身份证" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EEducation"
+                                                           class=" col-3 col-form-label bg-light br-a">学历</label>
+                                                    <div class="col-6">
+                                                        <select name="education" id="EEducation" class="form-control">
+                                                            <option value="3620">请选择</option>
+                                                            <option value="3591">本科</option>
+                                                            <option value="3590">专科</option>
+                                                            <option value="3592">硕士研究生</option>
+                                                            <option value="3588">中专</option>
+                                                            <option value="3593">博士研究生</option>
+                                                            <option value="3589">高中</option>
+                                                            <option value="3587">初中</option>
+                                                            <option value="3586">小学</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EUniversity"
+                                                           class=" col-3 col-form-label bg-light br-a">毕业院校</label>
+                                                    <div class="col-6">
+                                                        <input name="university" id="EUniversity" placeholder="毕业院校"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EMajor"
+                                                           class=" col-3 col-form-label bg-light br-a">专业</label>
+                                                    <div class="col-6">
+                                                        <input name="major" id="EMajor" placeholder="专业" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EHome_Address"
+                                                           class=" col-3 pt-4 col-form-label bg-light br-a">家庭住址</label>
+                                                    <div class="col-8 row m-0" id="EHome_Address">
+                                                        <select name="homeAddress1" id="Home_Address01" onchange="setAdd2Option(this)" class="col-3 form-control">
+                                                        </select>
+                                                        <select name="homeAddress2" id="Home_Address02" onchange="setAdd3Option(this)" class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <select name="homeAddress3" id="Home_Address03" class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <input name="homeNote" id="Home_Address_Note"
+                                                               placeholder="具体街道门牌" type="text"
+                                                               class="form-control mt-1">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EPhone"
+                                                           class=" col-3 col-form-label bg-light br-a">电话</label>
+                                                    <div class="col-6">
+                                                        <input name="phone" id="EPhone"
+                                                               oninput="value=value.replace(/[^\d]/g,'')" maxlength="11"
+                                                               placeholder="电话" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EMarriage"
+                                                           class=" col-3 col-form-label bg-light br-a">婚否</label>
+                                                    <div class="col-6">
+                                                        <select name="marriage" id="EMarriage" class="form-control">
+                                                            <option value="3602">是</option>
+                                                            <option value="3603">否</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EHealth"
+                                                           class=" col-3 col-form-label bg-light br-a">健康情况</label>
+                                                    <div class="col-6">
+                                                        <select name="health" id="EHealth" class="form-control">
+                                                            <option value="3608">健康</option>
+                                                            <option value="3609">一般</option>
+                                                            <option value="3610">较差</option>
+                                                            <option value="3611">有严重疾病、慢性疾病或身体伤残</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EBlood_Type"
+                                                           class=" col-3 col-form-label bg-light br-a">血型</label>
+                                                    <div class="col-6">
+                                                        <select name="bloodType" id="EBlood_Type" class="form-control">
+                                                            <option value="3594">A</option>
+                                                            <option value="3598">B</option>
+                                                            <option value="3599">O</option>
+                                                            <option value="3600">AB</option>
+                                                            <option value="3601">ABO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENote"
+                                                           class=" col-3 pt-3 col-form-label bg-light br-a">备注</label>
+                                                    <div class="col-8">
+                                                        <textarea name="note" id="ENote"
+                                                                  class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <button class="mt-4 col-3 center-svg  btn btn-primary">保存</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--公告-->
+                <div name="common checker admin notice">
+                    <div class="notice app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-wallet icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>薪资
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title">公告</h5>
+                                <div class="alert alert-success fade show" role="alert"><h4 class="alert-heading">Well
+                                    done!</h4>
+                                    <p>
+                                        安徽省第五届普通高等学校体育教师教学技能比赛于2019年9月20日至9月22日在安徽师范大学举行。经专家评审、现场公布参赛教师成绩、参赛老师现场签字确认等环节，已评选出甲组、乙组、丙组参赛教师的得分及获奖等次，现予以公示。
+                                        公示时间为：2019年10月15日至2019年10月17日（3个工作日）。公示期间，如有异议，请以书面形式向省教育厅体卫艺处实名反映，并提供佐证资料，以便联系核实。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title">公告</h5>
+                                <div class="alert alert-success fade show" role="alert"><h4 class="alert-heading">Well
+                                    done!</h4>
+                                    <p>
+                                        安徽省第五届普通高等学校体育教师教学技能比赛于2019年9月20日至9月22日在安徽师范大学举行。经专家评审、现场公布参赛教师成绩、参赛老师现场签字确认等环节，已评选出甲组、乙组、丙组参赛教师的得分及获奖等次，现予以公示。
+                                        公示时间为：2019年10月15日至2019年10月17日（3个工作日）。公示期间，如有异议，请以书面形式向省教育厅体卫艺处实名反映，并提供佐证资料，以便联系核实。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title">公告</h5>
+                                <div class="alert alert-success fade show" role="alert"><h4 class="alert-heading">Well
+                                    done!</h4>
+                                    <p>
+                                        安徽省第五届普通高等学校体育教师教学技能比赛于2019年9月20日至9月22日在安徽师范大学举行。经专家评审、现场公布参赛教师成绩、参赛老师现场签字确认等环节，已评选出甲组、乙组、丙组参赛教师的得分及获奖等次，现予以公示。
+                                        公示时间为：2019年10月15日至2019年10月17日（3个工作日）。公示期间，如有异议，请以书面形式向省教育厅体卫艺处实名反映，并提供佐证资料，以便联系核实。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title">公告</h5>
+                                <div class="alert alert-success fade show" role="alert"><h4 class="alert-heading">Well
+                                    done!</h4>
+                                    <p>
+                                        安徽省第五届普通高等学校体育教师教学技能比赛于2019年9月20日至9月22日在安徽师范大学举行。经专家评审、现场公布参赛教师成绩、参赛老师现场签字确认等环节，已评选出甲组、乙组、丙组参赛教师的得分及获奖等次，现予以公示。
+                                        公示时间为：2019年10月15日至2019年10月17日（3个工作日）。公示期间，如有异议，请以书面形式向省教育厅体卫艺处实名反映，并提供佐证资料，以便联系核实。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改头像模态框-->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">修改头像</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            <h5 class="card-title">Grid</h5>
+                            <form class="">
+                                <div class="rounded-circle bavat bavatar1 float-left"></div>
+                                <div class="rounded-circle bavat bavatar2 float-left"></div>
+                                <div class="rounded-circle bavat bavatar3 float-left"></div>
+                                <div class="rounded-circle bavat bavatar4 float-left"></div>
+                                <div class="rounded-circle bavat bavatar5 float-left"></div>
+                                <div class="rounded-circle bavat bavatar6 float-left"></div>
+                                <div class="rounded-circle bavat bavatar7 float-left"></div>
+                                <div class="rounded-circle bavat bavatar8 float-left"></div>
+                                <div class="rounded-circle bavat bavatar9 float-left"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../assets/scripts/main.js"></script>
+<script src="../assets/scripts/public.js"></script>
+<script src="../assets/scripts/lq.datetimepick.js"></script>
+<script src="../assets/scripts/interaction.js"></script>
+<script src="../assets/scripts/selectUi.js"></script>
+<script src="../assets/scripts/interaction.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // var data = JSON.parse(window.sessionStorage.getItem("data"))
+        setData()
+        userTypeCheck(3)
+    });
+    $("#datetimepicker3").on("click", function (e) {
+        e.stopPropagation();
+        $(this).lqdatetimepicker({
+            css: 'datetime-day',
+            dateType: 'D',
+            selectback: function () {
+            }
+        });
+    });
+    $(".lable-year").click(function () {
+        $('.event_year>li').removeClass('current');
+        $(this).parent('li').addClass('current');
+        var year = $(this).attr('for');
+        $('#' + year).parent().prevAll('div').slideUp(800);
+        $('#' + year).parent().slideDown(800).nextAll('div').slideDown(800);
+    });
+</script>
+</div>
+</body>
+</html>
