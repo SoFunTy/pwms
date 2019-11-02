@@ -86,6 +86,7 @@ function login() {
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
         success: function (result) {
+            console.log(result.resultCode)
             if (result.resultCode == 200) {
                 showSuccess();
                 window.sessionStorage.setItem('data', JSON.stringify(result.data));
@@ -94,7 +95,7 @@ function login() {
                 }, 1500);
                 return;
             }
-            if (result.resultCode == 500) {
+            if (result.resultCode == 409) {
                 showError("登陆失败!请检查账号和密码！");
                 return;
             }
