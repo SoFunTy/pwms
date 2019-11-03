@@ -65,8 +65,13 @@
                                     </a>
                                     <div tabindex="-1" role="menu" aria-hidden="true"
                                          class="dropdown-menu dropdown-menu-right">
-                                        <button type="button"  onclick="selectionActions(this,'account')" tabindex="0"
+                                        <button type="button" onclick="account()" tabindex="0"
                                                 class="dropdown-item">修改个人资料
+                                            <script type="text/javascript">
+                                                function account() {
+                                                    $("i[class='metismenu-icon pe-7s-user']").click()
+                                                }
+                                            </script>
                                         </button>
                                         <button type="button" tabindex="1" class="dropdown-item" data-toggle="modal"
                                                 data-target=".bd-example-modal-lg">更换头像
@@ -1237,7 +1242,8 @@
                                                     <label for="EName"
                                                            class=" col-3 col-form-label bg-light br-a">姓名</label>
                                                     <div class="col-6">
-                                                        <input name="employeeName" id="EName" placeholder="姓名" type="text"
+                                                        <input name="employeeName" id="EName" placeholder="姓名"
+                                                               type="text"
                                                                class="form-control">
                                                     </div>
                                                 </div>
@@ -1276,10 +1282,13 @@
                                                     <label for="ENatives"
                                                            class=" col-3 col-form-label bg-light br-a">籍贯</label>
                                                     <div class="col-6 row m-0 " id="ENatives">
-                                                        <select name="natives01" id="Natives01" onchange="setNatives02(this)" class="col-5 form-control">
+                                                        <select name="natives01" id="Natives01"
+                                                                onchange="setNatives02(this)"
+                                                                class="col-5 form-control">
                                                         </select>
-                                                        <select name="natives02" id="Natives02" class="col-5 ml-2 form-control">
-                                                            <option name='7101' value = '3568'>请选择</option>
+                                                        <select name="natives02" id="Natives02"
+                                                                class="col-5 ml-2 form-control">
+                                                            <option name='7101' value='3568'>请选择</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -1302,7 +1311,8 @@
                                                            class=" col-3 col-form-label bg-light br-a">出生日期</label>
                                                     <div class="col-6" id="EBrith">
                                                         <div class="form-group mb-0 float-left w-100">
-                                                            <input name="brith" type="text" name="datepicker" id="datetimepicker3"
+                                                            <input name="brith" type="text" name="datepicker"
+                                                                   id="datetimepicker3"
                                                                    class="form-control" value="1990-1-1"/>
                                                         </div>
                                                     </div>
@@ -1357,11 +1367,16 @@
                                                     <label for="EHome_Address"
                                                            class=" col-3 pt-4 col-form-label bg-light br-a">家庭住址</label>
                                                     <div class="col-8 row m-0" id="EHome_Address">
-                                                        <select name="homeAddress1" id="Home_Address01" onchange="setAdd2Option(this)" class="col-3 form-control">
+                                                        <select name="homeAddress1" id="Home_Address01"
+                                                                onchange="setAdd2Option(this)"
+                                                                class="col-3 form-control">
                                                         </select>
-                                                        <select name="homeAddress2" id="Home_Address02" onchange="setAdd3Option(this)" class="col-3 ml-2 form-control">
+                                                        <select name="homeAddress2" id="Home_Address02"
+                                                                onchange="setAdd3Option(this)"
+                                                                class="col-3 ml-2 form-control">
                                                         </select>
-                                                        <select name="homeAddress3" id="Home_Address03" class="col-3 ml-2 form-control">
+                                                        <select name="homeAddress3" id="Home_Address03"
+                                                                class="col-3 ml-2 form-control">
                                                         </select>
                                                         <input name="homeNote" id="Home_Address_Note"
                                                                placeholder="具体街道门牌" type="text"
@@ -1524,26 +1539,24 @@
             <div class="modal-body">
                 <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
                     <div class="main-card mb-3 card">
-                        <div class="card-body">
-                            <h5 class="card-title">Grid</h5>
-                            <form class="">
-                                <div class="rounded-circle bavat bavatar1 float-left"></div>
-                                <div class="rounded-circle bavat bavatar2 float-left"></div>
-                                <div class="rounded-circle bavat bavatar3 float-left"></div>
-                                <div class="rounded-circle bavat bavatar4 float-left"></div>
-                                <div class="rounded-circle bavat bavatar5 float-left"></div>
-                                <div class="rounded-circle bavat bavatar6 float-left"></div>
-                                <div class="rounded-circle bavat bavatar7 float-left"></div>
-                                <div class="rounded-circle bavat bavatar8 float-left"></div>
-                                <div class="rounded-circle bavat bavatar9 float-left"></div>
-                            </form>
+                        <div class="card-body header-icons">
+                            <h5 class="card-title"></h5>
+                            <div name="1" id="bavatar1" onclick="headicon(this)" class="bavat"></div>
+                            <div name="2" id="bavatar2" onclick="headicon(this)" class="bavat"></div>
+                            <div name="3" id="bavatar3" onclick="headicon(this)" class="bavat"></div>
+                            <div name="4" id="bavatar4" onclick="headicon(this)" class="bavat"></div>
+                            <div name="5" id="bavatar5" onclick="headicon(this)" class="bavat"></div>
+                            <div name="6" id="bavatar6" onclick="headicon(this)" class="bavat"></div>
+                            <div name="7" id="bavatar7" onclick="headicon(this)" class="bavat"></div>
+                            <div name="8" id="bavatar8" onclick="headicon(this)" class="bavat"></div>
+                            <div name="9" id="bavatar9" onclick="headicon(this)" class="bavat"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关 闭</button>
+                            <button type="button" onclick="headicon_save()" class="btn btn-primary">保 存</button>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
@@ -1555,11 +1568,6 @@
 <script src="../assets/scripts/selectUi.js"></script>
 <script src="../assets/scripts/interaction.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        // var data = JSON.parse(window.sessionStorage.getItem("data"))
-        setData()
-        userTypeCheck(3)
-    });
     $("#datetimepicker3").on("click", function (e) {
         e.stopPropagation();
         $(this).lqdatetimepicker({

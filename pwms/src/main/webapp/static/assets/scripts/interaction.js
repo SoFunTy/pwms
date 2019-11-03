@@ -23,6 +23,12 @@ function userTypeCheck(a) {
     $("div[name*='index']").css("display","block")
 }
 
+$(document).ready(function () {
+    // var data = JSON.parse(window.sessionStorage.getItem("data"))
+    setData()
+    userTypeCheck(1)
+});
+
 /**
  * description: 参数填入
  */
@@ -32,8 +38,16 @@ function setData() {
     setDataInto()
 }
 
+//headicon change
+function headicon(a) {
+    $("div[class*='header-icons'] > div").attr("class","bavat")
+    $(a).attr("class","bavatcheak")
+}
+
+
 function setDataInto() {
     $("div[class='rounded-circle avat float-left']").attr("class","rounded-circle avat avatar" + data.headIcon + " float-left")
+    $("div[name='" + data.headIcon +"']").attr("class","bavatcheak")
 
     $("div[class*='employee-name']").html(data.employeeName)
     $("div[class*='employee-position']").html(data.positionId.positionName)
@@ -78,7 +92,7 @@ function setsexOption(){
     $("#ENationnal").append("<option value = '3623'>请选择</option>")
     $.ajax({
         type: "POST",//方法类型
-        url: "http://localhost:8080/pwms_war/dataDictionary/daqueryList",
+        url: "dataDictionary/daqueryList",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify({"dicNote": "民族"}),
@@ -113,7 +127,7 @@ function setAdd1Option() {
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>")
     $.ajax({
         type: "POST",//方法类型
-        url: "http://localhost:8080/pwms_war/dataDictionary/daqueryList",
+        url: "dataDictionary/daqueryList",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify({"dicRelation": "0"}),
@@ -144,7 +158,7 @@ function setAdd2Option(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: "http://localhost:8080/pwms_war/dataDictionary/daqueryList",
+        url: "dataDictionary/daqueryList",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -172,7 +186,7 @@ function setAdd3Option(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: "http://localhost:8080/pwms_war/dataDictionary/daqueryList",
+        url: "dataDictionary/daqueryList",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -201,7 +215,7 @@ function setNatives02(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: "http://localhost:8080/pwms_war/dataDictionary/daqueryList",
+        url: "dataDictionary/daqueryList",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -232,6 +246,30 @@ function selectionActions(a, toUrl){
     $(a).attr("class","mm-active")
     $("div[name*='admin']").css("display", "none")
     $("div[name*=" + toUrl + "]").css("display","block")
+}
+
+/*
+* 头像保存
+* */
+function headicon_save() {
+    var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name")
+    var datas = {"employeeId":data.employeeId, "headIcon":nheadIcon}
+    $.ajax({
+        type: "POST",//方法类型
+        url: "user/emupdate",
+        dataType:"json",
+        contentType : "application/json;charset=UTF-8",
+        data: JSON.stringify(datas),
+        success: function (result) {
+            if (result.resultCode == 200) {
+                window.location.reload()
+            }
+        },
+        error: function () {
+            showError("接口异常，请联系管理员！");
+            return;
+        }
+    });
 }
 
 /**

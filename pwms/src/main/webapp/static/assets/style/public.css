@@ -140,6 +140,13 @@ div.col-8.main-card.card.float-left.pl-2 > div.card-body.mt-5.pt-5.pl-1 {
     height: 42px;
 }
 
+.header-icons > div{
+    border-radius: 50% !important;
+    width: 80px;
+    height: 80px;
+    float: left;
+}
+
 .avatar1{
     background-image: url("../images/avatar.jpg");
     background-position: -19px -15px;
@@ -158,19 +165,19 @@ div.col-8.main-card.card.float-left.pl-2 > div.card-body.mt-5.pt-5.pl-1 {
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.avatar4{
+.avatar5{
     background-image: url("../images/avatar.jpg");
     background-position: -84px -77px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.avatar5{
+.avatar6{
     background-image: url("../images/avatar.jpg");
     background-position: -149px -77px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.avatar6{
+.avatar4{
     background-image: url("../images/avatar.jpg");
     background-position: -19px -77px;
     background-size: 500% auto;
@@ -195,64 +202,64 @@ div.col-8.main-card.card.float-left.pl-2 > div.card-body.mt-5.pt-5.pl-1 {
     background-repeat: no-repeat;
 }
 
-.bavat{
+.bavat:hover{
+    box-shadow: 0px 0px 15px #6a7576;
+}
+.bavatcheak{
     width: 80px;
     height: 80px;
+    box-shadow: 0px 0px 18px #6a7576;
 }
 
-.bavat:hover{
-
-}
-
-.bavatar1{
+#bavatar1{
     background-image: url("../images/avatar.jpg");
     background-position: -36px -28px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar2{
+#bavatar2{
     background-image: url("../images/avatar.jpg");
     background-position: -160px -28px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar3{
+#bavatar3{
     background-image: url("../images/avatar.jpg");
     background-position: -282px -28px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar4{
+#bavatar4{
     background-image: url("../images/avatar.jpg");
     background-position: -36px -150px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar5{
+#bavatar5{
     background-image: url("../images/avatar.jpg");
-    background-position: -160px -145px;
+    background-position: -160px -150px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar6{
+#bavatar6{
     background-image: url("../images/avatar.jpg");
     background-position: -282px -140px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar7{
+#bavatar7{
     background-image: url("../images/avatar.jpg");
     background-position: -36px -260px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar8{
+#bavatar8{
     background-image: url("../images/avatar.jpg");
     background-position: -160px -260px;
     background-size: 500% auto;
     background-repeat: no-repeat;
 }
-.bavatar9{
+#bavatar9{
     background-image: url("../images/avatar.jpg");
     background-position: -282px -260px;
     background-size: 500% auto;
@@ -464,51 +471,51 @@ div.row.rowlist .event_list li p span {
 }
 
 .fs-1{
-    font-size: .5rem
+    font-size: .5rem !important
 }
 
 .fs-2{
-    font-size: .6rem
+    font-size: .6rem !important
 }
 
 .fs-3{
-    font-size: .7rem
+    font-size: .7rem !important
 }
 
 .fs-4{
-    font-size: .8rem
+    font-size: .8rem !important
 }
 
 .fs-5{
-    font-size: .9rem
+    font-size: .9rem !important
 }
 
 .fs-6{
-    font-size: 1rem
+    font-size: 1rem !important
 }
 
 .fs-7{
-    font-size: 1.1rem
+    font-size: 1.1rem !important
 }
 
 .fs-8{
-    font-size: 1.2rem
+    font-size: 1.2rem !important
 }
 
 .fs-9{
-    font-size: 1.3rem
+    font-size: 1.3rem !important
 }
 
 .fs-10{
-    font-size: 1.4rem
+    font-size: 1.4rem !important
 }
 
 .fs-11{
-    font-size: 1.5rem;
+    font-size: 1.5rem !important
 }
 
 .fs-12{
-    font-size: 1.6rem;
+    font-size: 1.6rem !important
 }
 
 ml-sm-01{
