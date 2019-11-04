@@ -1,6 +1,13 @@
 var data= JSON.parse(window.sessionStorage.getItem("data"))
 var baseUrl = "http://localhost:8080/pwms/"
 
+$(document).ready(function () {
+    if (data == null || data == "")
+        window.location.href = baseUrl;
+    setData()
+    userTypeCheck(1)
+});
+
 /**
  * description: 根据权限显示对于模块
  *     //权限等级 3<2<1
@@ -23,13 +30,6 @@ function userTypeCheck(a) {
     $("div[name*='admin']").css("display", "none")
     $("div[name*='index']").css("display", "block")
 }
-
-$(document).ready(function () {
-    if (data == null || data == "")
-        window.location.href = baseUrl;
-    setData()
-    userTypeCheck(1)
-});
 
 /**
  * description: 参数填入
@@ -145,10 +145,22 @@ function setDepartment() {
         "columns": [
             {"data": "departmentId"},
             {"data": "departmentName"},
-            {"data": "departmentCharge"}
+            {"data": "departmentCharge"},
         ]
+        // "columnDefs": [
+        //     {
+        //         targets: [3],
+        //         render: function (data, type, row, meta) {
+        //             if (type === 'display') {
+        //                 return '<input type="input" class="form-control" value="' + data + '">';
+        //             }
+        //             return data;
+        //         },
+        //     }
+        // ],
     })
 }
+
 
 
 /**
