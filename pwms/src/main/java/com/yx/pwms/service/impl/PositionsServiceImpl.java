@@ -17,13 +17,7 @@ public class PositionsServiceImpl implements PositionsService {
     private PositionsDao positionsDao;
     @Override
     public int insertPositions(Positions position) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("positionId",position.getPositionId());
-        map.put("departmentId",position.getDepartmentId().getDepartmentId());
-        map.put("positionChargeId",position.getPositionChargeId());
-        map.put("positionName",position.getPositionName());
-        map.put("positionBasePay",position.getPositionBasePay());
-        return positionsDao.insertPositions(map);
+        return positionsDao.insertPositions(getMap(position));
     }
 
     @Override
@@ -52,12 +46,14 @@ public class PositionsServiceImpl implements PositionsService {
 
     @Override
     public int updatePositions(Positions position) {
+        return positionsDao.updatePositions(getMap(position));
+    }
+    private Map<String, Object> getMap(Positions position){
         Map<String, Object> map = new HashMap<>();
         map.put("positionId",position.getPositionId());
         map.put("departmentId",position.getDepartmentId().getDepartmentId());
-        map.put("positionChargeId",position.getPositionChargeId());
         map.put("positionName",position.getPositionName());
         map.put("positionBasePay",position.getPositionBasePay());
-        return positionsDao.updatePositions(map);
+        return map;
     }
 }

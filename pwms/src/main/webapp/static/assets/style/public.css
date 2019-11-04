@@ -7,7 +7,7 @@
 }
 
 body {
-    background: radial-gradient(circle at 10% 30%, #99CCCC 10%, #70f3ff 20%, #CCCC99 20%, #F2B6E3 5%);
+    background: radial-gradient(circle at 10% 20%, #99CCCC 10%, #70f3ff 20%, #CCCC99 20%, #e9cbdf 5%);
     background-size: 1400% 300%;
     animation: mymove 20s ease infinite;
     -webkit-animation: mymove 20s ease infinite;

@@ -6,19 +6,16 @@ package com.yx.pwms.entity;
 public class Positions {
 
   private String positionId;
-
   private Department departmentId;
-  private String positionChargeId;
   private String positionName;
   private double positionBasePay;
 
   public Positions() {
   }
 
-  public Positions(String positionId, Department departmentId, String positionChargeId, String positionName, double positionBasePay) {
+  public Positions(String positionId, Department departmentId,  String positionName, double positionBasePay) {
     this.positionId = positionId;
     this.departmentId = departmentId;
-    this.positionChargeId = positionChargeId;
     this.positionName = positionName;
     this.positionBasePay = positionBasePay;
   }
@@ -37,14 +34,6 @@ public class Positions {
 
   public void setDepartmentId(Department departmentId) {
     this.departmentId = departmentId;
-  }
-
-  public String getPositionChargeId() {
-    return positionChargeId;
-  }
-
-  public void setPositionChargeId(String positionChargeId) {
-    this.positionChargeId = positionChargeId;
   }
 
   public String getPositionName() {

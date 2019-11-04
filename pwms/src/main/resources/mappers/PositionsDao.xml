@@ -4,13 +4,12 @@
 
     <resultMap id="Positions" type="com.yx.pwms.entity.Positions">
         <id column="POSITION_ID" jdbcType="VARCHAR" property="positionId"/>
-        <result column="POSITION_CHARGE_ID" jdbcType="VARCHAR" property="positionChargeId"/>
         <result column="POSITION_NAME" jdbcType="VARCHAR" property="positionName"/>
         <result column="POSITION_BASE_PAY" jdbcType="DOUBLE" property="positionBasePay"/>
         <association column="DEPARTMENT_ID" property="departmentId" select="com.yx.pwms.dao.DepartmentDao.queryByDepartmentId"/>
     </resultMap>
     <sql id="Positions_Column_List">
-    POSITION_ID, DEPARTMENT_ID, POSITION_CHARGE_ID, POSITION_NAME, POSITION_BASE_PAY
+    POSITION_ID, DEPARTMENT_ID, POSITION_NAME, POSITION_BASE_PAY
     </sql>
 
 
@@ -18,7 +17,7 @@
         insert into POSITIONS (
         <include refid="Positions_Column_List"/>
         )
-        values (#{positionId}, #{departmentId}, #{positionChargeId},
+        values (#{positionId}, #{departmentId},
           #{positionName}, #{positionBasePay})
     </insert>
 
@@ -43,7 +42,6 @@
     <update id="updatePositions" parameterType="java.util.Map">
         update POSITIONS
         set DEPARTMENT_ID = #{departmentId},
-          POSITION_CHARGE_ID = #{positionChargeId},
           POSITION_NAME = #{positionName},
           POSITION_BASE_PAY = #{positionBasePay}
         where POSITION_ID = #{positionId}

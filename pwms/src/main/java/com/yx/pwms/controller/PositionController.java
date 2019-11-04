@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * create by: xubi
@@ -103,19 +104,15 @@ public class PositionController {
      * @params Department
      */
     private Positions check(Map<String, String> map) {
-        String positionId = map.get("positionId");
-        String departmentId = map.get("departmentId");
-        String positionChargeId = map.get("positionChargeId");
-        String positionName = map.get("positionName");
-        Double positionBasePay = Double.parseDouble(map.get("positionBasePay"));
-        if (positionId == null || positionId.length() == 0 ||
-                departmentId == null || departmentId.length() == 0 ||
-                positionChargeId == null || positionChargeId.length() == 0 ||
-                positionName == null || positionName.length() == 0 ||
-                positionBasePay == null) {
+        if (Objects.isNull(map.get("positionId")) || Objects.isNull(map.get("departmentId")) ||
+                Objects.isNull(map.get("positionName")) || Objects.isNull(map.get("positionBasePay")) ) {
             return null;
         }
-        return new Positions(positionId, departmentService.queryByDepartmentId(departmentId), positionChargeId, positionName, positionBasePay);
+        String positionId = map.get("positionId");
+        String departmentId = map.get("departmentId");
+        String positionName = map.get("positionName");
+        Double positionBasePay = Double.parseDouble(map.get("positionBasePay"));
+        return new Positions(positionId, departmentService.queryByDepartmentId(departmentId), positionName, positionBasePay);
     }
 
 }
