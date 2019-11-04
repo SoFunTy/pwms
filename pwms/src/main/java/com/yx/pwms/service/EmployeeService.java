@@ -48,6 +48,7 @@ public interface EmployeeService {
      * @params String departmentId
      * @return int
      */
+    int queryExist(String employeeId);
     int queryExist(String employeeId, String account);
 
     /**

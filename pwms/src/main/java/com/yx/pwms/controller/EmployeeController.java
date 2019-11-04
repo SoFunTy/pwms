@@ -93,7 +93,7 @@ public class EmployeeController {
     @ResponseBody
     public Result updateEmployee(@RequestBody Map<String, Object> map) {
         if (map.get("employeeId").toString() == null) return ResultGenerator.genErrorResult(406, "输入错误");
-        if (employeeService.queryExist(map.get("employeeId").toString(), map.get("account").toString()) == 0) {
+        if (employeeService.queryExist(map.get("employeeId").toString()) == 0) {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
         int statu = employeeService.updateEmployee(map);

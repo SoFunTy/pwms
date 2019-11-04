@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * create by: xubi
@@ -96,12 +97,12 @@ public class DepartmentController {
      * @params Department
      */
     private Department check(Map<String, String> map) {
+        if (Objects.isNull(map.get("departmentId")) || Objects.isNull(map.get("departmentName")) || Objects.isNull(map.get("departmentCharge"))) {
+            return null;
+        }
         String departmentId = map.get("departmentId");
         String departmentName = map.get("departmentName");
         String departmentCharge = map.get("departmentCharge");
-        if (departmentId == null || departmentId.length() == 0 || departmentName == null || departmentName.length() == 0 || departmentCharge == null || departmentCharge.length() == 0) {
-            return null;
-        }
         return new Department(departmentId, departmentName, departmentCharge);
     }
 }

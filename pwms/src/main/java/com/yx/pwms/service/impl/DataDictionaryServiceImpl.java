@@ -16,16 +16,6 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
     private DataDictionaryDao dataDictionaryDao;
 
     @Override
-    public int insertDataDictionary(DataDictionary dataDictionary) {
-        return dataDictionaryDao.insertDataDictionary(dataDictionary);
-    }
-
-    @Override
-    public int delDataDictionary(long dicId) {
-        return dataDictionaryDao.delDataDictionary(dicId);
-    }
-
-    @Override
     public List<DataDictionary> queryAll() {
         return dataDictionaryDao.queryAll();
     }
@@ -38,19 +28,5 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
     @Override
     public DataDictionary queryByDataDictionaryId(long dicId) {
         return dataDictionaryDao.queryByDataDictionaryId(dicId);
-    }
-
-    @Override
-    public int queryExist(long dicId) {
-        if (dataDictionaryDao.queryByDataDictionaryId(dicId) != null){
-            return 1;
-        }else{
-            return 0;
-        }
-    }
-
-    @Override
-    public int updateDataDictionary(DataDictionary dataDictionary) {
-        return dataDictionaryDao.updateDataDictionary(dataDictionary);
     }
 }

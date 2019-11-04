@@ -11,19 +11,6 @@ import java.util.Map;
  * create time: 2019-10-25
  */
 public interface DataDictionaryDao {
-    /**
-     * description: 添加字典数据
-     * @params DataDictionary dataDictionary
-     * @return int
-     */
-    int insertDataDictionary(DataDictionary dataDictionary);
-
-    /**
-     * description: 删除字典数据
-     * @params long dicId
-     * @return int
-     */
-    int delDataDictionary(long dicId);
 
     /**
      * description: 查询所有字典数据
@@ -43,12 +30,5 @@ public interface DataDictionaryDao {
      * @return DataDictionary
      */
     DataDictionary queryByDataDictionaryId(long dicId);
-
-    /**
-     * description: 更新字典数据
-     * @params DataDictionary dataDictionary
-     * @return int
-     */
-    int updateDataDictionary(DataDictionary dataDictionary);
 
 }

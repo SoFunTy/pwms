@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 @Service
@@ -48,10 +49,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public int queryExist(String employeeId) {
+        if (employeeDao.queryByEmployeeId(employeeId) != null){
+            return 1;
+        }
+        return 0;
+    }
+
+    @Override
     public int queryExist(String employeeId, String account) {
         HashMap<String, Object> map = new HashMap<>();
-        if (account != null) map.put("email",account);
-        if (employeeDao.queryByEmployeeId(employeeId) != null || employeeDao.queryList(map) != null){
+        map.put("employeeId",employeeId);
+        if (account != null && account != "") map.put("email",account);
+        if (employeeDao.queryList(map) != null){
             return 1;
         }
         return 0;
@@ -59,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public int updateEmployee(Map<String, Object> map) {
-        if (map.get("epassword") != null || map.get("epassword") != ""){
+        if (!Objects.isNull(map.get("epassword"))){
             map.put("epassword", MD5Util.MD5Encode(map.get("epassword").toString(), "UTF-8"));
         }
         return employeeDao.updateEmployee(map);

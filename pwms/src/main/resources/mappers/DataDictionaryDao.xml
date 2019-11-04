@@ -12,37 +12,6 @@
         DIC_ID, DIC_NOTE, DIC_VALUE, DIC_RELATION
     </sql>
 
-    <insert id="insertDataDictionary" parameterType="com.yx.pwms.entity.DataDictionary">
-        insert into DATA_DICTIONARY
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="dicNote != null">
-                DIC_NOTE,
-            </if>
-            <if test="dicValue != null">
-                DIC_VALUE,
-            </if>
-            <if test="dicRelation != null">
-                DIC_RELATION,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="dicNote != null">
-                #{dicNote},
-            </if>
-            <if test="dicValue != null">
-                #{dicValue},
-            </if>
-            <if test="dicRelation != null">
-                #{dicRelation},
-            </if>
-        </trim>
-    </insert>
-
-    <delete id="delDataDictionary" parameterType="java.lang.Long">
-        delete from DATA_DICTIONARY
-        where DIC_ID = #{dicId}
-    </delete>
-
     <select id="queryAll" resultMap="DataDictionary">
         select
         <include refid="DataDictionary_Column_List"/>
@@ -74,13 +43,5 @@
         from DATA_DICTIONARY
         where DIC_ID = #{dicId}
     </select>
-
-    <update id="updateDataDictionary" parameterType="DataDictionary">
-        update DATA_DICTIONARY
-        set DIC_NOTE = #{dicNote},
-          DIC_VALUE = #{dicValue},
-          DIC_RELATION = #{dicRelation}
-        where DIC_ID = #{dicId}
-    </update>
 
 </mapper>

@@ -27,6 +27,8 @@ function userTypeCheck(a) {
 
 $(document).ready(function () {
     // var data = JSON.parse(window.sessionStorage.getItem("data"))
+    if (data == null || data == "")
+        window.location.href = baseUrl;
     setData()
     userTypeCheck(1)
 });
@@ -46,6 +48,10 @@ function headicon(a) {
     $(a).attr("class","bavatcheak")
 }
 
+function logout() {
+    window.sessionStorage.removeItem('data');
+    window.location.href = baseUrl;
+}
 
 function setDataInto() {
     $("div[class='rounded-circle avat float-left']").attr("class","rounded-circle avat avatar" + data.headIcon + " float-left")
@@ -94,7 +100,7 @@ function setsexOption(){
     $("#ENationnal").append("<option value = '3623'>请选择</option>")
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "dis/qli",
+        url: baseUrl + "dic/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify({"dicNote": "民族"}),
@@ -107,10 +113,6 @@ function setsexOption(){
                 }
                 $("select[name='nattional'] > option[value='" + data.nattional.dicId + "']").attr("selected","selected")
             }
-        },
-        error: function () {
-            showError("接口异常，请联系管理员！");
-            return;
         }
     });
 }
@@ -129,7 +131,7 @@ function setAdd1Option() {
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>")
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "dis/qli",
+        url: baseUrl + "dic/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify({"dicRelation": "0"}),
@@ -142,10 +144,6 @@ function setAdd1Option() {
                     $("#Natives01").append(option)
                 }
             }
-        },
-        error: function () {
-            showError("接口异常，请联系管理员！");
-            return;
         }
     });
 }
@@ -160,7 +158,7 @@ function setAdd2Option(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "dis/qli",
+        url: baseUrl + "dic/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -173,10 +171,6 @@ function setAdd2Option(a) {
                     $("#Home_Address02").append(option)
                 }
             }
-        },
-        error: function () {
-            showError("接口异常，请联系管理员！");
-            return;
         }
     });
 }
@@ -188,7 +182,7 @@ function setAdd3Option(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "dis/qli",
+        url: baseUrl + "dic/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -201,10 +195,6 @@ function setAdd3Option(a) {
                     $("#Home_Address03").append(option)
                 }
             }
-        },
-        error: function () {
-            showError("接口异常，请联系管理员！");
-            return;
         }
     });
 }
@@ -217,7 +207,7 @@ function setNatives02(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "dis/qli",
+        url: baseUrl + "dic/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -229,10 +219,6 @@ function setNatives02(a) {
                     $("#Natives02").append(option)
                 }
             }
-        },
-        error: function () {
-            showError("接口异常，请联系管理员！");
-            return;
         }
     });
 }
@@ -266,10 +252,6 @@ function headicon_save() {
             if (result.resultCode == 200) {
                 window.location.reload()
             }
-        },
-        error: function () {
-            showError("异常，请联系管理员！");
-            return;
         }
     });
 }

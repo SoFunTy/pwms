@@ -1,3 +1,7 @@
+$(document).ready(function () {
+    window.sessionStorage.setItem('data', "");
+})
+
 /**
  * 判空
  *
@@ -86,7 +90,6 @@ function login() {
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
         success: function (result) {
-            console.log(result.resultCode)
             if (result.resultCode == 200) {
                 showSuccess();
                 window.sessionStorage.setItem('data', JSON.stringify(result.data));
