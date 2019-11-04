@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/dataDictionary")
+@RequestMapping("/dic")
 public class DataDictionaryController {
 
     @Autowired
@@ -25,7 +25,7 @@ public class DataDictionaryController {
     /**
      * 添加
      */
-    @RequestMapping(value = "/dainsert", method = RequestMethod.POST)
+    @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @ResponseBody
     public Result inserDataDictionary(@RequestBody Map<String, String> map) {
         DataDictionary dataDictionary = check(map);
@@ -40,7 +40,7 @@ public class DataDictionaryController {
     /**
      * 删除
      */
-    @RequestMapping(value = "/dadelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public Result delDataDictionary(@RequestBody Map<String, String> map) {
         if (dataDictionaryService.queryExist(Integer.parseInt(map.get("dicId"))) == 0) {
@@ -53,7 +53,7 @@ public class DataDictionaryController {
     /**
      * 查询所有
      */
-    @RequestMapping(value = "/daqueryall", method = RequestMethod.POST)
+    @RequestMapping(value = "/qal", method = RequestMethod.POST)
     @ResponseBody
     public Result queryAllDataDictionary() {
         List<DataDictionary> dataDictionary = dataDictionaryService.queryAll();
@@ -64,7 +64,7 @@ public class DataDictionaryController {
      * 查询某列表
      * @param map
      */
-    @RequestMapping(value = "/daqueryList", method = RequestMethod.POST)
+    @RequestMapping(value = "/qli", method = RequestMethod.POST)
     @ResponseBody
     public Result queryList(@RequestBody Map<String, String> map) {
         List<DataDictionary> DataDictionary = dataDictionaryService.queryBy(map);
@@ -74,7 +74,7 @@ public class DataDictionaryController {
     /**
      * 查询单个
      */
-    @RequestMapping(value = "/daqueryby", method = RequestMethod.POST)
+    @RequestMapping(value = "/qby", method = RequestMethod.POST)
     @ResponseBody
     public Result queryByDataDictionaryId(@RequestBody Map<String, String> map) {
         if (dataDictionaryService.queryExist(Long.parseLong(map.get("dicId"))) == 0) {
@@ -87,7 +87,7 @@ public class DataDictionaryController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/daupdate", method = RequestMethod.POST)
+    @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public Result updateDataDictionary(@RequestBody Map<String, String> map) {
         DataDictionary dataDictionary = check(map);

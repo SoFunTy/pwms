@@ -91,7 +91,7 @@ function login() {
                 showSuccess();
                 window.sessionStorage.setItem('data', JSON.stringify(result.data));
                 setTimeout(function () {
-                    window.location.href = "/pwms_war/static/pages/index.html";
+                    window.location.href = "static/pages/index.html";
                 }, 1500);
                 return;
             }
@@ -101,7 +101,7 @@ function login() {
             }
         },
         error: function () {
-            showError("接口异常，请联系管理员！");
+            showError("异常，请联系管理员！");
             return;
         }
     });

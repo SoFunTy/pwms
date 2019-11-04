@@ -17,7 +17,7 @@ import java.util.Map;
  * create time: 2019-10-24
  */
 @Controller
-@RequestMapping("/department")
+@RequestMapping("/dep")
 public class DepartmentController {
 
     @Autowired
@@ -26,7 +26,7 @@ public class DepartmentController {
     /**
      * 添加
      */
-    @RequestMapping(value = "/deinsert", method = RequestMethod.POST)
+    @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @ResponseBody
     public Result inserDepartment(@RequestBody Map<String, String> map) {
         Department department = check(map);
@@ -41,7 +41,7 @@ public class DepartmentController {
     /**
      * 删除
      */
-    @RequestMapping(value = "/dedelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public Result delDepartment(@RequestBody Map<String, String> map) {
         if (departmentService.queryExist(map.get("departmentId")) == 0) {
@@ -54,7 +54,7 @@ public class DepartmentController {
     /**
      * 查询所有
      */
-    @RequestMapping(value = "/dequeryall", method = RequestMethod.POST)
+    @RequestMapping(value = "/qal", method = RequestMethod.POST)
     @ResponseBody
     public Result queryAllDepartment() {
         List<Department> department = departmentService.queryAll();
@@ -64,7 +64,7 @@ public class DepartmentController {
     /**
      * 查询单个
      */
-    @RequestMapping(value = "/dequeryby", method = RequestMethod.POST)
+    @RequestMapping(value = "/qby", method = RequestMethod.POST)
     @ResponseBody
     public Result queryByDepartmentId(@RequestBody Map<String, String> map) {
         if (departmentService.queryExist(map.get("departmentId")) == 0) {
@@ -77,7 +77,7 @@ public class DepartmentController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/deupdate", method = RequestMethod.POST)
+    @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public Result updateDepartment(@RequestBody Map<String, String> map) {
         Department department = check(map);

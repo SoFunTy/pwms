@@ -3,35 +3,48 @@
 <mapper namespace="com.yx.pwms.dao.EmployeeDao">
 
     <resultMap id="Employee" type="com.yx.pwms.entity.Employee">
-        <id column="EMPLOYEE_ID"  property="employeeId" />
-        <result column="EMAIL"  property="email" />
-        <result column="EPASSWORD"  property="epassword" />
-        <result column="OIN_TIME" property="oinTime" />
-        <result column="EMPLOYEE_NAME"  property="employeeName" />
-        <result column="AGE"  property="age" />
-        <result column="BRITH" property="brith" />
-        <result column="ID_NUMBER" jdbcType="CHAR" property="idNumber" />
-        <result column="UNIVERSITY"  property="university" />
-        <result column="MAJOR"  property="major" />
-        <result column="HOME_NOTE"  property="homeNote" />
-        <result column="PHONE" jdbcType="CHAR" property="phone" />
-        <result column="NOTE"  property="note" />
-        <result column="HEAD_ICON"  property="headIcon" />
-        <association column="POSITION_ID"  property="positionId" select="com.yx.pwms.dao.PositionsDao.queryByPositionsId"/>
-        <association column="SEX"  property="sex" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="NATTIONAL" property="nattional" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="NATIVES01" property="natives01" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="NATIVES02" property="natives02" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <id column="EMPLOYEE_ID" property="employeeId"/>
+        <result column="EMAIL" property="email"/>
+        <result column="EPASSWORD" property="epassword"/>
+        <result column="OIN_TIME" property="oinTime"/>
+        <result column="EMPLOYEE_NAME" property="employeeName"/>
+        <result column="AGE" property="age"/>
+        <result column="BRITH" property="brith"/>
+        <result column="ID_NUMBER" jdbcType="CHAR" property="idNumber"/>
+        <result column="UNIVERSITY" property="university"/>
+        <result column="MAJOR" property="major"/>
+        <result column="HOME_NOTE" property="homeNote"/>
+        <result column="PHONE" jdbcType="CHAR" property="phone"/>
+        <result column="NOTE" property="note"/>
+        <result column="HEAD_ICON" property="headIcon"/>
+        <association column="POSITION_ID" property="positionId"
+                     select="com.yx.pwms.dao.PositionsDao.queryByPositionsId"/>
+        <association column="SEX" property="sex" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="NATTIONAL" property="nattional"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="NATIVES01" property="natives01"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="NATIVES02" property="natives02"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
         <association column="POL" property="pol" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="EDUCATION" property="education" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="HOME_ADDRESS1" property="homeAddress1" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="HOME_ADDRESS2" property="homeAddress2" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="HOME_ADDRESS3" property="homeAddress3" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="MARRIAGE" property="marriage" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="HEALTH" property="health" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="BLOOD_TYPE" property="bloodType" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="PERMISSION" property="permission" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
-        <association column="ELOCK" property="elock" select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="EDUCATION" property="education"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="HOME_ADDRESS1" property="homeAddress1"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="HOME_ADDRESS2" property="homeAddress2"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="HOME_ADDRESS3" property="homeAddress3"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="MARRIAGE" property="marriage"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="HEALTH" property="health"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="BLOOD_TYPE" property="bloodType"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="PERMISSION" property="permission"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
+        <association column="ELOCK" property="elock"
+                     select="com.yx.pwms.dao.DataDictionaryDao.queryByDataDictionaryId"/>
     </resultMap>
     <sql id="Employee_Column_List">
     EMPLOYEE_ID, EMAIL, EPASSWORD, POSITION_ID, OIN_TIME, EMPLOYEE_NAME, SEX, AGE, NATTIONAL,
@@ -229,114 +242,113 @@
 
     <select id="queryList" parameterType="java.util.Map" resultMap="Employee">
         select
-        <include refid="Employee_Column_List" />
+        <include refid="Employee_Column_List"/>
         from EMPLOYEE
-        <where>
-            <if test="employeeId != null">
-                AND EMPLOYEE_ID = #{employeeId}
-            </if>
-            <if test="email != null">
-                AND EMAIL = #{email}
-            </if>
-            <if test="epassword != null">
-                AND EPASSWORD = #{epassword}
-            </if>
-            <if test="positionId != null">
-                AND POSITION_ID = #{positionId}
-            </if>
-            <if test="oinTime != null">
-                and OIN_TIME = #{oinTime}
-            </if>
-            <if test="employeeName != null">
-                AND EMPLOYEE_NAME = #{employeeName}
-            </if>
-            <if test="sex != null">
-                AND SEX = #{sex}
-            </if>
-            <if test="age != null">
-                AND AGE = #{age}
-            </if>
-            <if test="nattional != null">
-                AND NATTIONAL = #{nattional}
-            </if>
-            <if test="natives01 != null">
-                AND NATIVES01 = #{natives01}
-            </if>
-            <if test="natives02 != null">
-                AND NATIVES02 = #{natives02}
-            </if>
-            <if test="pol != null">
-                AND POL = #{pol}
-            </if>
-            <if test="brith != null">
-                AND BRITH = #{brith}
-            </if>
-            <if test="idNumber != null">
-                AND ID_NUMBER = #{idNumber}
-            </if>
-            <if test="education != null">
-                AND EDUCATION = #{education}
-            </if>
-            <if test="university != null">
-                AND UNIVERSITY = #{university}
-            </if>
-            <if test="major != null">
-                AND MAJOR = #{major}
-            </if>
-            <if test="homeAddress1 != null">
-                AND HOME_ADDRESS1 = #{homeAddress1}
-            </if>
-            <if test="homeAddress2 != null">
-                AND HOME_ADDRESS2 = #{homeAddress2}
-            </if>
-            <if test="homeAddress3 != null">
-                AND HOME_ADDRESS3 = #{homeAddress3}
-            </if>
-            <if test="homeNote != null">
-                AND HOME_NOTE = #{homeNote}
-            </if>
-            <if test="phone != null">
-                AND PHONE = #{phone}
-            </if>
-            <if test="marriage != null">
-                AND MARRIAGE = #{marriage}
-            </if>
-            <if test="health != null">
-                AND HEALTH = #{health}
-            </if>
-            <if test="bloodType != null">
-                AND BLOOD_TYPE = #{bloodType}
-            </if>
-            <if test="note != null">
-                AND NOTE = #{note}
-            </if>
-            <if test="permission != null">
-                AND PERMISSION = #{permission}
-            </if>
-            <if test="elock != null">
-                AND ELOCK = #{elock}
-            </if>
-            <if test="headIcon != null">
-                AND HEAD_ICON = #{headIcon}
-            </if>
-        </where>
+        where 1=1
+        <if test="employeeId != null">
+            AND EMPLOYEE_ID = #{employeeId}
+        </if>
+        <if test="email != null">
+            AND EMAIL = #{email}
+        </if>
+        <if test="epassword != null">
+            AND EPASSWORD = #{epassword}
+        </if>
+        <if test="positionId != null">
+            AND POSITION_ID = #{positionId}
+        </if>
+        <if test="oinTime != null">
+            and OIN_TIME = #{oinTime}
+        </if>
+        <if test="employeeName != null">
+            AND EMPLOYEE_NAME = #{employeeName}
+        </if>
+        <if test="sex != null">
+            AND SEX = #{sex}
+        </if>
+        <if test="age != null">
+            AND AGE = #{age}
+        </if>
+        <if test="nattional != null">
+            AND NATTIONAL = #{nattional}
+        </if>
+        <if test="natives01 != null">
+            AND NATIVES01 = #{natives01}
+        </if>
+        <if test="natives02 != null">
+            AND NATIVES02 = #{natives02}
+        </if>
+        <if test="pol != null">
+            AND POL = #{pol}
+        </if>
+        <if test="brith != null">
+            AND BRITH = #{brith}
+        </if>
+        <if test="idNumber != null">
+            AND ID_NUMBER = #{idNumber}
+        </if>
+        <if test="education != null">
+            AND EDUCATION = #{education}
+        </if>
+        <if test="university != null">
+            AND UNIVERSITY = #{university}
+        </if>
+        <if test="major != null">
+            AND MAJOR = #{major}
+        </if>
+        <if test="homeAddress1 != null">
+            AND HOME_ADDRESS1 = #{homeAddress1}
+        </if>
+        <if test="homeAddress2 != null">
+            AND HOME_ADDRESS2 = #{homeAddress2}
+        </if>
+        <if test="homeAddress3 != null">
+            AND HOME_ADDRESS3 = #{homeAddress3}
+        </if>
+        <if test="homeNote != null">
+            AND HOME_NOTE = #{homeNote}
+        </if>
+        <if test="phone != null">
+            AND PHONE = #{phone}
+        </if>
+        <if test="marriage != null">
+            AND MARRIAGE = #{marriage}
+        </if>
+        <if test="health != null">
+            AND HEALTH = #{health}
+        </if>
+        <if test="bloodType != null">
+            AND BLOOD_TYPE = #{bloodType}
+        </if>
+        <if test="note != null">
+            AND NOTE = #{note}
+        </if>
+        <if test="permission != null">
+            AND PERMISSION = #{permission}
+        </if>
+        <if test="elock != null">
+            AND ELOCK = #{elock}
+        </if>
+        <if test="headIcon != null">
+            AND HEAD_ICON = #{headIcon}
+        </if>
     </select>
 
     <select id="queryByEmployeeId" parameterType="java.lang.String" resultMap="Employee">
         select
-        <include refid="Employee_Column_List" />
+        <include refid="Employee_Column_List"/>
         from EMPLOYEE
         where EMPLOYEE_ID = #{employeeId}
     </select>
 
     <select id="queryByAccountAndPassword" parameterType="java.util.Map" resultMap="Employee">
         select
-        <include refid="Employee_Column_List" />
+        <include refid="Employee_Column_List"/>
         from EMPLOYEE
         where email = #{email} and epassword = #{epassword}
     </select>
 
-    <update id="updateEmployee" parameterType="java.util.Map" >
+    <update id="updateEmployee" parameterType="java.util.Map">
         update EMPLOYEE
         <set>
             <if test="email != null">

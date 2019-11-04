@@ -21,7 +21,7 @@ import java.util.Map;
  * create time: 2019-10-24
  */
 @Controller
-@RequestMapping("/positions")
+@RequestMapping("/pos")
 public class PositionController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class PositionController {
     /**
      * 添加
      */
-    @RequestMapping(value = "/pinsert", method = RequestMethod.POST)
+    @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @ResponseBody
     public Result inserDepartment(@RequestBody Map<String, String> map) {
         Positions positions = check(map);
@@ -48,7 +48,7 @@ public class PositionController {
     /**
      * 删除
      */
-    @RequestMapping(value = "/pdelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public Result delDepartment(@RequestBody Map<String, String> map) {
         if (positionsService.queryExist(map.get("positionId")) == 0) {
@@ -61,7 +61,7 @@ public class PositionController {
     /**
      * 查询所有
      */
-    @RequestMapping(value = "/pqueryall", method = RequestMethod.POST)
+    @RequestMapping(value = "/qal", method = RequestMethod.POST)
     @ResponseBody
     public Result queryAllDepartment() {
         List<Positions> positions = positionsService.queryAll();
@@ -71,7 +71,7 @@ public class PositionController {
     /**
      * 查询单个
      */
-    @RequestMapping(value = "/pqueryby", method = RequestMethod.POST)
+    @RequestMapping(value = "/qby", method = RequestMethod.POST)
     @ResponseBody
     public Result queryByDepartmentId(@RequestBody Map<String, String> map) {
         if (positionsService.queryExist(map.get("positionId")) == 0) {
@@ -84,7 +84,7 @@ public class PositionController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/pupdate", method = RequestMethod.POST)
+    @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public Result updateDepartment(@RequestBody Map<String, String> map) {
         Positions positions = check(map);

@@ -23,7 +23,7 @@ public class EmployeeController {
     /**
      * 添加
      */
-    @RequestMapping(value = "/eminsert", method = RequestMethod.POST)
+    @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @ResponseBody
     public Result inserEmployee(@RequestBody Map<String, String> map) {
         Map<String, Object> maps = new HashMap<>();
@@ -39,7 +39,7 @@ public class EmployeeController {
     /**
      * 删除
      */
-    @RequestMapping(value = "/emdelete", method = RequestMethod.POST)
+    @RequestMapping(value = "/del", method = RequestMethod.POST)
     @ResponseBody
     public Result delEmployee(@RequestBody Map<String, String> map) {
         if (employeeService.queryExist(map.get("employeeId"), null) == 0) {
@@ -52,7 +52,7 @@ public class EmployeeController {
     /**
      * 查询多个
      */
-    @RequestMapping(value = "/emquerylist", method = RequestMethod.POST)
+    @RequestMapping(value = "/qli", method = RequestMethod.POST)
     @ResponseBody
     public Result queryLsit(@RequestBody Map<String, Object> map) {
         List<Employee> employees = employeeService.queryList(map);
@@ -62,7 +62,7 @@ public class EmployeeController {
     /**
      * 查询单个
      */
-    @RequestMapping(value = "/emqueryby", method = RequestMethod.POST)
+    @RequestMapping(value = "/qby", method = RequestMethod.POST)
     @ResponseBody
     public Result queryByEmployeeId(@RequestBody Map<String, String> map) {
         if (employeeService.queryExist(map.get("employeeId"), null) == 0) {
@@ -89,7 +89,7 @@ public class EmployeeController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/emupdate", method = RequestMethod.POST)
+    @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public Result updateEmployee(@RequestBody Map<String, Object> map) {
         if (map.get("employeeId").toString() == null) return ResultGenerator.genErrorResult(406, "输入错误");

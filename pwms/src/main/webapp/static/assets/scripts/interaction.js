@@ -5,6 +5,8 @@
  */
 var data = JSON.parse(window.sessionStorage.getItem("data"))
 
+var baseUrl = "http://localhost:8080/pwms/"
+
 function userTypeCheck(a) {
     switch (a) {
         case 3:
@@ -92,7 +94,7 @@ function setsexOption(){
     $("#ENationnal").append("<option value = '3623'>请选择</option>")
     $.ajax({
         type: "POST",//方法类型
-        url: "dataDictionary/daqueryList",
+        url: baseUrl + "dis/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify({"dicNote": "民族"}),
@@ -127,7 +129,7 @@ function setAdd1Option() {
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>")
     $.ajax({
         type: "POST",//方法类型
-        url: "dataDictionary/daqueryList",
+        url: baseUrl + "dis/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify({"dicRelation": "0"}),
@@ -158,7 +160,7 @@ function setAdd2Option(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: "dataDictionary/daqueryList",
+        url: baseUrl + "dis/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -186,7 +188,7 @@ function setAdd3Option(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: "dataDictionary/daqueryList",
+        url: baseUrl + "dis/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -215,7 +217,7 @@ function setNatives02(a) {
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
     $.ajax({
         type: "POST",//方法类型
-        url: "dataDictionary/daqueryList",
+        url: baseUrl + "dis/qli",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
@@ -256,7 +258,7 @@ function headicon_save() {
     var datas = {"employeeId":data.employeeId, "headIcon":nheadIcon}
     $.ajax({
         type: "POST",//方法类型
-        url: "user/emupdate",
+        url: baseUrl + "user/upd",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(datas),
@@ -266,7 +268,7 @@ function headicon_save() {
             }
         },
         error: function () {
-            showError("接口异常，请联系管理员！");
+            showError("异常，请联系管理员！");
             return;
         }
     });
