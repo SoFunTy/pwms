@@ -1,10 +1,10 @@
-var data = JSON.parse(window.sessionStorage.getItem("data"))
-var baseUrl = "http://localhost:8080/pwms/"
+var data = JSON.parse(window.sessionStorage.getItem("data"));
+var baseUrl = "http://localhost:8080/pwms/";
 
 $(document).ready(function () {
-    if (data == null || data == "")
+    if (data == null || data === "")
         window.location.href = baseUrl;
-    setData()
+    setData();
     userTypeCheck(1)
 });
 
@@ -16,18 +16,18 @@ $(document).ready(function () {
 function userTypeCheck(a) {
     switch (a) {
         case 3:
-            $("li[name*='common']").css("display", "block")
+            $("li[name*='common']").css("display", "block");
             break;
         case 2:
-            $("li[name*='checker']").css("display", "block")
+            $("li[name*='checker']").css("display", "block");
             break;
         case 1:
-            $("li[name*='admin']").css("display", "block")
+            $("li[name*='admin']").css("display", "block");
             break;
         default:
             break;
     }
-    $("div[name*='admin']").css("display", "none")
+    $("div[name*='admin']").css("display", "none");
     $("div[name*='index']").css("display", "block")
 }
 
@@ -35,15 +35,15 @@ function userTypeCheck(a) {
  * description: 参数填入
  */
 function setData() {
-    setDepartment()
-    setsexOption()
-    setAdd1Option()
+    setDepartment();
+    setsexOption();
+    setAdd1Option();
     setDataInto()
 }
 
 //headicon change
 function headicon(a) {
-    $("div[class*='header-icons'] > div").attr("class", "bavat")
+    $("div[class*='header-icons'] > div").attr("class", "bavat");
     $(a).attr("class", "bavatcheak")
 }
 
@@ -53,42 +53,40 @@ function logout() {
 }
 
 function setDataInto() {
-    $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + data.headIcon + " float-left")
-    $("div[name='" + data.headIcon + "']").attr("class", "bavatcheak")
+    $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + data.headIcon + " float-left");
+    $("div[name='" + data.headIcon + "']").attr("class", "bavatcheak");
 
-    $("div[class*='employee-name']").html(data.employeeName)
-    $("div[class*='employee-position']").html(data.positionId.positionName)
+    $("div[class*='employee-name']").html(data.employeeName);
+    $("div[class*='employee-position']").html(data.positionId.positionName);
 
-    $("label[name='employeeId']").html(data.employeeId)
-    $("label[name='positionId']").html(data.positionId.positionName)
-    $("label[name='oinTime']").html(data.oinTime)
+    $("label[name='employeeId']").html(data.employeeId);
+    $("label[name='positionId']").html(data.positionId.positionName);
+    $("label[name='oinTime']").html(data.oinTime);
+    $("input[name='email']").val(data.email);
+    $("input[name='epassword']").val(data.epassword);
+    $("input[name='employeeName']").val(data.employeeName);
+    $("select[name='sex']").find("option:contains('" + data.sex.dicValue + "')").attr("selected", "selected");
+    $("input[name='age']").val(data.age);
 
-    $("input[name='email']").val(data.email)
-    $("input[name='epassword']").val(data.epassword)
-    $("input[name='employeeName']").val(data.employeeName)
-    $("select[name='sex']").find("option:contains('" + data.sex.dicValue + "')").attr("selected", "selected")
-    $("input[name='age']").val(data.age)
+    $("select[name='pol'] > option[value='" + data.pol.dicId + "']").attr("selected", "selected");
+    $("input[name='brith']").val(data.brith);
+    $("input[name='idNumber']").val(data.idNumber);
 
-    $("select[name='pol'] > option[value='" + data.pol.dicId + "']").attr("selected", "selected")
-    $("input[name='brith']").val(data.brith)
-    $("input[name='idNumber']").val(data.idNumber)
+    $("select[name='education'] > option[value='" + data.education.dicId + "']").attr("selected", "selected");
+    $("input[name='university']").val(data.university);
+    $("input[name='major']").val(data.major);
+    $("select[name='natives01'] > option[value='" + data.natives01.dicId + "']").attr("selected", "selected");
+    $("select[name='natives02'] > option[value='" + data.natives02.dicId + "']").attr("selected", "selected");
+    $("select[name='homeAddress1'] > option[value='" + data.homeAddress1.dicValue + "']").attr("selected", "selected");
+    $("select[name='homeAddress2'] > option[value='" + data.homeAddress2.dicValue + "']").attr("selected", "selected");
+    $("select[name='homeAddress3'] > option[value='" + data.homeAddress3.dicValue + "']").attr("selected", "selected");
 
-    $("select[name='education'] > option[value='" + data.education.dicId + "']").attr("selected", "selected")
-    $("input[name='university']").val(data.university)
-    $("input[name='major']").val(data.major)
+    $("input[name='homeNote']").val(data.homeNote);
 
-    $("select[name='natives01'] > option[value='" + data.natives01.dicId + "']").attr("selected", "selected")
-    $("select[name='natives02'] > option[value='" + data.natives02.dicId + "']").attr("selected", "selected")
-    $("select[name='homeAddress1'] > option[value='" + data.homeAddress1.dicValue + "']").attr("selected", "selected")
-    $("select[name='homeAddress2'] > option[value='" + data.homeAddress2.dicValue + "']").attr("selected", "selected")
-    $("select[name='homeAddress3'] > option[value='" + data.homeAddress3.dicValue + "']").attr("selected", "selected")
-
-    $("input[name='homeNote']").val(data.homeNote)
-
-    $("input[name='phone']").val(data.phone)
-    $("select[name='marriage'] > option[value='" + data.marriage.dicValue + "']").attr("selected", "selected")
-    $("select[name='health'] > option[value='" + data.health.dicValue + "']").attr("selected", "selected")
-    $("select[name='bloodType'] > option[value='" + data.bloodType.dicId + "']").attr("selected", "selected")
+    $("input[name='phone']").val(data.phone);
+    $("select[name='marriage'] > option[value='" + data.marriage.dicValue + "']").attr("selected", "selected");
+    $("select[name='health'] > option[value='" + data.health.dicValue + "']").attr("selected", "selected");
+    $("select[name='bloodType'] > option[value='" + data.bloodType.dicId + "']").attr("selected", "selected");
     $("input[name='note']").val(data.note)
 }
 
@@ -101,16 +99,17 @@ function onloadSet() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({"employeeId": data.employeeId}),
         success: function (result) {
-            if (result.resultCode == 200) {
-                data = result.data
-                window.sessionStorage.setItem('data', JSON.stringify(result.data))
+            if (result.resultCode === 200) {
+                data = result.data;
+                window.sessionStorage.setItem('data', JSON.stringify(result.data));
                 window.location.reload()
             }
         }
     });
 }
 
-var depTable
+var depTable;
+
 function setDepartment() {
     depTable = $('#departmentList').DataTable({
         language: {
@@ -165,6 +164,13 @@ function setDepartment() {
     })
 }
 
+function depreload() {
+    $("input[name='depId']").val("");
+    $("input[name='depId']").removeAttr("readonly");
+    $("input[name='depName']").val("");
+    $("input[name='depChargeId']").val("")
+}
+
 function depChange(a) {
     $.ajax({
         type: "POST",//方法类型
@@ -173,73 +179,93 @@ function depChange(a) {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({"departmentId": a}),
         success: function (result) {
-            if (result.resultCode == 200) {
-                $("input[name='depId']").val(result.data.departmentId)
-                $("input[name='depName']").val(result.data.departmentName)
+            if (result.resultCode === 200) {
+                $("input[name='depId']").attr("readonly", "readonly");
+                $("input[name='depId']").val(result.data.departmentId);
+                $("input[name='depName']").val(result.data.departmentName);
                 $("input[name='depChargeId']").val(result.data.departmentCharge)
             }
         },
         error: function () {
-            showError("后台错误，请联系管理员！")
-            return;
+            showError("后台错误，请联系管理员！");
         }
     });
 }
 
 function depDel(a) {
-    if (confirm()){
-        console.log("aaaaaaaaa")
-        $.ajax({
-            type: "POST",//方法类型
-            url: baseUrl + "dep/del",
-            dataType: "json",
-            contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify({"departmentId": a}),
-            success: function (result) {
-                if (result.resultCode == 200) {
-                    showSuccess("删除成功！")
-                }else{
-                    showError(result.message)
+    Swal.fire({
+        title: '确定删除?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确认'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "POST",//方法类型
+                url: baseUrl + "dep/del",
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({"departmentId": a}),
+                success: function (result) {
+                    if (result.resultCode === 200) {
+                        showSuccess("删除成功！");
+                        depTable.ajax.reload(null, false);
+                    } else {
+                        showError(result.message)
+                    }
+                },
+                error: function () {
+                    showError("后台错误，请联系管理员！");
                 }
-            },
-            error: function () {
-                showError("后台错误，请联系管理员！")
-                return;
-            }
-        });
-    }
+            });
+        }
+    })
 }
 
 
 function depSave() {
-    nData = {"departmentId": $("input[name='depId']").val(),"departmentName": $("input[name='depName']").val(),"departmentCharge": $("input[name='depChargeId']").val()}
+    var url = baseUrl + "dep/upd";
+    if ($("input[name='depId']").attr("readonly") == null) {
+        url = baseUrl + "dep/ins";
+        if ($("input[name='depId']").val() === "" || $("input[name='depName']").val() === "") {
+            showError("请正确输入");
+            return;
+        }
+    }
+    nData = {
+        "departmentId": $("input[name='depId']").val(),
+        "departmentName": $("input[name='depName']").val(),
+        "departmentCharge": $("input[name='depChargeId']").val()
+    };
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "dep/upd",
+        url: url,
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(nData),
         success: function (result) {
-            if (result.resultCode == 200) {
+            if (result.resultCode === 200) {
                 showSuccess("保存成功！")
-            }else{
+            } else {
                 showError(result.message)
             }
         },
         error: function () {
-            showError("后台错误，请联系管理员！")
+            showError("后台错误，请联系管理员！");
             return;
         }
     });
-    $("button[data-dismiss='modal']").click()
-    depTable.ajax.reload( null, false );
+    $("button[data-dismiss='modal']").click();
+    depTable.ajax.reload(null, false);
 }
 
 /**
  * description: 填入民族下拉列表参数
  */
 function setsexOption() {
-    $("#ENationnal").append("<option value = '3623'>请选择</option>")
+    $("#ENationnal").append("<option value = '3623'>请选择</option>");
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
@@ -247,8 +273,8 @@ function setsexOption() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({"dicNote": "民族"}),
         success: function (result) {
-            if (result.resultCode == 200) {
-                var natdata = result.data
+            if (result.resultCode === 200) {
+                var natdata = result.data;
                 for (i = 0; i < natdata.length; i++) {
                     var option = "<option value = '" + natdata[i].dicId + "'>" + natdata[i].dicValue + "</option>";
                     $("#ENationnal").append(option)
@@ -263,14 +289,14 @@ function setsexOption() {
  * description: 添加省的select中option
  */
 function setAdd1Option() {
-    $("#Home_Address01").empty()
-    $("#Home_Address02").empty()
-    $("#Home_Address03").empty()
-    $("#Natives01").empty()
-    $("#Natives01").append("<option name='7101' value = '3568'>请选择</option>")
-    $("#Home_Address01").append("<option name='7101' value = '3568'>请选择</option>")
-    $("#Home_Address02").append("<option name='7101' value = '3568'>请选择</option>")
-    $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>")
+    $("#Home_Address01").empty();
+    $("#Home_Address02").empty();
+    $("#Home_Address03").empty();
+    $("#Natives01").empty();
+    $("#Natives01").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#Home_Address01").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#Home_Address02").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
@@ -278,11 +304,11 @@ function setAdd1Option() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({"dicRelation": "0"}),
         success: function (result) {
-            if (result.resultCode == 200) {
-                var add1data = result.data
+            if (result.resultCode === 200) {
+                var add1data = result.data;
                 for (i = 0; i < add1data.length; i++) {
                     var option = "<option name='" + add1data[i].dicNote + "' value = '" + add1data[i].dicId + "'>" + add1data[i].dicValue + "</option>";
-                    $("#Home_Address01").append(option)
+                    $("#Home_Address01").append(option);
                     $("#Natives01").append(option)
                 }
             }
@@ -292,13 +318,13 @@ function setAdd1Option() {
 
 //住址二级联动
 function setAdd2Option(a) {
-    $("#Home_Address02").empty()
-    $("#Home_Address03").empty()
-    $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>")
-    $("#Home_Address02").append("<option name='7101' value = '3568'>请选择</option>")
+    $("#Home_Address02").empty();
+    $("#Home_Address03").empty();
+    $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#Home_Address02").append("<option name='7101' value = '3568'>请选择</option>");
     if (a.selectedIndex == 0)
-        return
-    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
+        return;
+    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
@@ -307,10 +333,10 @@ function setAdd2Option(a) {
         data: JSON.stringify(data),
         success: function (result) {
             if (result.resultCode == 200) {
-                var add2data = result.data
+                var add2data = result.data;
                 for (i = 0; i < add2data.length; i++) {
                     var option = "<option name='" + add2data[i].dicNote + "'value = '" + add2data[i].dicId + "'>" + add2data[i].dicValue + "</option>";
-                    console.log(option)
+                    console.log(option);
                     $("#Home_Address02").append(option)
                 }
             }
@@ -319,11 +345,11 @@ function setAdd2Option(a) {
 }
 
 function setAdd3Option(a) {
-    $("#Home_Address03").empty()
-    $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>")
-    if (a.selectedIndex == 0)
+    $("#Home_Address03").empty();
+    $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
+    if (a.selectedIndex === 0)
         return
-    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
+    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
@@ -331,11 +357,11 @@ function setAdd3Option(a) {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(data),
         success: function (result) {
-            if (result.resultCode == 200) {
-                var add3data = result.data
+            if (result.resultCode === 200) {
+                var add3data = result.data;
                 for (i = 0; i < add3data.length; i++) {
                     var option = "<option name='" + add3data[i].dicNote + "'value = '" + add3data[i].dicId + "'>" + add3data[i].dicValue + "</option>";
-                    console.log(option)
+                    console.log(option);
                     $("#Home_Address03").append(option)
                 }
             }
@@ -345,11 +371,11 @@ function setAdd3Option(a) {
 
 //籍贯二级联动
 function setNatives02(a) {
-    $("#Natives02").empty()
-    $("#Natives02").append("<option name='7101' value = '3568'>请选择</option>")
-    if (a.selectedIndex == 0)
-        return
-    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")}
+    $("#Natives02").empty();
+    $("#Natives02").append("<option name='7101' value = '3568'>请选择</option>");
+    if (a.selectedIndex === 0)
+        return;
+    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
@@ -357,8 +383,8 @@ function setNatives02(a) {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(data),
         success: function (result) {
-            if (result.resultCode == 200) {
-                var add1data = result.data
+            if (result.resultCode === 200) {
+                var add1data = result.data;
                 for (i = 0; i < add1data.length; i++) {
                     var option = "<option name='" + add1data[i].dicNote + "' value = '" + add1data[i].dicId + "'>" + add1data[i].dicValue + "</option>";
                     $("#Natives02").append(option)
@@ -374,10 +400,10 @@ function setNatives02(a) {
  * @return
  */
 function selectionActions(a, toUrl) {
-    $(".vertical-nav-menu > li > a").attr("class", "")
-    $(".vertical-nav-menu > li > ul > li > a").attr("class", "")
-    $(a).attr("class", "mm-active")
-    $("div[name*='admin']").css("display", "none")
+    $(".vertical-nav-menu > li > a").attr("class", "");
+    $(".vertical-nav-menu > li > ul > li > a").attr("class", "");
+    $(a).attr("class", "mm-active");
+    $("div[name*='admin']").css("display", "none");
     $("div[name*=" + toUrl + "]").css("display", "block")
 }
 
@@ -385,8 +411,8 @@ function selectionActions(a, toUrl) {
 * 头像保存
 * */
 function headicon_save() {
-    var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name")
-    var datas = {"employeeId": data.employeeId, "headIcon": nheadIcon}
+    var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name");
+    var datas = {"employeeId": data.employeeId, "headIcon": nheadIcon};
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "user/upd",
@@ -394,8 +420,8 @@ function headicon_save() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(datas),
         success: function (result) {
-            if (result.resultCode == 200) {
-                showSuccess("修改成功～")
+            if (result.resultCode === 200) {
+                showSuccess("修改成功～");
                 onloadSet()
             }
         }
@@ -437,7 +463,7 @@ function showSuccess(a) {
 /**
  * 确认框
  */
-function confirm(){
+function confirm() {
     Swal.fire({
         title: '确定删除?',
         icon: 'warning',
@@ -447,8 +473,7 @@ function confirm(){
         confirmButtonText: '确认'
     }).then((result) => {
         if (result.value) {
-        return result.value
+            a
         }
     })
-    return false
 }
