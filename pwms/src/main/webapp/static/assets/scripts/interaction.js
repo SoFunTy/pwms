@@ -32,8 +32,10 @@ function userTypeCheck(a) {
  * description: 参数填入
  */
 function setData() {
-    setempTable();
-    setDepartment();
+    if (data.permission.dicValue === 1){
+        setempTable();
+        setDepartment();
+    }
     setsexOption();
     setAdd1Option();
     setDataInto()
