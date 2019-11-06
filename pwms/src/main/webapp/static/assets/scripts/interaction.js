@@ -1,13 +1,10 @@
 var data = JSON.parse(window.sessionStorage.getItem("data"));
 var baseUrl = "http://localhost:8080/pwms/";
 
-$(document).ready(function () {
     if (data == null || data === "")
         window.location.href = baseUrl;
     setData();
-    userTypeCheck(1)
-});
-
+    userTypeCheck(data.permission.dicValue)
 /**
  * description: 根据权限显示对于模块
  *     //权限等级 3<2<1
@@ -15,13 +12,13 @@ $(document).ready(function () {
  */
 function userTypeCheck(a) {
     switch (a) {
-        case 3:
+        case "3":
             $("li[name*='common']").css("display", "block");
             break;
-        case 2:
+        case "2":
             $("li[name*='checker']").css("display", "block");
             break;
-        case 1:
+        case "1":
             $("li[name*='admin']").css("display", "block");
             break;
         default:
@@ -35,6 +32,7 @@ function userTypeCheck(a) {
  * description: 参数填入
  */
 function setData() {
+    setempTable()
     setDepartment();
     setsexOption();
     setAdd1Option();
@@ -108,6 +106,89 @@ function onloadSet() {
     });
 }
 
+
+var empTable;
+
+function setempTable() {
+    empTable = $('#employeeList').DataTable({
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        "retrieve": "true",
+        "ajax": {
+            "url": baseUrl + "user/qli",
+            "dataType": "json",
+            "data": JSON.stringify({}),
+            "type": "POST",
+            "dataSrc": "data"
+        },
+        "columns": [
+            {
+                "data": "employeeName",
+                "orderable": false
+            },
+            {
+                "data": "employeeId"
+            },
+            {
+                "data": "positionId.departmentId.departmentName"
+            },
+            {
+                "data": "positionId.positionName",
+                "orderable": false
+            },
+            {
+                "data": "idNumber",
+                "orderable": false
+            },
+            {
+                "data": "phone",
+                "orderable": false
+            },
+            {
+                "data": "oinTime"
+            },
+            {
+                "data": "sex.dicValue",
+                "orderable": false
+            },
+            {
+                "data": "departmentId",
+                "orderable": false,
+                "mRender": function (data, type, full) {
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info' data-toggle='modal' data-target='#departmentChange' onclick='depChange(" + data + ")'>修改</button>" +
+                        "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info btn-outline-danger ml-2' data-toggle='modal' data-target='.confirm' onclick='depDel(" + data + ")'>删除</button>";
+                }
+            }
+        ]
+    })
+}
+
+/*
+*
+* 部门管理模块
+*/
 var depTable;
 
 function setDepartment() {

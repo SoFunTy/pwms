@@ -178,7 +178,7 @@
                         <li name="common">
                             <a href="JavaScript:" onclick="selectionActions(this,'index')" class="mm-active">
                                 <i class="metismenu-icon pe-7s-home"></i>
-                                个人主页
+                                工作台
                             </a>
                         </li>
                         <li name="admin" class="app-sidebar__heading">工资统计</li>
@@ -459,7 +459,27 @@
                 <!--员工人事管理-->
                 <!--全部员工-->
                 <div name="admin personnel_management_all">
-                    <h1>全部员工</h1>
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <table id="employeeList" class="table table-striped table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>工号</th>
+                                    <th>部门</th>
+                                    <th>职位</th>
+                                    <th>证件号</th>
+                                    <th>手机号</th>
+                                    <th>入职时间</th>
+                                    <th>性别</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <!--员工查询-->
                 <div name="admin personnel_management_single">
@@ -490,7 +510,7 @@
 
                 <!--入职管理-->
                 <div name="admin staff_induction">
-                    <h1>员工入职</h1>
+
                 </div>
                 <!--工资管理-->
                 <!--员工工资管理-->
