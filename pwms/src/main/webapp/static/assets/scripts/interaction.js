@@ -1,4 +1,4 @@
-var data= JSON.parse(window.sessionStorage.getItem("data"))
+var data = JSON.parse(window.sessionStorage.getItem("data"))
 var baseUrl = "http://localhost:8080/pwms/"
 
 $(document).ready(function () {
@@ -110,9 +110,10 @@ function onloadSet() {
     });
 }
 
+var depTable
 function setDepartment() {
-    $('#departmentList').dataTable({
-        language:{
+    depTable = $('#departmentList').DataTable({
+        language: {
             "sProcessing": "处理中...",
             "sLengthMenu": "显示 _MENU_ 项结果",
             "sZeroRecords": "没有匹配结果",
@@ -144,24 +145,95 @@ function setDepartment() {
         },
         "columns": [
             {"data": "departmentId"},
-            {"data": "departmentName"},
-            {"data": "departmentCharge"},
+            {
+                "data": "departmentName",
+                "orderable": false
+            },
+            {
+                "data": "departmentCharge",
+                "orderable": false
+            },
+            {
+                "data": "departmentId",
+                "orderable": false,
+                "mRender": function (data, type, full) {
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info' data-toggle='modal' data-target='#departmentChange' onclick='depChange(" + data + ")'>修改</button>" +
+                        "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info btn-outline-danger ml-2' data-toggle='modal' data-target='.confirm' onclick='depDel(" + data + ")'>删除</button>";
+                }
+            }
         ]
-        // "columnDefs": [
-        //     {
-        //         targets: [3],
-        //         render: function (data, type, row, meta) {
-        //             if (type === 'display') {
-        //                 return '<input type="input" class="form-control" value="' + data + '">';
-        //             }
-        //             return data;
-        //         },
-        //     }
-        // ],
     })
 }
 
+function depChange(a) {
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dep/qby",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"departmentId": a}),
+        success: function (result) {
+            if (result.resultCode == 200) {
+                $("input[name='depId']").val(result.data.departmentId)
+                $("input[name='depName']").val(result.data.departmentName)
+                $("input[name='depChargeId']").val(result.data.departmentCharge)
+            }
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！")
+            return;
+        }
+    });
+}
 
+function depDel(a) {
+    if (confirm()){
+        console.log("aaaaaaaaa")
+        $.ajax({
+            type: "POST",//方法类型
+            url: baseUrl + "dep/del",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({"departmentId": a}),
+            success: function (result) {
+                if (result.resultCode == 200) {
+                    showSuccess("删除成功！")
+                }else{
+                    showError(result.message)
+                }
+            },
+            error: function () {
+                showError("后台错误，请联系管理员！")
+                return;
+            }
+        });
+    }
+}
+
+
+function depSave() {
+    nData = {"departmentId": $("input[name='depId']").val(),"departmentName": $("input[name='depName']").val(),"departmentCharge": $("input[name='depChargeId']").val()}
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dep/upd",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(nData),
+        success: function (result) {
+            if (result.resultCode == 200) {
+                showSuccess("保存成功！")
+            }else{
+                showError(result.message)
+            }
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！")
+            return;
+        }
+    });
+    $("button[data-dismiss='modal']").click()
+    depTable.ajax.reload( null, false );
+}
 
 /**
  * description: 填入民族下拉列表参数
@@ -341,7 +413,7 @@ function showError(a) {
         position: 'top',
         showConfirmButton: false,
         timer: 2000,
-        type: 'error',
+        icon: 'error',
         title: a
     });
 }
@@ -351,13 +423,32 @@ function showError(a) {
  * @param String
  * @return null
  */
-function showSuccess() {
+function showSuccess(a) {
     Swal.fire({
         toast: true,
         position: 'top',
         showConfirmButton: false,
         timer: 1500,
-        type: 'success',
-        title: '登录成功'
+        icon: 'success',
+        title: a
     });
+}
+
+/**
+ * 确认框
+ */
+function confirm(){
+    Swal.fire({
+        title: '确定删除?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确认'
+    }).then((result) => {
+        if (result.value) {
+        return result.value
+        }
+    })
+    return false
 }

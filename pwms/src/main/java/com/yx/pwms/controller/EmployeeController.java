@@ -101,6 +101,19 @@ public class EmployeeController {
     }
 
     /**
+     * 根据工号查询名字
+     */
+    @RequestMapping(value = "/qbyname", method = RequestMethod.POST)
+    @ResponseBody
+    public Result queryByEmployeeIdForName(@RequestBody Map<String, String> map) {
+        if (employeeService.queryExist(map.get("employeeId"), null) == 0) {
+            return ResultGenerator.genErrorResult(408, "无此数据");
+        }
+        Employee employee = employeeService.queryByEmployeeId(map.get("employeeId"));
+        return Checker.check(employee.getEmployeeName());
+    }
+
+    /**
      * description: 非空参数检验
      *
      * @return Map

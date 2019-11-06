@@ -533,3 +533,48 @@ ml-sm-04{
 ml-sm-05{
     margin-left: .5rem !important
 }
+
+#departmentList_length > label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+
+#departmentList_filter > label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+#departmentList_filter > label > input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+
+div.dataTables_wrapper div.dataTables_paginate {
+    margin: 0;
+    white-space: nowrap;
+    text-align: right;
+}
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: .25rem;
+}
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    margin: 2px 0;
+    white-space: nowrap;
+    justify-content: flex-end;
+}
+#departmentList_wrapper > div:nth-child(3){
+    height: 39px;
+}
+#departmentList_paginate > ul > li{
+    margin: 0;
+    padding: 0;
+}
+.pagination li{
+    margin: 0;
+    padding: 0;
+}
