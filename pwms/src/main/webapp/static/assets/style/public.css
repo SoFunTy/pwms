@@ -522,19 +522,19 @@ div.row.rowlist .event_list li p span {
     color: #19AA8D
 }
 
-ml-sm-01{
+.ml-sm-01{
     margin-left: .1rem !important
 }
-ml-sm-02{
+.ml-sm-02{
     margin-left: .2rem !important
 }
-ml-sm-03{
+.ml-sm-03{
     margin-left: .3rem !important
 }
-ml-sm-04{
+.ml-sm-04{
     margin-left: .4rem !important
 }
-ml-sm-05{
+.ml-sm-05{
     margin-left: .5rem !important
 }
 

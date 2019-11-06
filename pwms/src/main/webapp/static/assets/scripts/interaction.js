@@ -1,10 +1,10 @@
-var data = JSON.parse(window.sessionStorage.getItem("data"));
-var baseUrl = "http://localhost:8080/pwms/";
+let data = JSON.parse(window.sessionStorage.getItem("data"));
+const baseUrl = "http://localhost:8080/pwms/";
 
-    if (data == null || data === "")
+if (data == null || data === "")
         window.location.href = baseUrl;
     setData();
-    userTypeCheck(data.permission.dicValue)
+    userTypeCheck(data.permission.dicValue);
 /**
  * description: 根据权限显示对于模块
  *     //权限等级 3<2<1
@@ -32,7 +32,7 @@ function userTypeCheck(a) {
  * description: 参数填入
  */
 function setData() {
-    setempTable()
+    setempTable();
     setDepartment();
     setsexOption();
     setAdd1Option();
@@ -107,7 +107,7 @@ function onloadSet() {
 }
 
 
-var empTable;
+let empTable;
 
 function setempTable() {
     empTable = $('#employeeList').DataTable({
@@ -192,7 +192,7 @@ function record(a) {
 *
 * 部门管理模块
 */
-var depTable;
+let depTable;
 
 function setDepartment() {
     depTable = $('#departmentList').DataTable({
@@ -338,7 +338,6 @@ function depSave() {
         },
         error: function () {
             showError("后台错误，请联系管理员！");
-            return;
         }
     });
     $("button[data-dismiss='modal']").click();
@@ -416,7 +415,7 @@ function setAdd2Option(a) {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(data),
         success: function (result) {
-            if (result.resultCode == 200) {
+            if (result.resultCode === 200) {
                 var add2data = result.data;
                 for (i = 0; i < add2data.length; i++) {
                     var option = "<option name='" + add2data[i].dicNote + "'value = '" + add2data[i].dicId + "'>" + add2data[i].dicValue + "</option>";
@@ -432,7 +431,7 @@ function setAdd3Option(a) {
     $("#Home_Address03").empty();
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
     if (a.selectedIndex === 0)
-        return
+        return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
         type: "POST",//方法类型
@@ -514,8 +513,8 @@ function headicon_save() {
 
 /**
  * 错误提示框
- * @param String
  * @return null
+ * @param a
  */
 function showError(a) {
     Swal.fire({
@@ -530,8 +529,8 @@ function showError(a) {
 
 /**
  * 成功提示框
- * @param String
  * @return null
+ * @param a
  */
 function showSuccess(a) {
     Swal.fire({
