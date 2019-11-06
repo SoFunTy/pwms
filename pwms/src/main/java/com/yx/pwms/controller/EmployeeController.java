@@ -50,6 +50,16 @@ public class EmployeeController {
     }
 
     /**
+     * 查询所有
+     */
+    @RequestMapping(value = "/qal", method = RequestMethod.POST)
+    @ResponseBody
+    public Result queryAll() {
+        List<Employee> employees = employeeService.queryList(new HashMap<>());
+        return Checker.check(employees);
+    }
+
+    /**
      * 查询多个
      */
     @RequestMapping(value = "/qli", method = RequestMethod.POST)

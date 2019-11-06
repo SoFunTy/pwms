@@ -518,6 +518,10 @@ div.row.rowlist .event_list li p span {
     font-size: 1.6rem !important
 }
 
+.fc-1{
+    color: #19AA8D
+}
+
 ml-sm-01{
     margin-left: .1rem !important
 }
@@ -533,6 +537,32 @@ ml-sm-04{
 ml-sm-05{
     margin-left: .5rem !important
 }
+
+
+#employeeList_length > label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+
+#employeeList_filter > label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+#employeeList_filter > label > input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+#employeeList_wrapper > div:nth-child(3){
+    height: 39px;
+}
+#employeeList_paginate > ul > li{
+    margin: 0;
+    padding: 0;
+}
+
 
 #departmentList_length > label {
     font-weight: normal;

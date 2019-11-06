@@ -137,7 +137,7 @@ function setempTable() {
         },
         "retrieve": "true",
         "ajax": {
-            "url": baseUrl + "user/qli",
+            "url": baseUrl + "user/qal",
             "dataType": "json",
             "data": JSON.stringify({}),
             "type": "POST",
@@ -146,6 +146,7 @@ function setempTable() {
         "columns": [
             {
                 "data": "employeeName",
+                "class": "fc-1",
                 "orderable": false
             },
             {
@@ -170,19 +171,21 @@ function setempTable() {
                 "data": "oinTime"
             },
             {
-                "data": "sex.dicValue",
-                "orderable": false
+                "data": "sex.dicValue"
             },
             {
-                "data": "departmentId",
+                "data": "employeeId",
                 "orderable": false,
                 "mRender": function (data, type, full) {
-                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info' data-toggle='modal' data-target='#departmentChange' onclick='depChange(" + data + ")'>修改</button>" +
-                        "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info btn-outline-danger ml-2' data-toggle='modal' data-target='.confirm' onclick='depDel(" + data + ")'>删除</button>";
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' onclick='record(" + data + ")'>查看详情</button>";
                 }
             }
         ]
     })
+}
+
+function record(a) {
+    alert(a)
 }
 
 /*
