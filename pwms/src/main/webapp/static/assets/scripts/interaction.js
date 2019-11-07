@@ -1,10 +1,18 @@
 var data = JSON.parse(window.sessionStorage.getItem("data"));
 var baseUrl = "http://localhost:8080/pwms/";
 
-if (data == null || data === "")
-        window.location.href = baseUrl;
+
+//登录验证
+// if (data == null || data === ""){
+//     showError("请登录！")
+//     window.location.href = baseUrl;
+//
+// }
     setData();
     userTypeCheck(data.permission.dicValue);
+
+
+
 /**
  * description: 根据权限显示对于模块
  *     //权限等级 3<2<1
@@ -28,6 +36,8 @@ function userTypeCheck(a) {
     $("div[name*='index']").css("display", "block")
 }
 
+
+
 /**
  * description: 参数填入
  */
@@ -41,24 +51,27 @@ function setData() {
     setDataInto()
 }
 
-//headicon change
+
+
+/*头像设置*/
 function headicon(a) {
     $("div[class*='header-icons'] > div").attr("class", "bavat");
     $(a).attr("class", "bavatcheak")
 }
 
+/*登出*/
 function logout() {
     window.sessionStorage.removeItem('data');
     window.location.href = baseUrl;
 }
 
+
+/*账号管理数据填入*/
 function setDataInto() {
     $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + data.headIcon + " float-left");
     $("div[name='" + data.headIcon + "']").attr("class", "bavatcheak");
-
     $("div[class*='employee-name']").html(data.employeeName);
     $("div[class*='employee-position']").html(data.positionId.positionName);
-
     $("label[name='employeeId']").html(data.employeeId);
     $("label[name='positionId']").html(data.positionId.positionName);
     $("label[name='oinTime']").html(data.oinTime);
@@ -67,11 +80,9 @@ function setDataInto() {
     $("input[name='employeeName']").val(data.employeeName);
     $("select[name='sex']").find("option:contains('" + data.sex.dicValue + "')").attr("selected", "selected");
     $("input[name='age']").val(data.age);
-
     $("select[name='pol'] > option[value='" + data.pol.dicId + "']").attr("selected", "selected");
     $("input[name='brith']").val(data.brith);
     $("input[name='idNumber']").val(data.idNumber);
-
     $("select[name='education'] > option[value='" + data.education.dicId + "']").attr("selected", "selected");
     $("input[name='university']").val(data.university);
     $("input[name='major']").val(data.major);
@@ -80,9 +91,7 @@ function setDataInto() {
     $("select[name='homeAddress1'] > option[value='" + data.homeAddress1.dicValue + "']").attr("selected", "selected");
     $("select[name='homeAddress2'] > option[value='" + data.homeAddress2.dicValue + "']").attr("selected", "selected");
     $("select[name='homeAddress3'] > option[value='" + data.homeAddress3.dicValue + "']").attr("selected", "selected");
-
     $("input[name='homeNote']").val(data.homeNote);
-
     $("input[name='phone']").val(data.phone);
     $("select[name='marriage'] > option[value='" + data.marriage.dicValue + "']").attr("selected", "selected");
     $("select[name='health'] > option[value='" + data.health.dicValue + "']").attr("selected", "selected");
@@ -90,6 +99,7 @@ function setDataInto() {
     $("input[name='note']").val(data.note)
 }
 
+/*初始化数据从加载*/
 function onloadSet() {
 
     $.ajax({
@@ -189,6 +199,9 @@ function setempTable() {
 function record(a) {
     alert(a)
 }
+
+
+
 
 /*
 *
@@ -346,10 +359,14 @@ function depSave() {
     depTable.ajax.reload(null, false);
 }
 
+
+
+
 /**
  * description: 填入民族下拉列表参数
  */
 function setsexOption() {
+    $("#ENationnal").empty();
     $("#ENationnal").append("<option value = '3623'>请选择</option>");
     $.ajax({
         type: "POST",//方法类型
@@ -512,6 +529,8 @@ function headicon_save() {
         }
     });
 }
+
+
 
 /**
  * 错误提示框

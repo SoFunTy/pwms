@@ -538,6 +538,11 @@ div.row.rowlist .event_list li p span {
     margin-left: .5rem !important
 }
 
+.bg-blurred{
+    background-image: url("../images/prelogin_blurred.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
 
 #employeeList_length > label {
     font-weight: normal;
