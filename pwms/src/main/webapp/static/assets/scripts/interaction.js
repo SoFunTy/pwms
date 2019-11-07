@@ -48,7 +48,9 @@ function setData() {
     }
     setsexOption();
     setAdd1Option();
-    setDataInto()
+    window.setTimeout(function () {
+        setDataInto();
+    },500);
 }
 
 
@@ -65,6 +67,9 @@ function logout() {
     window.location.href = baseUrl;
 }
 
+/*
+* 奖罚输入
+* */
 function checkValid(a) {
     if ($(a).val() !== "" || $(a).val().length > 5){
         $.ajax({
@@ -85,7 +90,10 @@ function checkValid(a) {
             }
         });
     }
+}
 
+function ampAdd() {
+    var list= $('input:radio[name="customRadio"]:checked').val();
 }
 
 /*账号管理数据填入*/
@@ -94,6 +102,7 @@ function setDataInto() {
     $("div[name='" + data.headIcon + "']").attr("class", "bavatcheak");
     $("div[class*='employee-name']").html(data.employeeName);
     $("div[class*='employee-position']").html(data.positionId.positionName);
+
     $("label[name='employeeId']").html(data.employeeId);
     $("label[name='positionId']").html(data.positionId.positionName);
     $("label[name='oinTime']").html(data.oinTime);
@@ -109,9 +118,12 @@ function setDataInto() {
     $("input[name='university']").val(data.university);
     $("input[name='major']").val(data.major);
     $("select[name='natives01'] > option[value='" + data.natives01.dicId + "']").attr("selected", "selected");
+    $("select[name='natives01']").trigger('change');
     $("select[name='natives02'] > option[value='" + data.natives02.dicId + "']").attr("selected", "selected");
     $("select[name='homeAddress1'] > option[value='" + data.homeAddress1.dicValue + "']").attr("selected", "selected");
+    $("select[name='homeAddress1'] ").trigger('change');
     $("select[name='homeAddress2'] > option[value='" + data.homeAddress2.dicValue + "']").attr("selected", "selected");
+    $("select[name='homeAddress2'] ").trigger('change');
     $("select[name='homeAddress3'] > option[value='" + data.homeAddress3.dicValue + "']").attr("selected", "selected");
     $("input[name='homeNote']").val(data.homeNote);
     $("input[name='phone']").val(data.phone);
@@ -124,20 +136,20 @@ function setDataInto() {
 /*初始化数据从加载*/
 function onloadSet() {
 
-    $.ajax({
-        type: "POST",//方法类型
-        url: baseUrl + "user/qby",
-        dataType: "json",
-        contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({"employeeId": data.employeeId}),
-        success: function (result) {
-            if (result.resultCode === 200) {
-                data = result.data;
-                window.sessionStorage.setItem('data', JSON.stringify(result.data));
-                window.location.reload()
-            }
-        }
-    });
+    // $.ajax({
+    //     type: "POST",//方法类型
+    //     url: baseUrl + "user/qby",
+    //     dataType: "json",
+    //     contentType: "application/json;charset=UTF-8",
+    //     data: JSON.stringify({"employeeId": data.employeeId}),
+    //     success: function (result) {
+    //         if (result.resultCode === 200) {
+    //             data = result.data;
+    //             window.sessionStorage.setItem('data', JSON.stringify(result.data));
+    //             window.location.reload()
+    //         }
+    //     }
+    // });
 }
 
 
