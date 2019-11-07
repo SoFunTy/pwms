@@ -39,7 +39,7 @@ function showError(a) {
         position: 'top',
         showConfirmButton: false,
         timer: 2000,
-        type: 'error',
+        icon: 'error',
         title: a
     });
 }
@@ -55,7 +55,7 @@ function showSuccess() {
         position: 'top',
         showConfirmButton: false,
         timer: 1500,
-        type: 'success',
+        icon: 'success',
         title: '登录成功'
     });
 }

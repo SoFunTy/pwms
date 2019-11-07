@@ -1,5 +1,5 @@
-let data = JSON.parse(window.sessionStorage.getItem("data"));
-const baseUrl = "http://localhost:8080/pwms/";
+var data = JSON.parse(window.sessionStorage.getItem("data"));
+var baseUrl = "http://localhost:8080/pwms/";
 
 if (data == null || data === "")
         window.location.href = baseUrl;
@@ -32,7 +32,7 @@ function userTypeCheck(a) {
  * description: 参数填入
  */
 function setData() {
-    if (data.permission.dicValue === 1){
+    if (data.permission.dicValue === "1"){
         setempTable();
         setDepartment();
     }
@@ -109,7 +109,7 @@ function onloadSet() {
 }
 
 
-let empTable;
+var empTable;
 
 function setempTable() {
     empTable = $('#employeeList').DataTable({
@@ -194,7 +194,7 @@ function record(a) {
 *
 * 部门管理模块
 */
-let depTable;
+var depTable;
 
 function setDepartment() {
     depTable = $('#departmentList').DataTable({
