@@ -541,7 +541,8 @@ div.row.rowlist .event_list li p span {
 .bg-blurred{
     background-image: url("../images/prelogin_blurred.jpg");
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-position: 0 0;
+    background-size: 100% auto;
 }
 
 #employeeList_length > label {

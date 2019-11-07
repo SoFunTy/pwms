@@ -65,6 +65,28 @@ function logout() {
     window.location.href = baseUrl;
 }
 
+function checkValid(a) {
+    if ($(a).val() !== "" || $(a).val().length > 5){
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "user/qbyname",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({"employeeId": $(a).val() }),
+            success: function (result) {
+                if (result.resultCode === 200 || result.data !== "") {
+                    $("#cemployeeName").val(result.data);
+                    $("#ampbtn").removeAttr("disabled")
+                }
+                if (result.resultCode === 408){
+                    $("#cemployeeName").val("");
+                    $("#ampbtn").attr("disabled","disabled")
+                }
+            }
+        });
+    }
+
+}
 
 /*账号管理数据填入*/
 function setDataInto() {

@@ -547,14 +547,14 @@
 
                 <!--员工奖罚-->
                 <div name="checkeradmin add_rewardandpenalty">
-                    <div class="app-main__inner bg-blurred">
+                    <div class="app-main__inner bg col-12">
                         <div class="row mt-13 align-items-center he-100 align-content-center pr-5">
                             <div class="mg-center col-3 main-card mb-3 pl-4 pr-4 pt-2 pb-2 card">
-                                <div class="card-body">
+                                <div class="card-body col-12">
                                     <h4 class="card-title">奖罚添加：</h4>
                                     <form class="mt-2">
-                                        <input placeholder="工号" name="cemployeeId" type="text" class="mb-2 form-control">
-                                        <input placeholder="姓名" name="cemployeeName" type="text" class="mb-2 form-control" readonly>
+                                        <input placeholder="工号" id="cemployeeId" type="text" onblur="checkValid (this)" class="mb-2 form-control">
+                                        <input placeholder="姓名" id="cemployeeName" type="text" class="mb-2 form-control" readonly>
                                         <div class="divider">
                                         </div>
                                         <div class="mb-4 form-group">
@@ -575,7 +575,12 @@
                                         </div>
                                         <div class="mt-5 mg-center text-center">
                                             <input placeholder="金额" name="cnumber" type="number" class="mb-2 form-control">
-                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-focus" onclick="ampAdd()">添加</button>
+                                            <div class="position-relative form-group">
+                                                <label for="einfo" class="text-left">具体情况</label>
+                                                <textarea name="text" id="einfo" class="form-control">
+                                                </textarea>
+                                            </div>
+                                            <button id="ampbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus" disabled="disabled" onclick="ampAdd()">添加</button>
                                             <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" type="reset">重置</button>
                                         </div>
                                     </form>

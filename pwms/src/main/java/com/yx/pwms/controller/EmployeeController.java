@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/user")
@@ -120,7 +121,9 @@ public class EmployeeController {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
         Employee employee = employeeService.queryByEmployeeId(map.get("employeeId"));
-        return Checker.check(employee.getEmployeeName());
+        if (!Objects.isNull(employee))
+            return Checker.check(employee.getEmployeeName());
+        return ResultGenerator.genErrorResult(408, "");
     }
 
     /**
