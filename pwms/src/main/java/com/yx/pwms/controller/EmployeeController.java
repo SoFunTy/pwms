@@ -26,14 +26,13 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @ResponseBody
-    public Result inserEmployee(@RequestBody Map<String, String> map) {
-        Map<String, Object> maps = new HashMap<>();
-        maps.putAll(check(map));
-        if (maps == null) return ResultGenerator.genErrorResult(406, "输入错误");
-        if (employeeService.queryExist(maps.get("employeeId").toString(), maps.get("account").toString()) == 1) {
+    public Result inserEmployee(@RequestBody Map<String, Object> map) {
+        map = check(map);
+        if (map == null) return ResultGenerator.genErrorResult(406, "输入错误");
+        if (employeeService.queryExist(map.get("employeeId").toString(), map.get("account").toString()) == 1) {
             return ResultGenerator.genErrorResult(407, "已存在");
         }
-        int statu = employeeService.insertEmployee(maps);
+        int statu = employeeService.insertEmployee(map);
         return Checker.check(statu);
     }
 
@@ -131,7 +130,7 @@ public class EmployeeController {
      * @return Map
      * @params Map<String, String> map
      */
-    private Map check(Map<String, String> map) {
+    private Map check(Map<String, Object> map) {
         if (Objects.isNull(map.get("employeeId")) || Objects.isNull(map.get("email")) ||
                 Objects.isNull(map.get("epassword")) || Objects.isNull(map.get("positionId")) ||
                 Objects.isNull(map.get("employeeName")) ) {
