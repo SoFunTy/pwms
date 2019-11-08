@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.pwms.dao.NoticesDao">
+    <resultMap id="Notices" type="com.yx.pwms.entity.Notices">
+        <id column="NOTICES_ID" jdbcType="INTEGER" property="noticesId" />
+        <result column="NOTICES_DATE" jdbcType="DATE" property="noticesDate" />
+        <result column="NOTICES" jdbcType="VARCHAR" property="notices" />
+        <result column="STATE" jdbcType="VARCHAR" property="state" />
+    </resultMap>
+    <sql id="Notices_Column_List">
+    NOTICES_ID, NOTICES_DATE, NOTICES, STATE
+    </sql>
+
+    <insert id="insertNotices" parameterType="java.util.Map">
+    insert into NOTICES (NOTICES_DATE, NOTICES,
+      STATE)
+    values (#{noticesDate}, #{notices},
+      #{state})
+    </insert>
+
+    <delete id="deleteNotices" parameterType="java.lang.Long">
+    delete from NOTICES
+    where NOTICES_ID = #{noticesId}
+    </delete>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="Notices">
+        select
+        <include refid="Notices_Column_List" />
+        from NOTICES
+        where 1=1
+        <if test="noticesId != null">
+           AND NOTICES_ID = #{noticesId}
+        </if>
+        <if test="noticesDate != null">
+           AND NOTICES_DATE = #{noticesDate}
+        </if>
+        <if test="notices != null">
+           AND  NOTICES = #{notices}
+        </if>
+        <if test="state != null">
+          AND STATE = #{state}
+        </if>
+    </select>
+
+    <select id="queryBy" parameterType="java.util.Map" resultMap="Notices">
+        select
+        <include refid="Notices_Column_List" />
+        from NOTICES
+        where NOTICES_ID = #{noticesId}
+    </select>
+
+    <update id="updateByPrimaryKeySelective" parameterType="entity.Notices">
+        update NOTICES
+        <set>
+            <if test="noticesDate != null">
+                NOTICES_DATE = #{noticesDate},
+            </if>
+            <if test="notices != null">
+                NOTICES = #{notices},
+            </if>
+            <if test="state != null">
+                STATE = #{state},
+            </if>
+        </set>
+        where NOTICES_ID = #{noticesId}
+    </update>
+</mapper>
