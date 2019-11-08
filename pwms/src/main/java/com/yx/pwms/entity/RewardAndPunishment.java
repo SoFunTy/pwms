@@ -1,6 +1,8 @@
 package com.yx.pwms.entity;
 
 
+import java.sql.Date;
+
 public class RewardAndPunishment {
 
   private long serialNumber;
@@ -9,6 +11,18 @@ public class RewardAndPunishment {
   private String information;
   private double reward;
   private double punishment;
+
+  public RewardAndPunishment() {
+  }
+
+  public RewardAndPunishment(long serialNumber, String employeeId, Date recodingTime, String information, double reward, double punishment) {
+    this.serialNumber = serialNumber;
+    this.employeeId = employeeId;
+    this.recodingTime = recodingTime;
+    this.information = information;
+    this.reward = reward;
+    this.punishment = punishment;
+  }
 
 
   public long getSerialNumber() {

@@ -1,6 +1,8 @@
 package com.yx.pwms.entity;
 
 
+import java.sql.Date;
+
 public class Wages {
 
   private String employeeId;
@@ -13,6 +15,22 @@ public class Wages {
   private double oAdd;
   private double oBuckle;
   private double total;
+
+  public Wages() {
+  }
+
+  public Wages(String employeeId, Date releaseTime, double persion, double eInsurance, double iInsurance, double fund, double subsidy, double oAdd, double oBuckle, double total) {
+    this.employeeId = employeeId;
+    this.releaseTime = releaseTime;
+    this.persion = persion;
+    this.eInsurance = eInsurance;
+    this.iInsurance = iInsurance;
+    this.fund = fund;
+    this.subsidy = subsidy;
+    this.oAdd = oAdd;
+    this.oBuckle = oBuckle;
+    this.total = total;
+  }
 
 
   public String getEmployeeId() {
