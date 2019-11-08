@@ -65,7 +65,7 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/qli", method = RequestMethod.POST)
     @ResponseBody
-    public Result queryLsit(@RequestBody Map<String, Object> map) {
+    public Result queryList(@RequestBody Map<String, Object> map) {
         List<Employee> employees = employeeService.queryList(map);
         return Checker.check(employees);
     }
@@ -86,8 +86,7 @@ public class EmployeeController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
     public Result login(@RequestBody Map<String, String> map) {
-        if (map.get("email") == null || map.get("email").length() == 0 ||
-                map.get("epassword") == null || map.get("epassword").length() == 0){
+        if (Objects.isNull(map.get("email")) || Objects.isNull(map.get("epassword"))){
             return ResultGenerator.genErrorResult(410, "检查输入");
         }
         if(employeeService.queryExist(null, map.get("email")) == 1) {
@@ -103,7 +102,7 @@ public class EmployeeController {
     @RequestMapping(value = "/upd", method = RequestMethod.POST)
     @ResponseBody
     public Result updateEmployee(@RequestBody Map<String, Object> map) {
-        if (map.get("employeeId").toString() == null) return ResultGenerator.genErrorResult(406, "输入错误");
+        if (Objects.isNull(map.get("employeeId"))) return ResultGenerator.genErrorResult(406, "输入错误");
         if (employeeService.queryExist(map.get("employeeId").toString()) == 0) {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
@@ -133,11 +132,9 @@ public class EmployeeController {
      * @params Map<String, String> map
      */
     private Map check(Map<String, String> map) {
-        if (map.get("employeeId") == null || map.get("employeeId").length() == 0 ||
-                map.get("email") == null || map.get("email").length() == 0 ||
-                map.get("epassword") == null || map.get("epassword").length() == 0 ||
-                map.get("positionId") == null || map.get("positionId").length() == 0 ||
-                map.get("employeeName") == null || map.get("employeeName").length() == 0) {
+        if (Objects.isNull(map.get("employeeId")) || Objects.isNull(map.get("email")) ||
+                Objects.isNull(map.get("epassword")) || Objects.isNull(map.get("positionId")) ||
+                Objects.isNull(map.get("employeeName")) ) {
             return null;
         }
         return map;

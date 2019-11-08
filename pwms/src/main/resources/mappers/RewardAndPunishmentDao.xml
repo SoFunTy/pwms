@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.pwms.dao.RewardAndPunishmentDao">
+    <resultMap id="RewardAndPunishment" type="com.yx.pwms.entity.RewardAndPunishment">
+        <id column="SERIAL_NUMBER" jdbcType="BIGINT" property="serialNumber" />
+        <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
+        <result column="RECODING_TIME" jdbcType="DATE" property="recodingTime" />
+        <result column="INFORMATION" jdbcType="VARCHAR" property="information" />
+        <result column="REWARD" jdbcType="DOUBLE" property="reward" />
+        <result column="PUNISHMENT" jdbcType="DOUBLE" property="punishment" />
+    </resultMap>
+    <sql id="RewardAndPunishment_Column_List">
+    SERIAL_NUMBER, EMPLOYEE_ID, RECODING_TIME, INFORMATION, REWARD, PUNISHMENT
+    </sql>
+
+    <insert id="insertRewardAndPunishment" parameterType="java.util.Map">
+    insert into REWARD_AND_PUNISHMENT ( EMPLOYEE_ID, RECODING_TIME,
+      INFORMATION, REWARD, PUNISHMENT)
+    values (#{employeeId}, #{recodingTime},#{information}, #{reward}, #{punishment})
+    </insert>
+
+    <delete id="deleteRewardAndPunishment" parameterType="java.lang.Long">
+    delete from REWARD_AND_PUNISHMENT
+    where SERIAL_NUMBER = #{serialNumber}
+    </delete>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="RewardAndPunishment">
+        select
+        <include refid="RewardAndPunishment_Column_List" />
+        from REWARD_AND_PUNISHMENT
+        where 1 = 1
+        <if test="serialNumber != null">
+            AND SERIAL_NUMBER = #{serialNumber}
+        </if>
+        <if test="employeeId != null">
+            AND EMPLOYEE_ID = #{employeeId}
+        </if>
+        <if test="recodingTime != null">
+            AND RECODING_TIME = #{recodingTime}
+        </if>
+        <if test="information != null">
+            AND INFORMATION = #{information}
+        </if>
+        <if test="reward != null">
+            AND REWARD = #{reward}
+        </if>
+        <if test="punishment != null">
+            AND PUNISHMENT = #{punishment}
+        </if>
+    </select>
+
+    <select id="queryForRAP" parameterType="java.util.Map" resultMap="RewardAndPunishment">
+        select
+        EMPLOYEE_ID,SUM(REWARD) REWARD,SUM(PUNISHMENT) PUNISHMENT
+        from REWARD_AND_PUNISHMENT
+        where 1=1
+        <if test="employeeId != null">
+            AND EMPLOYEE_ID = #{employeeId}
+        </if>
+        <if test="date != null">
+            AND PERIOD_DIFF( date_format( #{date} , '%Y%m' ) , date_format( RECODING_TIME, '%Y%m' ) ) =1
+        </if>
+        group by EMPLOYEE_ID
+    </select>
+
+    <update id="updateRewardAndPunishment" parameterType="java.util.Map">
+    update REWARD_AND_PUNISHMENT
+    set EMPLOYEE_ID = #{employeeId},
+      RECODING_TIME = #{recodingTime},
+      INFORMATION = #{information},
+      REWARD = #{reward},
+      PUNISHMENT = #{punishment}
+    where SERIAL_NUMBER = #{serialNumber}
+    </update>
+</mapper>

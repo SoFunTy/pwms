@@ -2,6 +2,7 @@ package com.yx.pwms.dao;
 
 import com.yx.pwms.entity.RewardAndPunishment;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,31 +21,24 @@ public interface RewardAndPunishmentDao {
      * @params String employeeId
      * @return int
      */
-    int deleteRewardAndPunishment(String serialNumber);
+    int deleteRewardAndPunishment(long serialNumber);
 
     /**
-     * description: 查询多个
+     * description: 查询
      * @params Map<String, Object> map
      * @return List<Employee>
      */
     List<RewardAndPunishment> queryList(Map<String, Object> map);
 
     /**
-     * description: 查询根据流水号
-     * @params String employeeId
+     * description: 查询奖罚
+     * @params String employeeId, Date date
      * @return Employee
      */
-    RewardAndPunishment queryBySerialNumber(String serialNumber);
+    List queryForRAP(Map<String, Object> map);
 
     /**
-     * description: 查询根据工号
-     * @params String employeeId
-     * @return Employee
-     */
-    RewardAndPunishment queryByemployeeId(String employeeId);
-
-    /**
-     * description: 信息更新
+     * description: 更新
      * @params Map<String, Object> map
      * @return int
      */
