@@ -81,7 +81,7 @@ public class NoticesController {
     @ResponseBody
     public Result updateRewardAndPunishment(@RequestBody Map<String, Object> map) {
         if (Objects.isNull(map.get("noticesId"))) return ResultGenerator.genErrorResult(406, "输入错误");
-        if (noticesService.queryExist(map.get("serialNumber").toString()) == 0) {
+        if (noticesService.queryExist(map.get("noticesId").toString()) == 0) {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
         int statu = noticesService.updateNotices(map);
@@ -95,9 +95,8 @@ public class NoticesController {
      * @params Map<String, String> map
      */
     private Map check(Map<String, Object> map) {
-        if (Objects.isNull(map.get("employeeId")) || Objects.isNull(map.get("email")) ||
-                Objects.isNull(map.get("epassword")) || Objects.isNull(map.get("positionId")) ||
-                Objects.isNull(map.get("employeeName")) ) {
+        if (Objects.isNull(map.get("noticesDate")) || Objects.isNull(map.get("state")) ||
+                Objects.isNull(map.get("notices"))) {
             return null;
         }
         return map;

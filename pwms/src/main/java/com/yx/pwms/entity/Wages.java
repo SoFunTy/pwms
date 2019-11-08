@@ -5,6 +5,7 @@ import java.sql.Date;
 
 public class Wages {
 
+  private Long wagesId;
   private String employeeId;
   private java.sql.Date releaseTime;
   private double persion;
@@ -19,7 +20,8 @@ public class Wages {
   public Wages() {
   }
 
-  public Wages(String employeeId, Date releaseTime, double persion, double eInsurance, double iInsurance, double fund, double subsidy, double oAdd, double oBuckle, double total) {
+  public Wages(Long wagesId, String employeeId, Date releaseTime, double persion, double eInsurance, double iInsurance, double fund, double subsidy, double oAdd, double oBuckle, double total) {
+    this.wagesId = wagesId;
     this.employeeId = employeeId;
     this.releaseTime = releaseTime;
     this.persion = persion;
@@ -32,6 +34,13 @@ public class Wages {
     this.total = total;
   }
 
+  public Long getWagesId() {
+    return wagesId;
+  }
+
+  public void setWagesId(Long wagesId) {
+    this.wagesId = wagesId;
+  }
 
   public String getEmployeeId() {
     return employeeId;
@@ -41,15 +50,13 @@ public class Wages {
     this.employeeId = employeeId;
   }
 
-
-  public java.sql.Date getReleaseTime() {
+  public Date getReleaseTime() {
     return releaseTime;
   }
 
-  public void setReleaseTime(java.sql.Date releaseTime) {
+  public void setReleaseTime(Date releaseTime) {
     this.releaseTime = releaseTime;
   }
-
 
   public double getPersion() {
     return persion;
@@ -59,24 +66,21 @@ public class Wages {
     this.persion = persion;
   }
 
-
-  public double getEInsurance() {
+  public double geteInsurance() {
     return eInsurance;
   }
 
-  public void setEInsurance(double eInsurance) {
+  public void seteInsurance(double eInsurance) {
     this.eInsurance = eInsurance;
   }
 
-
-  public double getIInsurance() {
+  public double getiInsurance() {
     return iInsurance;
   }
 
-  public void setIInsurance(double iInsurance) {
+  public void setiInsurance(double iInsurance) {
     this.iInsurance = iInsurance;
   }
-
 
   public double getFund() {
     return fund;
@@ -86,7 +90,6 @@ public class Wages {
     this.fund = fund;
   }
 
-
   public double getSubsidy() {
     return subsidy;
   }
@@ -95,24 +98,21 @@ public class Wages {
     this.subsidy = subsidy;
   }
 
-
-  public double getOAdd() {
+  public double getoAdd() {
     return oAdd;
   }
 
-  public void setOAdd(double oAdd) {
+  public void setoAdd(double oAdd) {
     this.oAdd = oAdd;
   }
 
-
-  public double getOBuckle() {
+  public double getoBuckle() {
     return oBuckle;
   }
 
-  public void setOBuckle(double oBuckle) {
+  public void setoBuckle(double oBuckle) {
     this.oBuckle = oBuckle;
   }
-
 
   public double getTotal() {
     return total;
@@ -121,5 +121,4 @@ public class Wages {
   public void setTotal(double total) {
     this.total = total;
   }
-
 }

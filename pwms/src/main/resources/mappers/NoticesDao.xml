@@ -49,7 +49,7 @@
         where NOTICES_ID = #{noticesId}
     </select>
 
-    <update id="updateByPrimaryKeySelective" parameterType="entity.Notices">
+    <update id="updateNotices" parameterType="Notices">
         update NOTICES
         <set>
             <if test="noticesDate != null">

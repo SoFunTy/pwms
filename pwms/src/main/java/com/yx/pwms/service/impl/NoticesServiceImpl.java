@@ -43,7 +43,7 @@ public class NoticesServiceImpl implements NoticesService {
 
     @Override
     public int queryExist(String noticesId) {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Map<String, Object> map = new HashMap<>();
         map.put("noticesId",noticesId);
         if (!Objects.isNull(queryBy(map))){
             return 1;
