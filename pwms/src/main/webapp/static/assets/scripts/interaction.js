@@ -156,8 +156,8 @@ function setDataInto() {
     $("input[name='major']").val(mydata.major);
     $("input[name='homeNote']").val(mydata.homeNote);
     $("input[name='phone']").val(mydata.phone);
-    $("select[name='marriage'] > option[value='" + mydata.marriage.dicValue + "']").attr("selected", "selected");
-    $("select[name='health'] > option[value='" + mydata.health.dicValue + "']").attr("selected", "selected");
+    $("select[name='marriage'] > option[value='" + mydata.marriage.dicId + "']").attr("selected", "selected");
+    $("select[name='health'] > option[value='" + mydata.health.dicId + "']").attr("selected", "selected");
     $("select[name='bloodType'] > option[value='" + mydata.bloodType.dicId + "']").attr("selected", "selected");
     $("input[name='note']").val(mydata.note)
 }
@@ -170,12 +170,13 @@ function onloadSet() {
         url: baseUrl + "user/qby",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
+        async: false,
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.resultCode === 200) {
                 mydata = result.data;
                 window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
-                window.location.reload()
+                setData();
             }
         }
     });
@@ -295,41 +296,42 @@ function setEmployee() {
         "email": $("input[name='email']").val(),
         "epassword": $("input[name='epassword']").val(),
         "employeeName": $("input[name='employeeName']").val(),
-        "sex": $("select[name='sex'] > option[selected='selected']").attr("value"),
+        "sex": $("select[name='sex']").val(),
         "age": $("input[name='age']").val(),
-        "nattional": $("select[name='nattional'] > option[selected='selected']").attr("value"),
-        "natives01": $("select[name='natives01'] > option[selected='selected']").attr("value"),
-        "natives02": $("select[name='natives02'] > option[selected='selected']").attr("value"),
-        "pol": $("select[name='pol'] > option[selected='selected']").attr("value"),
+        "nattional": $("select[name='nattional']").val(),
+        "natives01": $("select[name='natives01']").val(),
+        "natives02": $("select[name='natives02']").val(),
+        "pol": $("select[name='pol']").val(),
         "brith": $("input[name='brith']").val(),
         "idNumber": $("input[name='idNumber']").val(),
-        "education": $("select[name='education'] > option[selected='selected']").attr("value"),
+        "education": $("select[name='education']").val(),
         "university": $("input[name='university']").val(),
         "major": $("input[name='major']").val(),
-        "homeAddress1": $("select[name='homeAddress1'] > option[selected='selected']").attr("value"),
-        "homeAddress2": $("select[name='homeAddress2'] > option[selected='selected']").attr("value"),
-        "homeAddress3": $("select[name='homeAddress3'] > option[selected='selected']").attr("value"),
+        "homeAddress1": $("select[name='homeAddress1']").val(),
+        "homeAddress2": $("select[name='homeAddress2']").val(),
+        "homeAddress3": $("select[name='homeAddress3']").val(),
         "homeNote": $("input[name='homeNote']").val(),
         "phone": $("input[name='phone']").val(),
-        "marriage": $("select[name='marriage'] > option[selected='selected']").attr("value"),
-        "health": $("select[name='health'] > option[selected='selected']").attr("value"),
-        "bloodType": $("select[name='bloodType'] > option[selected='selected']").attr("value"),
+        "marriage": $("select[name='marriage']").val(),
+        "health": $("select[name='health']").val(),
+        "bloodType": $("select[name='bloodType']").val(),
         "note": $("input[name='note']").val()
     };
-    console.log(data)
     $.ajax({
         type: "POST",
         url: baseUrl + "user/up",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(data),
+        async:false,
         success: function (result) {
             if (result.resultCode === 200) {
-                showSuccess("保存成功")
+                showSuccess("保存成功");
                 onloadSet()
             }
         }
     });
+
 }
 
 /*部门管理模块*/
@@ -450,7 +452,7 @@ function depDel(a) {
 }
 
 function depSave() {
-    var url = baseUrl + "dep/upd";
+    var url = baseUrl + "dep/up";
     if ($("input[name='depId']").attr("readonly") == null) {
         url = baseUrl + "dep/ins";
         if ($("input[name='depId']").val() === "" || $("input[name='depName']").val() === "") {
@@ -638,13 +640,14 @@ function headicon_save() {
     var datas = {"employeeId": mydata.employeeId, "headIcon": nheadIcon};
     $.ajax({
         type: "POST",//方法类型
-        url: baseUrl + "user/upd",
+        url: baseUrl + "user/up",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify(datas),
         success: function (result) {
             if (result.resultCode === 200) {
                 showSuccess("修改成功～");
+                $("body > div.modal.fade.headIconChange.show > div > div > div.modal-header > button > span").click()
                 onloadSet()
             }
         }
