@@ -92,7 +92,7 @@ function login() {
         success: function (result) {
             if (result.resultCode == 200) {
                 showSuccess();
-                window.sessionStorage.setItem('data', JSON.stringify(result.data));
+                window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
                 setTimeout(function () {
                     window.location.href = "static/pages/index.html";
                 }, 1500);

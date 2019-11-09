@@ -35,6 +35,15 @@
     where WAGES_ID = #{wagesId}
     </delete>
 
+    <select id="queryMy" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select
+        TOTAL,O_ADD,O_BUCKLE
+        from WAGES
+        where
+         EMPLOYEE_ID = #{employeeId} and
+         period_diff(date_format(curdate() , '%Y%m') , date_format(RELEASE_TIME, '%Y%m')) =1;;
+    </select>
+
     <select id="queryList" parameterType="java.util.Map" resultMap="Wages">
         select
         <include refid="Wages_Column_List" />

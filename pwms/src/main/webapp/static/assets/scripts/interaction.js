@@ -1,16 +1,13 @@
-var data = JSON.parse(window.sessionStorage.getItem("data"));
+var mydata = JSON.parse(window.sessionStorage.getItem("mydata"));
 var baseUrl = "http://localhost:8080/pwms/";
-
-
 //登录验证
 // if (data == null || data === ""){
 //     showError("请登录！")
 //     window.location.href = baseUrl;
 //
 // }
-    setData();
-    userTypeCheck(data.permission.dicValue);
-
+setData();
+userTypeCheck(mydata.permission.dicValue);
 
 
 /**
@@ -37,25 +34,25 @@ function userTypeCheck(a) {
 }
 
 
-
 /**
  * description: 参数填入
  */
 function setData() {
-    if (data.permission.dicValue === "1"){
+    if (mydata.permission.dicValue === "1") {
         setempTable();
         setDepartment();
     }
+
+    setIndexWages();
+
     //主页公告
-    setNewNotice()
+    setNewNotice();
 
-    setsexOption();
+    setNatOption();
     setAdd1Option();
-    // window.setTimeout(function () {
-    //     setDataInto();
-    // },500);
-}
 
+    setDataInto();
+}
 
 
 /*头像设置*/
@@ -66,7 +63,7 @@ function headicon(a) {
 
 /*登出*/
 function logout() {
-    window.sessionStorage.removeItem('data');
+    window.sessionStorage.removeItem('mydata');
     window.location.href = baseUrl;
 }
 
@@ -74,21 +71,21 @@ function logout() {
 * 奖罚输入
 * */
 function checkValid(a) {
-    if ($(a).val() !== "" || $(a).val().length > 5){
+    if ($(a).val() !== "" || $(a).val().length > 5) {
         $.ajax({
             type: "POST",
             url: baseUrl + "user/qbyname",
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
-            data: JSON.stringify({"employeeId": $(a).val() }),
+            data: JSON.stringify({"employeeId": $(a).val()}),
             success: function (result) {
                 if (result.resultCode === 200 || result.data !== "") {
                     $("#cemployeeName").val(result.data);
                     $("#ampbtn").removeAttr("disabled")
                 }
-                if (result.resultCode === 408){
+                if (result.resultCode === 408) {
                     $("#cemployeeName").val("");
-                    $("#ampbtn").attr("disabled","disabled")
+                    $("#ampbtn").attr("disabled", "disabled")
                 }
             }
         });
@@ -96,7 +93,24 @@ function checkValid(a) {
 }
 
 function ampAdd() {
-    var list= $('input:radio[name="customRadio"]:checked').val();
+    var list = $('input:radio[name="customRadio"]:checked').val();
+}
+
+function setIndexWages() {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "wage/qmy",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data:  JSON.stringify({"employeeId": mydata.employeeId}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                $("#lastMWage").html("￥ " + result.data.TOTAL)
+                $("#lastMWageA").html("￥ " + result.data.O_ADD)
+                $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
+            }
+        }
+    });
 }
 
 function setNewNotice() {
@@ -106,7 +120,7 @@ function setNewNotice() {
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
-            if (result.resultCode === 200){
+            if (result.resultCode === 200) {
                 $("#indexNoticeTime").html(result.data.noticesDate)
                 $("#indexNotice").html(result.data.notices)
             }
@@ -116,72 +130,30 @@ function setNewNotice() {
 
 /*账号管理数据填入*/
 function setDataInto() {
-    $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + data.headIcon + " float-left");
-    $("div[name='" + data.headIcon + "']").attr("class", "bavatcheak");
-
-    console.log(data.headIcon)
-    console.log(data.employeeName)
-    console.log(data.positionId.positionName)
-    console.log(data.employeeId)
-    console.log(data.positionId.positionName)
-    console.log(data.oinTime)
-    console.log(data.email)
-    console.log(data.epassword)
-    console.log(data.employeeName)
-    console.log(data.sex.dicValue)
-    console.log(data.age)
-    console.log(data.pol.dicId)
-    console.log(data.brith)
-    console.log(data.idNumber)
-    console.log(data.education.dicId)
-    console.log(data.university)
-    console.log(data.major)
-    console.log(data.natives01.dicId)
-    console.log(data.natives02.dicId)
-    console.log(data.homeAddress1.dicValue)
-    console.log(data.homeAddress2.dicValue)
-    console.log(data.homeAddress3.dicValue)
-    console.log(data.homeNote)
-    console.log(data.phone)
-    console.log(data.marriage.dicValue)
-    console.log(data.health.dicValue)
-    console.log(data.bloodType.dicId)
-
-
-
-
-
-
-    $("div[class*='employee-name']").html(data.employeeName);
-    $("div[class*='employee-position']").html(data.positionId.positionName);
-    $("label[name='employeeId']").html(data.employeeId);
-    $("label[name='positionId']").html(data.positionId.positionName);
-    $("label[name='oinTime']").html(data.oinTime);
-    $("input[name='email']").val(data.email);
-    $("input[name='epassword']").val(data.epassword);
-    $("input[name='employeeName']").val(data.employeeName);
-    $("select[name='sex']").find("option:contains('" + data.sex.dicValue + "')").attr("selected", "selected");
-    $("input[name='age']").val(data.age);
-    $("select[name='pol'] > option[value='" + data.pol.dicId + "']").attr("selected", "selected");
-    $("input[name='brith']").val(data.brith);
-    $("input[name='idNumber']").val(data.idNumber);
-    $("select[name='education'] > option[value='" + data.education.dicId + "']").attr("selected", "selected");
-    $("input[name='university']").val(data.university);
-    $("input[name='major']").val(data.major);
-    $("select[name='natives01'] > option[value='" + data.natives01.dicId + "']").attr("selected", "selected");
-    $("select[name='natives01']").trigger('change');
-    $("select[name='natives02'] > option[value='" + data.natives02.dicId + "']").attr("selected", "selected");
-    $("select[name='homeAddress1'] > option[value='" + data.homeAddress1.dicValue + "']").attr("selected", "selected");
-    $("select[name='homeAddress1'] ").trigger('change');
-    $("select[name='homeAddress2'] > option[value='" + data.homeAddress2.dicValue + "']").attr("selected", "selected");
-    $("select[name='homeAddress2'] ").trigger('change');
-    $("select[name='homeAddress3'] > option[value='" + data.homeAddress3.dicValue + "']").attr("selected", "selected");
-    $("input[name='homeNote']").val(data.homeNote);
-    $("input[name='phone']").val(data.phone);
-    $("select[name='marriage'] > option[value='" + data.marriage.dicValue + "']").attr("selected", "selected");
-    $("select[name='health'] > option[value='" + data.health.dicValue + "']").attr("selected", "selected");
-    $("select[name='bloodType'] > option[value='" + data.bloodType.dicId + "']").attr("selected", "selected");
-    $("input[name='note']").val(data.note)
+    $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + mydata.headIcon + " float-left");
+    $("div[name='" + mydata.headIcon + "']").attr("class", "bavatcheak");
+    $("div[class*='employee-name']").html(mydata.employeeName);
+    $("div[class*='employee-position']").html(mydata.positionId.positionName);
+    $("label[name='employeeId']").html(mydata.employeeId);
+    $("label[name='positionId']").html(mydata.positionId.positionName);
+    $("label[name='oinTime']").html(mydata.oinTime);
+    $("input[name='email']").val(mydata.email);
+    $("input[name='epassword']").val(mydata.epassword);
+    $("input[name='employeeName']").val(mydata.employeeName);
+    $("select[name='sex']").find("option:contains('" + mydata.sex.dicValue + "')").attr("selected", "selected");
+    $("input[name='age']").val(mydata.age);
+    $("select[name='pol'] > option[value='" + mydata.pol.dicId + "']").attr("selected", "selected");
+    $("input[name='brith']").val(mydata.brith);
+    $("input[name='idNumber']").val(mydata.idNumber);
+    $("select[name='education'] > option[value='" + mydata.education.dicId + "']").attr("selected", "selected");
+    $("input[name='university']").val(mydata.university);
+    $("input[name='major']").val(mydata.major);
+    $("input[name='homeNote']").val(mydata.homeNote);
+    $("input[name='phone']").val(mydata.phone);
+    $("select[name='marriage'] > option[value='" + mydata.marriage.dicValue + "']").attr("selected", "selected");
+    $("select[name='health'] > option[value='" + mydata.health.dicValue + "']").attr("selected", "selected");
+    $("select[name='bloodType'] > option[value='" + mydata.bloodType.dicId + "']").attr("selected", "selected");
+    $("input[name='note']").val(mydata.note)
 }
 
 /*初始化数据从加载*/
@@ -192,11 +164,11 @@ function onloadSet() {
     //     url: baseUrl + "user/qby",
     //     dataType: "json",
     //     contentType: "application/json;charset=UTF-8",
-    //     data: JSON.stringify({"employeeId": data.employeeId}),
+    //     data: JSON.stringify({"employeeId": mydata.employeeId}),
     //     success: function (result) {
     //         if (result.resultCode === 200) {
-    //             data = result.data;
-    //             window.sessionStorage.setItem('data', JSON.stringify(result.data));
+    //             mydata = result.data;
+    //             window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
     //             window.location.reload()
     //         }
     //     }
@@ -284,8 +256,6 @@ function setempTable() {
 function record(a) {
     alert(a)
 }
-
-
 
 
 /*
@@ -445,12 +415,10 @@ function depSave() {
 }
 
 
-
-
 /**
  * description: 填入民族下拉列表参数
  */
-function setsexOption() {
+function setNatOption() {
     $("#ENationnal").empty();
     $("#ENationnal").append("<option value = '3623'>请选择</option>");
     $.ajax({
@@ -466,7 +434,7 @@ function setsexOption() {
                     var option = "<option value = '" + natdata[i].dicId + "'>" + natdata[i].dicValue + "</option>";
                     $("#ENationnal").append(option)
                 }
-                $("select[name='nattional'] > option[value='" + data.nattional.dicId + "']").attr("selected", "selected")
+                $("select[name='nattional'] > option[value='" + mydata.nattional.dicId + "']").attr("selected", "selected")
             }
         }
     });
@@ -499,6 +467,12 @@ function setAdd1Option() {
                     $("#Natives01").append(option)
                 }
             }
+            $("select[name='natives01'] > option[value='" + mydata.natives01.dicId + "']").attr("selected", "selected");
+            if ($("select[name='natives01'] > option[value='" + mydata.natives01.dicId + "']").attr("selected") === "selected")
+                $("select[name='natives01']").trigger('change');
+            $("select[name='homeAddress1'] > option[value='" + mydata.homeAddress1.dicId + "']").attr("selected", "selected");
+            if ($("select[name='homeAddress1'] > option[value='" + mydata.homeAddress1.dicId + "']").attr("selected") === "selected")
+                $("select[name='homeAddress1'] ").trigger('change');
         }
     });
 }
@@ -523,10 +497,12 @@ function setAdd2Option(a) {
                 var add2data = result.data;
                 for (i = 0; i < add2data.length; i++) {
                     var option = "<option name='" + add2data[i].dicNote + "'value = '" + add2data[i].dicId + "'>" + add2data[i].dicValue + "</option>";
-                    console.log(option);
                     $("#Home_Address02").append(option)
                 }
             }
+            $("select[name='homeAddress2'] > option[value='" + mydata.homeAddress2.dicId + "']").attr("selected", "selected");
+            if ($("select[name='homeAddress2'] > option[value='" + mydata.homeAddress2.dicId + "']").attr("selected") == "selected")
+                $("select[name='homeAddress2'] ").trigger('change');
         }
     });
 }
@@ -548,10 +524,10 @@ function setAdd3Option(a) {
                 var add3data = result.data;
                 for (i = 0; i < add3data.length; i++) {
                     var option = "<option name='" + add3data[i].dicNote + "'value = '" + add3data[i].dicId + "'>" + add3data[i].dicValue + "</option>";
-                    console.log(option);
                     $("#Home_Address03").append(option)
                 }
             }
+            $("select[name='homeAddress3'] > option[value='" + mydata.homeAddress3.dicId + "']").attr("selected", "selected");
         }
     });
 }
@@ -576,6 +552,7 @@ function setNatives02(a) {
                     var option = "<option name='" + add1data[i].dicNote + "' value = '" + add1data[i].dicId + "'>" + add1data[i].dicValue + "</option>";
                     $("#Natives02").append(option)
                 }
+                $("select[name='natives02'] > option[value='" + mydata.natives02.dicId + "']").attr("selected", "selected");
             }
         }
     });
@@ -599,7 +576,7 @@ function selectionActions(a, toUrl) {
 * */
 function headicon_save() {
     var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name");
-    var datas = {"employeeId": data.employeeId, "headIcon": nheadIcon};
+    var datas = {"employeeId": mydata.employeeId, "headIcon": nheadIcon};
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "user/upd",
@@ -614,7 +591,6 @@ function headicon_save() {
         }
     });
 }
-
 
 
 /**

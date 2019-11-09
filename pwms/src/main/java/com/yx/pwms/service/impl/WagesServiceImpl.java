@@ -28,6 +28,11 @@ public class WagesServiceImpl implements WagesService {
     }
 
     @Override
+    public Map<String, Object> queryMy(Map<String, Object> map) {
+        return wagesDao.queryMy((String) map.get("employeeId"));
+    }
+
+    @Override
     public int queryExist(long wagesId) {
         if (!Objects.isNull(queryList((Map<String, Object>) new HashMap<>().put("wagesId",wagesId)))){
             return 1;

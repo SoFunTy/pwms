@@ -56,6 +56,16 @@ public class WagesController {
     }
 
     /**
+     * 查询个人上月工资
+     */
+    @RequestMapping(value = "/qmy", method = RequestMethod.POST)
+    @ResponseBody
+    public Result queryMyWages(@RequestBody Map<String, Object> map) {
+        Map<String, Object> rap = wagesService.queryMy(map);
+        return Checker.check(rap);
+    }
+
+    /**
      * 更新
      */
     @RequestMapping(value = "/up", method = RequestMethod.POST)

@@ -30,6 +30,13 @@ public interface WagesDao {
     List<Wages> queryList(Map<String, Object> map);
 
     /**
+     * description: 查询个人上月
+     * @params Map<String, Object> map
+     * @return List
+     */
+    Map<String, Object> queryMy(String employeeId);
+
+    /**
      * description: 更新
      * @params Map<String, Object> map
      * @return int
