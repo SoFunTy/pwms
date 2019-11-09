@@ -85,7 +85,7 @@ public class PositionController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/upd", method = RequestMethod.POST)
+    @RequestMapping(value = "/up", method = RequestMethod.POST)
     @ResponseBody
     public Result updateDepartment(@RequestBody Map<String, String> map) {
         Positions positions = check(map);

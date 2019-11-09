@@ -6,13 +6,13 @@ var baseUrl = "http://localhost:8080/pwms/";
 //     window.location.href = baseUrl;
 //
 // }
+
 setData();
 userTypeCheck(mydata.permission.dicValue);
 
-
 /**
  * description: 根据权限显示对于模块
- *     //权限等级 3<2<1
+ * 权限等级 3<2<1
  * @params a 等级
  */
 function userTypeCheck(a) {
@@ -35,25 +35,26 @@ function userTypeCheck(a) {
 
 
 /**
- * description: 参数填入
+ * description: 数据加载
  */
 function setData() {
     if (mydata.permission.dicValue === "1") {
         setempTable();
         setDepartment();
     }
-
+    //主页工资
     setIndexWages();
-
     //主页公告
     setNewNotice();
-
+    //select选项加载
     setNatOption();
     setAdd1Option();
-
+    //用户数据填入
     setDataInto();
-}
 
+    //公告信息
+    setNotices()
+}
 
 /*头像设置*/
 function headicon(a) {
@@ -96,13 +97,15 @@ function ampAdd() {
     var list = $('input:radio[name="customRadio"]:checked').val();
 }
 
+/*
+*设置主页工资信息*/
 function setIndexWages() {
     $.ajax({
         type: "POST",
         url: baseUrl + "wage/qmy",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
-        data:  JSON.stringify({"employeeId": mydata.employeeId}),
+        data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.resultCode === 200) {
                 $("#lastMWage").html("￥ " + result.data.TOTAL)
@@ -113,6 +116,8 @@ function setIndexWages() {
     });
 }
 
+/*
+*设置主页公告信息*/
 function setNewNotice() {
     $.ajax({
         type: "POST",
@@ -128,7 +133,8 @@ function setNewNotice() {
     });
 }
 
-/*账号管理数据填入*/
+/*
+*账号管理数据填入*/
 function setDataInto() {
     $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + mydata.headIcon + " float-left");
     $("div[name='" + mydata.headIcon + "']").attr("class", "bavatcheak");
@@ -156,26 +162,49 @@ function setDataInto() {
     $("input[name='note']").val(mydata.note)
 }
 
-/*初始化数据从加载*/
+/*
+*初始化数据从加载*/
 function onloadSet() {
-
-    // $.ajax({
-    //     type: "POST",//方法类型
-    //     url: baseUrl + "user/qby",
-    //     dataType: "json",
-    //     contentType: "application/json;charset=UTF-8",
-    //     data: JSON.stringify({"employeeId": mydata.employeeId}),
-    //     success: function (result) {
-    //         if (result.resultCode === 200) {
-    //             mydata = result.data;
-    //             window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
-    //             window.location.reload()
-    //         }
-    //     }
-    // });
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "user/qby",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"employeeId": mydata.employeeId}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                mydata = result.data;
+                window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
+                window.location.reload()
+            }
+        }
+    });
 }
 
+/*
+* 加载公告页内容
+* */
+function setNotices() {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "notice/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                for (var i = 1; i <= 5; i++) {
+                    $("h5[name=notices" + i + "]").html(result.data[i - 1].noticesDate);
+                    $("p[name=notices" + i + "]").html(result.data[i - 1].notices);
+                }
+            }
+        }
+    });
+}
 
+/*
+* 员工花名册
+* */
 var empTable;
 
 function setempTable() {
@@ -257,11 +286,53 @@ function record(a) {
     alert(a)
 }
 
-
 /*
-*
-* 部门管理模块
-*/
+* 保存账号资料
+* */
+function setEmployee() {
+    var data = {
+        "employeeId": mydata.employeeId,
+        "email": $("input[name='email']").val(),
+        "epassword": $("input[name='epassword']").val(),
+        "employeeName": $("input[name='employeeName']").val(),
+        "sex": $("select[name='sex'] > option[selected='selected']").attr("value"),
+        "age": $("input[name='age']").val(),
+        "nattional": $("select[name='nattional'] > option[selected='selected']").attr("value"),
+        "natives01": $("select[name='natives01'] > option[selected='selected']").attr("value"),
+        "natives02": $("select[name='natives02'] > option[selected='selected']").attr("value"),
+        "pol": $("select[name='pol'] > option[selected='selected']").attr("value"),
+        "brith": $("input[name='brith']").val(),
+        "idNumber": $("input[name='idNumber']").val(),
+        "education": $("select[name='education'] > option[selected='selected']").attr("value"),
+        "university": $("input[name='university']").val(),
+        "major": $("input[name='major']").val(),
+        "homeAddress1": $("select[name='homeAddress1'] > option[selected='selected']").attr("value"),
+        "homeAddress2": $("select[name='homeAddress2'] > option[selected='selected']").attr("value"),
+        "homeAddress3": $("select[name='homeAddress3'] > option[selected='selected']").attr("value"),
+        "homeNote": $("input[name='homeNote']").val(),
+        "phone": $("input[name='phone']").val(),
+        "marriage": $("select[name='marriage'] > option[selected='selected']").attr("value"),
+        "health": $("select[name='health'] > option[selected='selected']").attr("value"),
+        "bloodType": $("select[name='bloodType'] > option[selected='selected']").attr("value"),
+        "note": $("input[name='note']").val()
+    };
+    console.log(data)
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "user/up",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功")
+                onloadSet()
+            }
+        }
+    });
+}
+
+/*部门管理模块*/
 var depTable;
 
 function setDepartment() {
@@ -378,7 +449,6 @@ function depDel(a) {
     })
 }
 
-
 function depSave() {
     var url = baseUrl + "dep/upd";
     if ($("input[name='depId']").attr("readonly") == null) {
@@ -414,10 +484,7 @@ function depSave() {
     depTable.ajax.reload(null, false);
 }
 
-
-/**
- * description: 填入民族下拉列表参数
- */
+/*description: 填入民族下拉列表参数*/
 function setNatOption() {
     $("#ENationnal").empty();
     $("#ENationnal").append("<option value = '3623'>请选择</option>");
@@ -440,9 +507,7 @@ function setNatOption() {
     });
 }
 
-/**
- * description: 添加省的select中option
- */
+/*添加省的select中option*/
 function setAdd1Option() {
     $("#Home_Address01").empty();
     $("#Home_Address02").empty();
@@ -477,7 +542,7 @@ function setAdd1Option() {
     });
 }
 
-//住址二级联动
+/*住址二级联动*/
 function setAdd2Option(a) {
     $("#Home_Address02").empty();
     $("#Home_Address03").empty();
@@ -532,7 +597,7 @@ function setAdd3Option(a) {
     });
 }
 
-//籍贯二级联动
+/*籍贯二级联动*/
 function setNatives02(a) {
     $("#Natives02").empty();
     $("#Natives02").append("<option name='7101' value = '3568'>请选择</option>");
@@ -558,11 +623,7 @@ function setNatives02(a) {
     });
 }
 
-/**
- * description:
- * @params a html的对象自身this
- * @return
- */
+/*切换主页菜单*/
 function selectionActions(a, toUrl) {
     $(".vertical-nav-menu > li > a").attr("class", "");
     $(".vertical-nav-menu > li > ul > li > a").attr("class", "");
@@ -571,9 +632,7 @@ function selectionActions(a, toUrl) {
     $("div[name*=" + toUrl + "]").css("display", "block")
 }
 
-/*
-* 头像保存
-* */
+/*头像保存*/
 function headicon_save() {
     var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name");
     var datas = {"employeeId": mydata.employeeId, "headIcon": nheadIcon};
@@ -593,11 +652,7 @@ function headicon_save() {
 }
 
 
-/**
- * 错误提示框
- * @return null
- * @param a
- */
+/*错误提示*/
 function showError(a) {
     Swal.fire({
         toast: true,
@@ -609,11 +664,7 @@ function showError(a) {
     });
 }
 
-/**
- * 成功提示框
- * @return null
- * @param a
- */
+/*成功提示*/
 function showSuccess(a) {
     Swal.fire({
         toast: true,
@@ -625,9 +676,7 @@ function showSuccess(a) {
     });
 }
 
-/**
- * 确认框
- */
+/*确认框*/
 function confirm() {
     Swal.fire({
         title: '确定删除?',

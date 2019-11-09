@@ -65,7 +65,7 @@ public class NoticesController {
     }
 
     /**
-     * 查询多个
+     * 查询5个
      */
     @RequestMapping(value = "/qli", method = RequestMethod.POST)
     @ResponseBody

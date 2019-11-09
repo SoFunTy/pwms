@@ -98,7 +98,7 @@ public class EmployeeController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/upd", method = RequestMethod.POST)
+    @RequestMapping(value = "/up", method = RequestMethod.POST)
     @ResponseBody
     public Result updateEmployee(@RequestBody Map<String, Object> map) {
         if (Objects.isNull(map.get("employeeId"))) return ResultGenerator.genErrorResult(406, "输入错误");
