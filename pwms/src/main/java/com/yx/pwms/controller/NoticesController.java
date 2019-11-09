@@ -75,6 +75,16 @@ public class NoticesController {
     }
 
     /**
+     * 查询最新的
+     */
+    @RequestMapping(value = "/qne", method = RequestMethod.POST)
+    @ResponseBody
+    public Result queryNew() {
+        Notices raps = noticesService.queryBy(new HashMap<>());
+        return Checker.check(raps);
+    }
+
+    /**
      * 更新
      */
     @RequestMapping(value = "/up", method = RequestMethod.POST)

@@ -46,7 +46,8 @@
         select
         <include refid="Notices_Column_List" />
         from NOTICES
-        where NOTICES_ID = #{noticesId}
+        order by NOTICES_ID desc
+        limit 1
     </select>
 
     <update id="updateNotices" parameterType="Notices">

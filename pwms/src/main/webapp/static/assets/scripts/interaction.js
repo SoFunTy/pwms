@@ -46,11 +46,14 @@ function setData() {
         setempTable();
         setDepartment();
     }
+    //主页公告
+    setNewNotice()
+
     setsexOption();
     setAdd1Option();
-    window.setTimeout(function () {
-        setDataInto();
-    },500);
+    // window.setTimeout(function () {
+    //     setDataInto();
+    // },500);
 }
 
 
@@ -96,13 +99,61 @@ function ampAdd() {
     var list= $('input:radio[name="customRadio"]:checked').val();
 }
 
+function setNewNotice() {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "notice/qne",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result.resultCode === 200){
+                $("#indexNoticeTime").html(result.data.noticesDate)
+                $("#indexNotice").html(result.data.notices)
+            }
+        }
+    });
+}
+
 /*账号管理数据填入*/
 function setDataInto() {
     $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + data.headIcon + " float-left");
     $("div[name='" + data.headIcon + "']").attr("class", "bavatcheak");
+
+    console.log(data.headIcon)
+    console.log(data.employeeName)
+    console.log(data.positionId.positionName)
+    console.log(data.employeeId)
+    console.log(data.positionId.positionName)
+    console.log(data.oinTime)
+    console.log(data.email)
+    console.log(data.epassword)
+    console.log(data.employeeName)
+    console.log(data.sex.dicValue)
+    console.log(data.age)
+    console.log(data.pol.dicId)
+    console.log(data.brith)
+    console.log(data.idNumber)
+    console.log(data.education.dicId)
+    console.log(data.university)
+    console.log(data.major)
+    console.log(data.natives01.dicId)
+    console.log(data.natives02.dicId)
+    console.log(data.homeAddress1.dicValue)
+    console.log(data.homeAddress2.dicValue)
+    console.log(data.homeAddress3.dicValue)
+    console.log(data.homeNote)
+    console.log(data.phone)
+    console.log(data.marriage.dicValue)
+    console.log(data.health.dicValue)
+    console.log(data.bloodType.dicId)
+
+
+
+
+
+
     $("div[class*='employee-name']").html(data.employeeName);
     $("div[class*='employee-position']").html(data.positionId.positionName);
-
     $("label[name='employeeId']").html(data.employeeId);
     $("label[name='positionId']").html(data.positionId.positionName);
     $("label[name='oinTime']").html(data.oinTime);
