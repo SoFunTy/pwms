@@ -70,7 +70,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int updateEmployee(Map<String, Object> map) {
         if (!Objects.isNull(map.get("epassword"))){
-            map.put("epassword", MD5Util.MD5Encode(map.get("epassword").toString(), "UTF-8"));
+            if(map.get("epassword").toString().length() < 16)
+                map.put("epassword", MD5Util.MD5Encode(map.get("epassword").toString(), "UTF-8"));
+            else
+                map.remove("epassword");
         }
         return employeeDao.updateEmployee(map);
     }

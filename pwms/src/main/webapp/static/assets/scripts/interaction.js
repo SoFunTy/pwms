@@ -40,6 +40,7 @@ function userTypeCheck(a) {
 function setData() {
     if (mydata.permission.dicValue === "1") {
         setempTable();
+        setwagesTable();
         setDepartment();
     }
     //主页工资
@@ -92,9 +93,41 @@ function checkValid(a) {
         });
     }
 }
-
+/*
+* 奖罚添加*/
 function ampAdd() {
-    var list = $('input:radio[name="customRadio"]:checked').val();
+    var reward = 0;
+    var punishment = 0;
+    if ($("input:radio[name='customRadio']:checked").val() === "reward"){
+        reward = $("input[name='cnumber']").val();
+    }
+    if ($("input:radio[name='customRadio']:checked").val() === "punishment"){
+        punishment = $("input[name='cnumber']").val();
+    }
+    var myDate = new Date;
+    var year = myDate.getFullYear();
+    var mon = myDate.getMonth() + 1;
+    var date = myDate.getDate();
+    var data = {
+        "employeeId": $("#cemployeeId").val(),
+        "recodingTime": year + "-" + mon + "-" + date,
+        "information": $("#einfo").val(),
+        "reward": reward,
+        "punishment": punishment
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "rap/ins",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("添加成功");
+                $("button[name='ampReset']").click()
+            }
+        }
+    });
 }
 
 /*
@@ -731,6 +764,111 @@ function depSave() {
     depTable.ajax.reload(null, false);
 }
 
+
+
+
+/*
+* 员工工资表
+* */
+var wageTable;
+var wdata;
+
+function setwagesTable() {
+    wageTable = $('#wagesList').DataTable({
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        "retrieve": "true",
+        "ajax": {
+            "url": baseUrl + "wage/qal",
+            "dataType": "json",
+            "type": "POST",
+            "dataSrc": "data"
+        },
+        "columns": [
+            {
+                "data": "wagesId",
+                "class": "fc-1"
+            },
+            {
+                "data": "employeeId"
+            },
+            {
+                "data": "total"
+            },
+            {
+                "data": "releaseTime"
+            },
+            {
+                "data": "persion",
+                "orderable": false
+            },
+            {
+                "data": "eInsurance",
+                "orderable": false
+            },
+            {
+                "data": "iInsurance",
+                "orderable": false
+            },
+            {
+                "data": "fund",
+                "orderable": false
+            },
+            {
+                "data": "subsidy",
+                "orderable": false
+            },
+            {
+                "data": "oAdd",
+                "orderable": false
+            },
+            {
+                "data": "oBuckle",
+                "orderable": false
+            },
+            {
+                "data": "wagesId",
+                "orderable": false,
+                "mRender": function (data, type, full) {
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' onclick='wrecord(" + data + ")'>修改</button>";
+                }
+            }
+        ]
+    })
+}
+
+/*
+* 工资信息显示*/
+function wrecord(a) {
+
+}
+
+
+
+
+
 /*
 * 账号设置
 * */
@@ -756,7 +894,6 @@ function setNatOption() {
         }
     });
 }
-
 /*添加省的select中option*/
 function setAdd1Option() {
     $("#Home_Address01").empty();
@@ -791,7 +928,6 @@ function setAdd1Option() {
         }
     });
 }
-
 /*住址二级联动*/
 function setAdd2Option(a) {
     $("#Home_Address02").empty();
@@ -821,7 +957,6 @@ function setAdd2Option(a) {
         }
     });
 }
-
 function setAdd3Option(a) {
     $("#Home_Address03").empty();
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
@@ -846,7 +981,6 @@ function setAdd3Option(a) {
         }
     });
 }
-
 /*籍贯二级联动*/
 function setNatives02(a) {
     $("#Natives02").empty();
@@ -872,7 +1006,6 @@ function setNatives02(a) {
         }
     });
 }
-
 /*切换主页菜单*/
 function selectionActions(a, toUrl) {
     $(".vertical-nav-menu > li > a").attr("class", "");

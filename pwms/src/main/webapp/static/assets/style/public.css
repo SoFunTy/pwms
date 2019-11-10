@@ -545,12 +545,35 @@ div.row.rowlist .event_list li p span {
     background-size: 100% auto;
 }
 
+#wagesList_length > label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+#wagesList_filter > label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+#wagesList_filter > label > input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+#wagesList_wrapper > div:nth-child(3){
+    height: 39px;
+}
+#wagesList_paginate > ul > li{
+    margin: 0;
+    padding: 0;
+}
+
+
 #employeeList_length > label {
     font-weight: normal;
     text-align: left;
     white-space: nowrap;
 }
-
 #employeeList_filter > label {
     font-weight: normal;
     white-space: nowrap;

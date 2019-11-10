@@ -455,6 +455,7 @@
                 <div name="admin departmental_wage_year">
                     <h1>部门工资统计（年）</h1>
                 </div>
+
                 <!--人事管理-->
                 <!--员工花名册-->
                 <div name="admin personnel_management_all">
@@ -774,7 +775,31 @@
                 <!--员工工资管理-->
                 <!--员工工资查询-->
                 <div name="admin staff_salary_enquiry">
-                    <h1>员工工资查询</h1>
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <table id="wagesList" class="table table-striped row-border table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th>工号</th>
+<!--                                    <th>姓名</th>-->
+                                    <th>总和</th>
+                                    <th>发放日期</th>
+                                    <th>社保养老金</th>
+                                    <th>养老保险</th>
+                                    <th>医疗保险</th>
+                                    <th>公积金</th>
+                                    <th>通讯补贴</th>
+                                    <th>其他加</th>
+                                    <th>其他扣</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <!--工资信息修改-->
                 <div name="admin staff_salary_update">
@@ -803,12 +828,12 @@
 
                 <!--员工奖罚-->
                 <div name="checkeradmin add_rewardandpenalty">
-                    <div class="app-main__inner bg col-12">
+                    <div class="app-main__inner">
                         <div class="row mt-13 align-items-center he-100 align-content-center pr-5">
-                            <div class="mg-center col-3 main-card mb-3 pl-4 pr-4 pt-2 pb-2 card">
-                                <div class="card-body col-12">
+                            <div class="mg-center main-card mb-3 pl-4 pr-4 pt-2 pb-2 card" style="width: 360px;">
+                                <div class="card-body">
                                     <h4 class="card-title">奖罚添加：</h4>
-                                    <form class="mt-2">
+                                    <form onsubmit="return false;" class="mt-2">
                                         <input placeholder="工号" id="cemployeeId" type="text" oninput="checkValid (this)" class="mb-2 form-control">
                                         <input placeholder="姓名" id="cemployeeName" type="text" class="mb-2 form-control" readonly>
                                         <div class="divider">
@@ -816,13 +841,13 @@
                                         <div class="mb-4 form-group">
                                             <div class="mg-center w-55">
                                                 <div class="custom-radio float-left custom-control">
-                                                    <input type="radio" id="addRadio" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" value="reward" id="addRadio" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="addRadio">
                                                         奖励
                                                     </label>
                                                 </div>
                                                 <div class="custom-radio float-right custom-control">
-                                                    <input type="radio" id="penaltyRadio" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" value="punishment" id="penaltyRadio" name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="penaltyRadio">
                                                         罚扣
                                                     </label>
@@ -833,11 +858,11 @@
                                             <input placeholder="金额" name="cnumber" type="number" class="mb-2 form-control">
                                             <div class="position-relative form-group">
                                                 <label for="einfo" class="text-left">具体情况</label>
-                                                <textarea name="text" id="einfo" class="form-control">
+                                                <textarea name="text" id="einfo" class="form-control text-left">
                                                 </textarea>
                                             </div>
                                             <button id="ampbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus" disabled="disabled" onclick="ampAdd()">添加</button>
-                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" type="reset">重置</button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="ampReset" type="reset">重置</button>
                                         </div>
                                     </form>
                                 </div>
