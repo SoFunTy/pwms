@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UtilsTest {
-    private String str1 = "100013";
+    private String str1 = "100001";
     @Test
     public void MD5UtilTest(){
         System.out.println(MD5Util.MD5Encode(str1,"UTF-8"));

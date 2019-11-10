@@ -185,7 +185,7 @@ $.fn.lqdatetimepicker.setDateData = function($this,_obj,_item,_this){
             _time.appendTo(_item);
         }
     }
-}
+};
 
 $.fn.lqdatetimepicker.setDateTime = function(_this){
     var dateTime;
@@ -269,7 +269,7 @@ $.fn.lqdatetimepicker.intMonthTime = function(_this){
         _a.push(i);
     }
     return _a;
-}
+};
 
 /*年份*/
 $.fn.lqdatetimepicker.intYearTime = function(_this){
@@ -280,11 +280,11 @@ $.fn.lqdatetimepicker.intYearTime = function(_this){
         _a.push(i);
     }
     return _a;
-}
+};
 
 $.fn.lqdatetimepicker.intWeek = function(){
     return ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
-}
+};
 
 $.fn.lqdatetimepicker.dateAdd = function(interval, NumDay, dtDate){
     var dtTmp = new Date(dtDate);

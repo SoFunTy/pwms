@@ -109,6 +109,7 @@ function setIndexWages() {
         success: function (result) {
             if (result.resultCode === 200) {
                 $("#lastMWage").html("￥ " + result.data.TOTAL)
+                $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
                 $("#lastMWageA").html("￥ " + result.data.O_ADD)
                 $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
             }
@@ -136,7 +137,7 @@ function setNewNotice() {
 /*
 *账号管理数据填入*/
 function setDataInto() {
-    $("div[class='rounded-circle avat float-left']").attr("class", "rounded-circle avat avatar" + mydata.headIcon + " float-left");
+    $("div.app-header__content > div > div > div > div > div:nth-child(1) > div > a > div").attr("class", "rounded-circle avat avatar" + mydata.headIcon + " float-left");
     $("div[name='" + mydata.headIcon + "']").attr("class", "bavatcheak");
     $("div[class*='employee-name']").html(mydata.employeeName);
     $("div[class*='employee-position']").html(mydata.positionId.positionName);
@@ -159,7 +160,7 @@ function setDataInto() {
     $("select[name='marriage'] > option[value='" + mydata.marriage.dicId + "']").attr("selected", "selected");
     $("select[name='health'] > option[value='" + mydata.health.dicId + "']").attr("selected", "selected");
     $("select[name='bloodType'] > option[value='" + mydata.bloodType.dicId + "']").attr("selected", "selected");
-    $("input[name='note']").val(mydata.note)
+    $("textarea[name='note']").val(mydata.note)
 }
 
 /*
@@ -207,6 +208,7 @@ function setNotices() {
 * 员工花名册
 * */
 var empTable;
+var ndata;
 
 function setempTable() {
     empTable = $('#employeeList').DataTable({
@@ -283,8 +285,251 @@ function setempTable() {
     })
 }
 
+/*
+* 员工档案
+* */
 function record(a) {
-    alert(a)
+    $("div.app-sidebar__inner.mt-2 > ul > li.mm-active > ul > li:nth-child(2) > a").click();
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "user/qby",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"employeeId": a}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                ndata = result.data;
+                $("label[name='pemployeeId']").html(ndata.employeeId);
+                setPosition();
+                $("input[name='poinTime']").val(ndata.oinTime);
+                $("input[name='pemail']").val(ndata.email);
+                $("input[name='pepassword']").val(ndata.epassword);
+                $("input[name='pemployeeName']").val(ndata.employeeName);
+                $("select[name='psex']").find("option:contains('" + ndata.sex.dicValue + "')").attr("selected", "selected");
+                $("input[name='page']").val(ndata.age);
+                $("select[name='ppol'] > option[value='" + ndata.pol.dicId + "']").attr("selected", "selected");
+                $("input[name='pbrith']").val(ndata.brith);
+                $("input[name='pidNumber']").val(ndata.idNumber);
+                $("select[name='peducation'] > option[value='" + ndata.education.dicId + "']").attr("selected", "selected");
+                $("input[name='puniversity']").val(ndata.university);
+                $("input[name='pmajor']").val(ndata.major);
+                $("input[name='phomeNote']").val(ndata.homeNote);
+                $("input[name='pphone']").val(ndata.phone);
+                $("select[name='pmarriage'] > option[value='" + ndata.marriage.dicId + "']").attr("selected", "selected");
+                $("select[name='phealth'] > option[value='" + ndata.health.dicId + "']").attr("selected", "selected");
+                $("select[name='pbloodType'] > option[value='" + ndata.bloodType.dicId + "']").attr("selected", "selected");
+                $("textarea[name='pnote']").val(ndata.note)
+                setpNatOption();
+                setpAdd1Option();
+            }
+        }
+    });
+}
+
+/*动态加载职位select option*/
+function setPosition() {
+    $("select[name='ppositionId']").empty();
+    $("select[name='ppositionId']").append("<option value = '3623'>请选择</option>");
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "pos/qal",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"dicNote": "民族"}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var natdata = result.data;
+                for (i = 0; i < natdata.length; i++) {
+                    var option = "<option value = '" + natdata[i].positionId + "'>" + natdata[i].positionName + "</option>";
+                    $("select[name='ppositionId']").append(option)
+                }
+                $("select[name='ppositionId'] > option[value='" + ndata.positionId.positionId + "']").attr("selected", "selected")
+            }
+        }
+    });
+}
+/*动态加载民族select option*/
+function setpNatOption() {
+    $("#PNationnal").empty();
+    $("#PNationnal").append("<option value = '3623'>请选择</option>");
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dic/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"dicNote": "民族"}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var natdata = result.data;
+                for (i = 0; i < natdata.length; i++) {
+                    var option = "<option value = '" + natdata[i].dicId + "'>" + natdata[i].dicValue + "</option>";
+                    $("#PNationnal").append(option)
+                }
+                $("select[name='pnattional'] > option[value='" + ndata.nattional.dicId + "']").attr("selected", "selected")
+            }
+        }
+    });
+}
+/*添加省的select中option*/
+function setpAdd1Option() {
+    $("#PHome_Address01").empty();
+    $("#PHome_Address02").empty();
+    $("#PHome_Address03").empty();
+    $("#PNatives01").empty();
+    $("#PNatives01").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#PHome_Address01").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#PHome_Address02").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#PHome_Address03").append("<option name='7101' value = '3568'>请选择</option>");
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dic/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"dicRelation": "0"}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var add1data = result.data;
+                for (i = 0; i < add1data.length; i++) {
+                    var option = "<option name='" + add1data[i].dicNote + "' value = '" + add1data[i].dicId + "'>" + add1data[i].dicValue + "</option>";
+                    $("#PHome_Address01").append(option);
+                    $("#PNatives01").append(option)
+                }
+            }
+            $("select[name='pnatives01'] > option[value='" + ndata.natives01.dicId + "']").attr("selected", "selected");
+            if ($("select[name='pnatives01'] > option[value='" + ndata.natives01.dicId + "']").attr("selected") === "selected")
+                $("select[name='pnatives01']").trigger('change');
+            $("select[name='phomeAddress1'] > option[value='" + ndata.homeAddress1.dicId + "']").attr("selected", "selected");
+            if ($("select[name='phomeAddress1'] > option[value='" + ndata.homeAddress1.dicId + "']").attr("selected") === "selected")
+                $("select[name='phomeAddress1'] ").trigger('change');
+        }
+    });
+}
+/*住址二级联动*/
+function setpAdd2Option(a) {
+    $("#PHome_Address02").empty();
+    $("#PHome_Address03").empty();
+    $("#PHome_Address03").append("<option name='7101' value = '3568'>请选择</option>");
+    $("#PHome_Address02").append("<option name='7101' value = '3568'>请选择</option>");
+    if (a.selectedIndex == 0)
+        return;
+    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dic/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var add2data = result.data;
+                for (i = 0; i < add2data.length; i++) {
+                    var option = "<option name='" + add2data[i].dicNote + "'value = '" + add2data[i].dicId + "'>" + add2data[i].dicValue + "</option>";
+                    $("#PHome_Address02").append(option)
+                }
+            }
+            $("select[name='phomeAddress2'] > option[value='" + ndata.homeAddress2.dicId + "']").attr("selected", "selected");
+            if ($("select[name='phomeAddress2'] > option[value='" + ndata.homeAddress2.dicId + "']").attr("selected") == "selected")
+                $("select[name='phomeAddress2'] ").trigger('change');
+        }
+    });
+}
+function setpAdd3Option(a) {
+    $("#PHome_Address03").empty();
+    $("#PHome_Address03").append("<option name='7101' value = '3568'>请选择</option>");
+    if (a.selectedIndex === 0)
+        return;
+    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dic/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var add3data = result.data;
+                for (i = 0; i < add3data.length; i++) {
+                    var option = "<option name='" + add3data[i].dicNote + "'value = '" + add3data[i].dicId + "'>" + add3data[i].dicValue + "</option>";
+                    $("#PHome_Address03").append(option)
+                }
+            }
+            $("select[name='phomeAddress3'] > option[value='" + ndata.homeAddress3.dicId + "']").attr("selected", "selected");
+        }
+    });
+}
+/*籍贯二级联动*/
+function setpNatives02(a) {
+    $("#PNatives02").empty();
+    $("#PNatives02").append("<option name='7101' value = '3568'>请选择</option>");
+    if (a.selectedIndex === 0)
+        return;
+    data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "dic/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var add1data = result.data;
+                for (i = 0; i < add1data.length; i++) {
+                    var option = "<option name='" + add1data[i].dicNote + "' value = '" + add1data[i].dicId + "'>" + add1data[i].dicValue + "</option>";
+                    $("#PNatives02").append(option)
+                }
+                $("select[name='pnatives02'] > option[value='" + ndata.natives02.dicId + "']").attr("selected", "selected");
+            }
+        }
+    });
+}
+
+/*
+* 员工档案保存
+* */
+function setpEmployee() {
+    var data = {
+        "employeeId": ndata.employeeId,
+        "positionId": $("select[name='ppositionId']").val(),
+        "oinTime": $("input[name='poinTime']").val(),
+        "email": $("input[name='pemail']").val(),
+        "epassword": $("input[name='pepassword']").val(),
+        "employeeName": $("input[name='pemployeeName']").val(),
+        "sex": $("select[name='psex']").val(),
+        "age": $("input[name='page']").val(),
+        "nattional": $("select[name='pnattional']").val(),
+        "natives01": $("select[name='pnatives01']").val(),
+        "natives02": $("select[name='pnatives02']").val(),
+        "pol": $("select[name='ppol']").val(),
+        "brith": $("input[name='pbrith']").val(),
+        "idNumber": $("input[name='pidNumber']").val(),
+        "education": $("select[name='peducation']").val(),
+        "university": $("input[name='puniversity']").val(),
+        "major": $("input[name='pmajor']").val(),
+        "homeAddress1": $("select[name='phomeAddress1']").val(),
+        "homeAddress2": $("select[name='phomeAddress2']").val(),
+        "homeAddress3": $("select[name='phomeAddress3']").val(),
+        "homeNote": $("input[name='phomeNote']").val(),
+        "phone": $("input[name='pphone']").val(),
+        "marriage": $("select[name='pmarriage']").val(),
+        "health": $("select[name='phealth']").val(),
+        "bloodType": $("select[name='pbloodType']").val(),
+        "note": $("textarea[name='pnote']").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "user/up",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        async:false,
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功");
+                record(ndata.employeeId);
+                onloadSet()
+            }
+        }
+    });
 }
 
 /*
@@ -315,7 +560,7 @@ function setEmployee() {
         "marriage": $("select[name='marriage']").val(),
         "health": $("select[name='health']").val(),
         "bloodType": $("select[name='bloodType']").val(),
-        "note": $("input[name='note']").val()
+        "note": $("textarea[name='note']").val()
     };
     $.ajax({
         type: "POST",
@@ -486,6 +731,9 @@ function depSave() {
     depTable.ajax.reload(null, false);
 }
 
+/*
+* 账号设置
+* */
 /*description: 填入民族下拉列表参数*/
 function setNatOption() {
     $("#ENationnal").empty();

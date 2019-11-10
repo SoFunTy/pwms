@@ -482,7 +482,264 @@
                 </div>
                 <!--员工档案-->
                 <div name="admin personnel_management_single">
-                    <h1>员工查询</h1>
+                    <div class="account main-card mb-3 card">
+                        <div class="card-body">
+                            <h3 class="card-title">账号信息：</h3>
+                            <div class="tab-pane tabs-animation fade active show" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body pl-5">
+                                        <form action="#" onsubmit="return false;" method="post" class="">
+                                            <div class="form-row mb-4">
+                                                <div class="col-md-4">
+                                                    <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group form-inline">
+                                                        <label class="">员工编号：</label>
+                                                        <label name="pemployeeId" class="ml-0 badge fs-4 badge-info"  style="width: 80px;height: 30px;"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                        <label class="">入职职位：</label>
+                                                        <select name="ppositionId" class="ml-0 badge fs-5 badge-info" style="width: 120px;height: 36px;">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group form-inline">
+                                                        <label class="">入职时间：</label>
+                                                        <input name="poinTime" type="text" name="datepicker"
+                                                               id="ptdatetimepicker3"
+                                                               class="form-control" value="1990-1-1"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PEmail"
+                                                           class=" col-3 col-form-label bg-light br-a">邮箱</label>
+                                                    <div class="col-6">
+                                                        <input name="pemail" id="PEmail" placeholder="邮箱" type="email"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PPassword"
+                                                           class=" col-3 col-form-label bg-light br-a">密码</label>
+                                                    <div class="col-6">
+                                                        <input name="pepassword" id="PPassword" placeholder="密码"
+                                                               type="password" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PName"
+                                                           class=" col-3 col-form-label bg-light br-a">姓名</label>
+                                                    <div class="col-6">
+                                                        <input name="pemployeeName" id="PName" placeholder="姓名"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PSex"
+                                                           class=" col-3 col-form-label bg-light br-a">性别</label>
+                                                    <div class="col-6">
+                                                        <select name="psex" id="PSex" class="form-control">
+                                                            <option value="3622">请选择</option>
+                                                            <option value="1">男</option>
+                                                            <option value="2">女</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PAge"
+                                                           class=" col-3 col-form-label bg-light br-a">年龄</label>
+                                                    <div class="col-6">
+                                                        <input name="page" id="PAge"
+                                                               oninput="value=value.replace(/[^\d]/g,'')"
+                                                               placeholder="年龄"
+                                                               type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PNationnal"
+                                                           class=" col-3 col-form-label bg-light br-a">民族</label>
+                                                    <div class="col-6">
+                                                        <select name="pnattional" id="PNationnal" class="form-control">
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENatives"
+                                                           class=" col-3 col-form-label bg-light br-a">籍贯</label>
+                                                    <div class="col-6 row m-0 " id="PNatives">
+                                                        <select name="pnatives01" id="PNatives01"
+                                                                onchange="setpNatives02(this)"
+                                                                class="col-5 form-control">
+                                                        </select>
+                                                        <select name="pnatives02" id="PNatives02"
+                                                                class="col-5 ml-2 form-control">
+                                                            <option name='7101' value='3568'>请选择</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PPol"
+                                                           class=" col-3 col-form-label bg-light br-a">政治面貌</label>
+                                                    <div class="col-6">
+                                                        <select name="ppol" id="PPol" class="form-control">
+                                                            <option value="3621">请选择</option>
+                                                            <option value="3581">共青团员</option>
+                                                            <option value="3582">党员</option>
+                                                            <option value="3583">预备党员</option>
+                                                            <option value="3584">无党派人士</option>
+                                                            <option value="3585">群众</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PBrith"
+                                                           class=" col-3 col-form-label bg-light br-a">出生日期</label>
+                                                    <div class="col-6" id="PBrith">
+                                                        <div class="form-group mb-0 float-left w-100">
+                                                            <input name="pbrith" type="text" name="datepicker"
+                                                                   id="pdatetimepicker3"
+                                                                   class="form-control" value="1990-1-1"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EId_Number"
+                                                           class=" col-3 col-form-label bg-light br-a">身份证</label>
+                                                    <div class="col-6">
+                                                        <input name="pidNumber" id="PId_Number" maxlength="18"
+                                                               placeholder="身份证" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EEducation"
+                                                           class=" col-3 col-form-label bg-light br-a">学历</label>
+                                                    <div class="col-6">
+                                                        <select name="peducation" id="PEducation" class="form-control">
+                                                            <option value="3620">请选择</option>
+                                                            <option value="3591">本科</option>
+                                                            <option value="3590">专科</option>
+                                                            <option value="3592">硕士研究生</option>
+                                                            <option value="3588">中专</option>
+                                                            <option value="3593">博士研究生</option>
+                                                            <option value="3589">高中</option>
+                                                            <option value="3587">初中</option>
+                                                            <option value="3586">小学</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PUniversity"
+                                                           class=" col-3 col-form-label bg-light br-a">毕业院校</label>
+                                                    <div class="col-6">
+                                                        <input name="puniversity" id="PUniversity" placeholder="毕业院校"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PMajor"
+                                                           class=" col-3 col-form-label bg-light br-a">专业</label>
+                                                    <div class="col-6">
+                                                        <input name="pmajor" id="PMajor" placeholder="专业" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PHome_Address"
+                                                           class=" col-3 pt-4 col-form-label bg-light br-a">家庭住址</label>
+                                                    <div class="col-8 row m-0" id="PHome_Address">
+                                                        <select name="phomeAddress1" id="PHome_Address01"
+                                                                onchange="setpAdd2Option(this)"
+                                                                class="col-3 form-control">
+                                                        </select>
+                                                        <select name="phomeAddress2" id="PHome_Address02"
+                                                                onchange="setpAdd3Option(this)"
+                                                                class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <select name="phomeAddress3" id="PHome_Address03"
+                                                                class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <input name="phomeNote" id="PHome_Address_Note"
+                                                               placeholder="具体街道门牌" type="text"
+                                                               class="form-control mt-1">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PPhone"
+                                                           class=" col-3 col-form-label bg-light br-a">电话</label>
+                                                    <div class="col-6">
+                                                        <input name="pphone" id="PPhone"
+                                                               oninput="value=value.replace(/[^\d]/g,'')" maxlength="11"
+                                                               placeholder="电话" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PMarriage"
+                                                           class=" col-3 col-form-label bg-light br-a">婚否</label>
+                                                    <div class="col-6">
+                                                        <select name="pmarriage" id="PMarriage" class="form-control">
+                                                            <option value="3602">是</option>
+                                                            <option value="3603">否</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PHealth"
+                                                           class=" col-3 col-form-label bg-light br-a">健康情况</label>
+                                                    <div class="col-6">
+                                                        <select name="phealth" id="PHealth" class="form-control">
+                                                            <option value="3608">健康</option>
+                                                            <option value="3609">一般</option>
+                                                            <option value="3610">较差</option>
+                                                            <option value="3611">有严重疾病、慢性疾病或身体伤残</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PBlood_Type"
+                                                           class=" col-3 col-form-label bg-light br-a">血型</label>
+                                                    <div class="col-6">
+                                                        <select name="pbloodType" id="PBlood_Type" class="form-control">
+                                                            <option value="3594">A</option>
+                                                            <option value="3598">B</option>
+                                                            <option value="3599">O</option>
+                                                            <option value="3600">AB</option>
+                                                            <option value="3601">ABO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PNote"
+                                                           class=" col-3 pt-3 col-form-label bg-light br-a">备注</label>
+                                                    <div class="col-8">
+                                                        <textarea name="pnote" id="PNote"
+                                                                  class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"  onclick="setpEmployee()">保存</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!--人事部门管理-->
                 <div name="admin personnel_department_management">
@@ -617,7 +874,7 @@
                                         <div class="widget-subheading">总工资</div>
                                     </div>
                                     <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 8680</span></div>
+                                        <div class="widget-numbers text-white"><span name="LastMWages"></span></div>
                                     </div>
                                 </div>
                             </div>
@@ -632,90 +889,6 @@
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-white"><span>￥ 500</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-danger">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">罚扣</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-danger">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">罚扣</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-success">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">奖励</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 500</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-danger">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">罚扣</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-danger">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">罚扣</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-success">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">奖励</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 500</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3">
-                            <div class="card mb-3 widget-content bg-danger">
-                                <div class="widget-content-wrapper text-white">
-                                    <div class="widget-content-left">
-                                        <div class="widget-heading">罚扣</div>
-                                    </div>
-                                    <div class="widget-content-right">
-                                        <div class="widget-numbers text-white"><span>￥ 280</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -1697,6 +1870,24 @@
 <script src="../assets/scripts/interaction.js"></script>
 <script type="text/javascript">
 
+    $("#ptdatetimepicker3").on("click", function (e) {
+        e.stopPropagation();
+        $(this).lqdatetimepicker({
+            css: 'datetime-day',
+            dateType: 'D',
+            selectback: function () {
+            }
+        });
+    });
+    $("#pdatetimepicker3").on("click", function (e) {
+        e.stopPropagation();
+        $(this).lqdatetimepicker({
+            css: 'datetime-day',
+            dateType: 'D',
+            selectback: function () {
+            }
+        });
+    });
     $("#datetimepicker3").on("click", function (e) {
         e.stopPropagation();
         $(this).lqdatetimepicker({
