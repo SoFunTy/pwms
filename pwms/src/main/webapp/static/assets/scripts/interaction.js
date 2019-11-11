@@ -1,5 +1,12 @@
 var mydata = JSON.parse(window.sessionStorage.getItem("mydata"));
 var baseUrl = "http://localhost:8080/pwms/";
+/*数据表格对象以及临时数据保存对象*/
+var empTable;
+var ndata;
+var wageTable;
+var wdata;
+var staffTable;
+var sdata;
 //登录验证
 // if (data == null || data === ""){
 //     showError("请登录！")
@@ -9,6 +16,25 @@ var baseUrl = "http://localhost:8080/pwms/";
 
 setData();
 userTypeCheck(mydata.permission.dicValue);
+
+$("#personnel_management_all").on("click",function () {
+    setempTable()
+});
+$("#personnel_department_management").on("click",function () {
+    setDepartment()
+});
+$("#staff_induction").on("click",function () {
+    setstaffTable()
+});
+$("#account").on("click",function () {
+    setDataInto()
+});
+$("#notice").on("click",function () {
+    setNotices()
+});
+$("#staff_salary_enquiry").on("click",function () {
+    setwagesTable()
+});
 
 /**
  * description: 根据权限显示对于模块
@@ -38,11 +64,6 @@ function userTypeCheck(a) {
  * description: 数据加载
  */
 function setData() {
-    if (mydata.permission.dicValue === "1") {
-        setempTable();
-        setwagesTable();
-        setDepartment();
-    }
     //主页工资
     setIndexWages();
     //主页公告
@@ -50,17 +71,20 @@ function setData() {
     //select选项加载
     setNatOption();
     setAdd1Option();
-    //用户数据填入
-    setDataInto();
-
-    //公告信息
-    setNotices()
+    setHeadicon()
 }
 
 /*头像设置*/
 function headicon(a) {
     $("div[class*='header-icons'] > div").attr("class", "bavat");
     $(a).attr("class", "bavatcheak")
+}
+/*头像初始设置*/
+function setHeadicon() {
+    $("div.app-header__content > div > div > div > div > div:nth-child(1) > div > a > div").attr("class", "rounded-circle avat avatar" + mydata.headIcon + " float-left");
+    $("div[name='" + mydata.headIcon + "']").attr("class", "bavatcheak");
+    $("div[class*='employee-name']").html(mydata.employeeName);
+    $("div[class*='employee-position']").html(mydata.positionId.positionName);
 }
 
 /*登出*/
@@ -141,9 +165,9 @@ function setIndexWages() {
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.resultCode === 200) {
-                $("#lastMWage").html("￥ " + result.data.TOTAL)
+                $("#lastMWage").html("￥ " + result.data.TOTAL);
                 $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
-                $("#lastMWageA").html("￥ " + result.data.O_ADD)
+                $("#lastMWageA").html("￥ " + result.data.O_ADD);
                 $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
             }
         }
@@ -160,7 +184,7 @@ function setNewNotice() {
         contentType: "application/json;charset=UTF-8",
         success: function (result) {
             if (result.resultCode === 200) {
-                $("#indexNoticeTime").html(result.data.noticesDate)
+                $("#indexNoticeTime").html(result.data.noticesDate);
                 $("#indexNotice").html(result.data.notices)
             }
         }
@@ -170,10 +194,6 @@ function setNewNotice() {
 /*
 *账号管理数据填入*/
 function setDataInto() {
-    $("div.app-header__content > div > div > div > div > div:nth-child(1) > div > a > div").attr("class", "rounded-circle avat avatar" + mydata.headIcon + " float-left");
-    $("div[name='" + mydata.headIcon + "']").attr("class", "bavatcheak");
-    $("div[class*='employee-name']").html(mydata.employeeName);
-    $("div[class*='employee-position']").html(mydata.positionId.positionName);
     $("label[name='employeeId']").html(mydata.employeeId);
     $("label[name='positionId']").html(mydata.positionId.positionName);
     $("label[name='oinTime']").html(mydata.oinTime);
@@ -240,9 +260,6 @@ function setNotices() {
 /*
 * 员工花名册
 * */
-var empTable;
-var ndata;
-
 function setempTable() {
     empTable = $('#employeeList').DataTable({
         language: {
@@ -277,6 +294,7 @@ function setempTable() {
             "type": "POST",
             "dataSrc": "data"
         },
+        "order": [[ 1, "desc" ]],
         "columns": [
             {
                 "data": "employeeName",
@@ -317,7 +335,6 @@ function setempTable() {
         ]
     })
 }
-
 /*
 * 员工档案
 * */
@@ -351,14 +368,13 @@ function record(a) {
                 $("select[name='pmarriage'] > option[value='" + ndata.marriage.dicId + "']").attr("selected", "selected");
                 $("select[name='phealth'] > option[value='" + ndata.health.dicId + "']").attr("selected", "selected");
                 $("select[name='pbloodType'] > option[value='" + ndata.bloodType.dicId + "']").attr("selected", "selected");
-                $("textarea[name='pnote']").val(ndata.note)
+                $("textarea[name='pnote']").val(ndata.note);
                 setpNatOption();
                 setpAdd1Option();
             }
         }
     });
 }
-
 /*动态加载职位select option*/
 function setPosition() {
     $("select[name='ppositionId']").empty();
@@ -559,62 +575,15 @@ function setpEmployee() {
             if (result.resultCode === 200) {
                 showSuccess("保存成功");
                 record(ndata.employeeId);
-                onloadSet()
+                onloadSet();
+                empTable.ajax.reload(null, false);
             }
         }
     });
-}
-
-/*
-* 保存账号资料
-* */
-function setEmployee() {
-    var data = {
-        "employeeId": mydata.employeeId,
-        "email": $("input[name='email']").val(),
-        "epassword": $("input[name='epassword']").val(),
-        "employeeName": $("input[name='employeeName']").val(),
-        "sex": $("select[name='sex']").val(),
-        "age": $("input[name='age']").val(),
-        "nattional": $("select[name='nattional']").val(),
-        "natives01": $("select[name='natives01']").val(),
-        "natives02": $("select[name='natives02']").val(),
-        "pol": $("select[name='pol']").val(),
-        "brith": $("input[name='brith']").val(),
-        "idNumber": $("input[name='idNumber']").val(),
-        "education": $("select[name='education']").val(),
-        "university": $("input[name='university']").val(),
-        "major": $("input[name='major']").val(),
-        "homeAddress1": $("select[name='homeAddress1']").val(),
-        "homeAddress2": $("select[name='homeAddress2']").val(),
-        "homeAddress3": $("select[name='homeAddress3']").val(),
-        "homeNote": $("input[name='homeNote']").val(),
-        "phone": $("input[name='phone']").val(),
-        "marriage": $("select[name='marriage']").val(),
-        "health": $("select[name='health']").val(),
-        "bloodType": $("select[name='bloodType']").val(),
-        "note": $("textarea[name='note']").val()
-    };
-    $.ajax({
-        type: "POST",
-        url: baseUrl + "user/up",
-        dataType: "json",
-        contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify(data),
-        async:false,
-        success: function (result) {
-            if (result.resultCode === 200) {
-                showSuccess("保存成功");
-                onloadSet()
-            }
-        }
-    });
-
 }
 
 /*部门管理模块*/
 var depTable;
-
 function setDepartment() {
     depTable = $('#departmentList').DataTable({
         language: {
@@ -668,14 +637,12 @@ function setDepartment() {
         ]
     })
 }
-
 function depreload() {
     $("input[name='depId']").val("");
     $("input[name='depId']").removeAttr("readonly");
     $("input[name='depName']").val("");
     $("input[name='depChargeId']").val("")
 }
-
 function depChange(a) {
     $.ajax({
         type: "POST",//方法类型
@@ -696,7 +663,6 @@ function depChange(a) {
         }
     });
 }
-
 function depDel(a) {
     Swal.fire({
         title: '确定删除?',
@@ -728,7 +694,6 @@ function depDel(a) {
         }
     })
 }
-
 function depSave() {
     var url = baseUrl + "dep/up";
     if ($("input[name='depId']").attr("readonly") == null) {
@@ -751,7 +716,8 @@ function depSave() {
         data: JSON.stringify(nData),
         success: function (result) {
             if (result.resultCode === 200) {
-                showSuccess("保存成功！")
+                showSuccess("保存成功！");
+                depTable.ajax.reload(null, false);
             } else {
                 showError(result.message)
             }
@@ -761,17 +727,127 @@ function depSave() {
         }
     });
     $("button[data-dismiss='modal']").click();
-    depTable.ajax.reload(null, false);
 }
 
+/*
+* 入职情况表
+* */
+/*
+* 设置入职情况表*/
+function setstaffTable() {
+    staffTable = $('#staffList').DataTable({
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        "retrieve": "true",
+        "ajax": {
+            "url": baseUrl + "user/qal",
+            "dataType": "json",
+            "data": JSON.stringify({}),
+            "type": "POST",
+            "dataSrc": "data"
+        },
+        "order": [[ 4, "desc" ]],
+        "columns": [
+            {
+                "data": "employeeId",
+                "class": "fc-1",
+                "orderable": false
+            },
+            {
+                "data": "employeeName",
+                "class": "fc-1",
+                "orderable": false
+            },
+            {
+                "data": "positionId.departmentId.departmentName"
+            },
+            {
+                "data": "positionId.positionName",
+                "orderable": false
+            },
+            {
+                "data": "oinTime"
+            },
+            {
+                "data": "elock.dicValue"
+            },
+            {
+                "data": "employeeId",
+                "orderable": false,
+                "mRender": function (data, type, full) {
+                    return "<button  type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' data-toggle='modal' data-target='#staffChange' onclick='srecord(" + data + ")'>修改入职情况</button>";
+                }
+            }
+        ]
+    })
+}
+/*加载数据模态框*/
+function srecord(a) {
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "user/qby",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"employeeId": a}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                sdata = result.data;
+                $("select[name='seLock'] > option[value='" + sdata.elock.dicId + "']").attr("selected", "selected");
+            }
+        }
+    });
+}
+/*
+* 保存入职情况*/
+function staffSave() {
+    var data = {
+        "employeeId": sdata.employeeId,
+        "elock": $("select[name='seLock']").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "user/up",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功");
+                staffTable.ajax.reload(null, false);
+                $("#staffChange > div > div > div.modal-header > button > span").click();
+                staffTable.ajax.reload(null, false);
+            }
+        }
+    });
+}
 
 
 
 /*
 * 员工工资表
 * */
-var wageTable;
-var wdata;
 
 function setwagesTable() {
     wageTable = $('#wagesList').DataTable({
@@ -934,7 +1010,7 @@ function setAdd2Option(a) {
     $("#Home_Address03").empty();
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
     $("#Home_Address02").append("<option name='7101' value = '3568'>请选择</option>");
-    if (a.selectedIndex == 0)
+    if (a.selectedIndex === 0)
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
@@ -1015,6 +1091,54 @@ function selectionActions(a, toUrl) {
     $("div[name*=" + toUrl + "]").css("display", "block")
 }
 
+/*
+* 保存账号资料
+* */
+function setEmployee() {
+    var data = {
+        "employeeId": mydata.employeeId,
+        "email": $("input[name='email']").val(),
+        "epassword": $("input[name='epassword']").val(),
+        "employeeName": $("input[name='employeeName']").val(),
+        "sex": $("select[name='sex']").val(),
+        "age": $("input[name='age']").val(),
+        "nattional": $("select[name='nattional']").val(),
+        "natives01": $("select[name='natives01']").val(),
+        "natives02": $("select[name='natives02']").val(),
+        "pol": $("select[name='pol']").val(),
+        "brith": $("input[name='brith']").val(),
+        "idNumber": $("input[name='idNumber']").val(),
+        "education": $("select[name='education']").val(),
+        "university": $("input[name='university']").val(),
+        "major": $("input[name='major']").val(),
+        "homeAddress1": $("select[name='homeAddress1']").val(),
+        "homeAddress2": $("select[name='homeAddress2']").val(),
+        "homeAddress3": $("select[name='homeAddress3']").val(),
+        "homeNote": $("input[name='homeNote']").val(),
+        "phone": $("input[name='phone']").val(),
+        "marriage": $("select[name='marriage']").val(),
+        "health": $("select[name='health']").val(),
+        "bloodType": $("select[name='bloodType']").val(),
+        "note": $("textarea[name='note']").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "user/up",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        async:false,
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功");
+                onloadSet();
+                setDataInto()
+            }
+        }
+    });
+
+}
+
 /*头像保存*/
 function headicon_save() {
     var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name");
@@ -1028,13 +1152,13 @@ function headicon_save() {
         success: function (result) {
             if (result.resultCode === 200) {
                 showSuccess("修改成功～");
-                $("body > div.modal.fade.headIconChange.show > div > div > div.modal-header > button > span").click()
-                onloadSet()
+                $("body > div.modal.fade.headIconChange.show > div > div > div.modal-header > button > span").click();
+                onloadSet();
+                setHeadicon()
             }
         }
     });
 }
-
 
 /*错误提示*/
 function showError(a) {

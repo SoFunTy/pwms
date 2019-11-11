@@ -126,7 +126,7 @@
                                         }
                                         $("#Dates").html(
                                             hour + ":" + min + ":" + sec
-                                        )
+                                        );
                                         $("#Timer").html(
                                             now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日"
                                         )
@@ -177,20 +177,20 @@
                 <div class="app-sidebar__inner mt-2">
                     <ul class="vertical-nav-menu">
                         <li name="common">
-                            <a href="JavaScript:" onclick="selectionActions(this,'index')" class="mm-active">
+                            <a href="JavaScript:" id="index" onclick="selectionActions(this,'index')" class="mm-active">
                                 <i class="metismenu-icon pe-7s-home"></i>
                                 工作台
                             </a>
                         </li>
                         <li name="admin" class="app-sidebar__heading">工资统计</li>
                         <li name="admin">
-                            <a href="javascript:" onclick="selectionActions(this,'departmental_wage_month')">
+                            <a href="javascript:" id="departmental_wage_month" onclick="selectionActions(this,'departmental_wage_month')">
                                 <i class="metismenu-icon pe-7s-date"></i>
                                 部门工资统计（月）
                             </a>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" onclick="selectionActions(this,'departmental_wage_year')">
+                            <a href="javascript:" id="departmental_wage_year" onclick="selectionActions(this,'departmental_wage_year')">
                                 <i class="metismenu-icon pe-7s-display1"></i>
                                 部门工资统计（年）
                             </a>
@@ -204,13 +204,13 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'personnel_management_all')">
+                                    <a href="javascript:" id="personnel_management_all" onclick="selectionActions(this,'personnel_management_all')">
                                         <i class="metismenu-icon"></i>
                                         员工花名册
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:"
+                                    <a href="javascript:" id="personnel_management_single"
                                        onclick="selectionActions(this,'personnel_management_single')">
                                         <i class="metismenu-icon"></i>
                                         员工档案
@@ -219,13 +219,13 @@
                             </ul>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" onclick="selectionActions(this,'personnel_department_management')">
+                            <a href="javascript:" id="personnel_department_management" onclick="selectionActions(this,'personnel_department_management')">
                                 <i class="metismenu-icon pe-7s-cash"></i>
                                 部门管理
                             </a>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" onclick="selectionActions(this,'staff_induction')">
+                            <a href="javascript:" id="staff_induction" onclick="selectionActions(this,'staff_induction')">
                                 <i class="metismenu-icon pe-7s-cash"></i>
                                 入职管理
                             </a>
@@ -239,13 +239,13 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'staff_salary_enquiry')">
+                                    <a href="javascript:" id="staff_salary_enquiry" onclick="selectionActions(this,'staff_salary_enquiry')">
                                         <i class="metismenu-icon"></i>
                                         员工工资查询
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'staff_salary_update')">
+                                    <a href="javascript:" id="staff_salary_update" onclick="selectionActions(this,'staff_salary_update')">
                                         <i class="metismenu-icon"></i>
                                         工资信息修改
                                     </a>
@@ -253,7 +253,7 @@
                             </ul>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" onclick="selectionActions(this,'noticmanagerment')">
+                            <a href="javascript:" id="noticmanagerment" onclick="selectionActions(this,'noticmanagerment')">
                                 <i class="metismenu-icon pe-7s-news-paper"></i>
                                 公告管理
                             </a>
@@ -266,13 +266,13 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'export_wage_table')">
+                                    <a href="javascript:"  id="export_wage_table" onclick="selectionActions(this,'export_wage_table')">
                                         <i class="metismenu-icon"></i>
                                         导出工资表
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'import_wage_table')">
+                                    <a href="javascript:" id="import_wage_table" onclick="selectionActions(this,'import_wage_table')">
                                         <i class="metismenu-icon"></i>
                                         导入工资表
                                     </a>
@@ -281,14 +281,14 @@
                         </li>
                         <li name="admin" class="app-sidebar__heading">账号管理</li>
                         <li name="admin">
-                            <a href="javascript:" onclick="selectionActions(this,'accounupdate')">
+                            <a href="javascript:" id="accounupdate" onclick="selectionActions(this,'accounupdate')">
                                 <i class="metismenu-icon pe-7s-user"></i>
                                 账号密码管理
                             </a>
                         </li>
                         <li name="checker admin" class="app-sidebar__heading">考勤应用</li>
                         <li name="checker admin">
-                            <a href="javascript:" onclick="selectionActions(this,'add_rewardandpenalty')">
+                            <a href="javascript:" id="add_rewardandpenalty" onclick="selectionActions(this,'add_rewardandpenalty')">
                                 <i class="metismenu-icon pe-7s-news-paper"></i>
                                 员工奖罚
                             </a>
@@ -302,19 +302,19 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'wage_enquiry')">
+                                    <a href="javascript:" id="wage_enquiry" onclick="selectionActions(this,'wage_enquiry')">
                                         <i class="metismenu-icon"></i>
                                         工资查询
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'reward_and_penalty')">
+                                    <a href="javascript:" id="reward_and_penalty" onclick="selectionActions(this,'reward_and_penalty')">
                                         <i class="metismenu-icon"></i>
                                         奖罚查询
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" onclick="selectionActions(this,'flow_bill')">
+                                    <a href="javascript:" id="flow_bill" onclick="selectionActions(this,'flow_bill')">
                                         <i class="metismenu-icon"></i>
                                         流水账单
                                     </a>
@@ -322,13 +322,13 @@
                             </ul>
                         </li>
                         <li name="common checker admin">
-                            <a href="javascript:" onclick="selectionActions(this,'account')">
+                            <a href="javascript:" id="account" onclick="selectionActions(this,'account')">
                                 <i class="metismenu-icon pe-7s-user"></i>
                                 账号
                             </a>
                         </li>
                         <li name="common checker admin">
-                            <a href="javascript:" onclick="selectionActions(this,'notice')">
+                            <a href="javascript:" id="notice" onclick="selectionActions(this,'notice')">
                                 <i class="metismenu-icon pe-7s-display2"></i>
                                 公告
                             </a>
@@ -414,12 +414,12 @@
                                                 <div class="scroll-area-md">
                                                     <div class="scrollbar-container ps--active-y ps">
                                                         <p id="indexNotice"></p>
-                                                        <div class="ps__rail-x" style="left: 0px; bottom: -165px;">
+                                                        <div class="ps__rail-x" style="left: 0; bottom: -165px;">
                                                             <div class="ps__thumb-x" tabindex="0"
-                                                                 style="left: 0px; width: 0px;"></div>
+                                                                 style="left: 0; width: 0;"></div>
                                                         </div>
                                                         <div class="ps__rail-y ps--clicking"
-                                                             style="top: 165px; height: 150px; right: 0px;">
+                                                             style="top: 165px; height: 150px; right: 0;">
                                                             <div class="ps__thumb-y" tabindex="0"
                                                                  style="top: 175px; height: 125px;"></div>
                                                         </div>
@@ -769,7 +769,25 @@
 
                 <!--入职管理-->
                 <div name="admin staff_induction">
-
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <table id="staffList" class="table table-striped row-border table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>工号</th>
+                                    <th>姓名</th>
+                                    <th>部门</th>
+                                    <th>职位</th>
+                                    <th>入职时间</th>
+                                    <th>入职情况</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <!--工资管理-->
                 <!--员工工资管理-->
@@ -1884,6 +1902,31 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="depSave()">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--员工入职情况修改模态框-->
+<div class="modal fade show mt-14" id="staffChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">入职情况修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select name="seLock" class="form-control">
+                    <option value="3624">待入职</option>
+                    <option value="3618">在职</option>
+                    <option value="3619">已离职</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="staffSave()">保存</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
             </div>
         </div>
