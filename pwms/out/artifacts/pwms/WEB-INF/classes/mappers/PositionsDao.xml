@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.pwms.dao.PositionsDao">
+
+    <resultMap id="Positions" type="com.yx.pwms.entity.Positions">
+        <id column="POSITION_ID" jdbcType="VARCHAR" property="positionId"/>
+        <result column="POSITION_NAME" jdbcType="VARCHAR" property="positionName"/>
+        <result column="POSITION_BASE_PAY" jdbcType="DOUBLE" property="positionBasePay"/>
+        <association column="DEPARTMENT_ID" property="departmentId" select="com.yx.pwms.dao.DepartmentDao.queryByDepartmentId"/>
+    </resultMap>
+    <sql id="Positions_Column_List">
+    POSITION_ID, DEPARTMENT_ID, POSITION_NAME, POSITION_BASE_PAY
+    </sql>
+
+
+    <insert id="insertPositions" parameterType="java.util.Map">
+        insert into POSITIONS (
+        <include refid="Positions_Column_List"/>
+        )
+        values (#{positionId}, #{departmentId},
+          #{positionName}, #{positionBasePay})
+    </insert>
+
+    <delete id="delPositions" parameterType="java.lang.String">
+        delete from POSITIONS
+        where POSITION_ID = #{positionId}
+    </delete>
+
+    <select id="queryAll" resultMap="Positions">
+        select
+        <include refid="Positions_Column_List"/>
+        from POSITIONS
+    </select>
+
+    <select id="queryByPositionsId" parameterType="java.lang.String" resultMap="Positions">
+        select
+        <include refid="Positions_Column_List"/>
+        from POSITIONS
+        where POSITION_ID = #{positionId}
+    </select>
+
+    <update id="updatePositions" parameterType="java.util.Map">
+        update POSITIONS
+        set DEPARTMENT_ID = #{departmentId},
+          POSITION_NAME = #{positionName},
+          POSITION_BASE_PAY = #{positionBasePay}
+        where POSITION_ID = #{positionId}
+    </update>
+</mapper>

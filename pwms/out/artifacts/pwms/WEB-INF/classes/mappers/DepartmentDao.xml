@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yx.pwms.dao.DepartmentDao">
+
+    <resultMap id="Department" type="com.yx.pwms.entity.Department">
+        <id column="DEPARTMENT_ID" jdbcType="VARCHAR" property="departmentId"/>
+        <result column="DEPARTMENT_NAME" jdbcType="VARCHAR" property="departmentName"/>
+        <result column="DEPARTMENT_CHARGE" jdbcType="VARCHAR" property="departmentCharge"/>
+    </resultMap>
+
+    <sql id="Department_Column_List">
+    DEPARTMENT_ID, DEPARTMENT_NAME, DEPARTMENT_CHARGE
+    </sql>
+
+    <insert id="insertDepartment" parameterType="Department">
+    insert into DEPARTMENT (DEPARTMENT_ID, DEPARTMENT_NAME, DEPARTMENT_CHARGE)
+    values (#{departmentId}, #{departmentName}, #{departmentCharge})
+  </insert>
+
+    <delete id="delDepartment" parameterType="java.lang.String">
+    delete from DEPARTMENT
+    where DEPARTMENT_ID = #{departmentId}
+    </delete>
+
+    <select id="queryAll" resultMap="Department">
+        select
+        <include refid="Department_Column_List" />
+        from DEPARTMENT
+    </select>
+
+    <select id="queryByDepartmentId" parameterType="java.lang.String" resultMap="Department">
+        select
+        <include refid="Department_Column_List" />
+        from DEPARTMENT
+        where DEPARTMENT_ID = #{departmentId}
+    </select>
+
+    <update id="updateDepartment" parameterType="Department">
+        update DEPARTMENT
+        set DEPARTMENT_NAME = #{departmentName},
+          DEPARTMENT_CHARGE = #{departmentCharge}
+        where DEPARTMENT_ID = #{departmentId}
+    </update>
+</mapper>
