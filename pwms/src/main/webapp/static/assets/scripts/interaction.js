@@ -1088,7 +1088,7 @@ function selectionActions(a, toUrl) {
     $(".vertical-nav-menu > li > ul > li > a").attr("class", "");
     $(a).attr("class", "mm-active");
     $("div[name*='admin']").css("display", "none");
-    $("div[name*=" + toUrl + "]").css("display", "block")
+    $("div[name*=" + toUrl + "]").css("display", "block");
 }
 
 /*
