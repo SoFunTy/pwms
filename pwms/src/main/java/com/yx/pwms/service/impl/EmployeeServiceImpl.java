@@ -57,11 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public int queryExist(String employeeId, String account) {
+    public int queryExist(String employeeId, String email) {
         HashMap<String, Object> map = new HashMap<>();
         map.put("employeeId",employeeId);
-        if (account != null && account != "") map.put("email",account);
-        if (employeeDao.queryList(map) != null){
+        if (email != null && email != "") map.put("email",email);
+        if (employeeDao.queryList(map).size() != 0){
             return 1;
         }
         return 0;

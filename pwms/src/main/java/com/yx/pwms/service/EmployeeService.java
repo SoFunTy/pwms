@@ -49,7 +49,7 @@ public interface EmployeeService {
      * @return int
      */
     int queryExist(String employeeId);
-    int queryExist(String employeeId, String account);
+    int queryExist(String employeeId, String email);
 
     /**
      * description: 员工信息更新

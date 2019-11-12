@@ -129,7 +129,9 @@
                                         );
                                         $("#Timer").html(
                                             now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日"
-                                        )
+                                        );
+                                        $("input[id='staffTime']").val(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate())
+
                                     }
                                 </script>
                             </div>
@@ -184,13 +186,15 @@
                         </li>
                         <li name="admin" class="app-sidebar__heading">工资统计</li>
                         <li name="admin">
-                            <a href="javascript:" id="departmental_wage_month" onclick="selectionActions(this,'departmental_wage_month')">
+                            <a href="javascript:" id="departmental_wage_month"
+                               onclick="selectionActions(this,'departmental_wage_month')">
                                 <i class="metismenu-icon pe-7s-date"></i>
                                 部门工资统计（月）
                             </a>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" id="departmental_wage_year" onclick="selectionActions(this,'departmental_wage_year')">
+                            <a href="javascript:" id="departmental_wage_year"
+                               onclick="selectionActions(this,'departmental_wage_year')">
                                 <i class="metismenu-icon pe-7s-display1"></i>
                                 部门工资统计（年）
                             </a>
@@ -204,7 +208,8 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" id="personnel_management_all" onclick="selectionActions(this,'personnel_management_all')">
+                                    <a href="javascript:" id="personnel_management_all"
+                                       onclick="selectionActions(this,'personnel_management_all')">
                                         <i class="metismenu-icon"></i>
                                         员工花名册
                                     </a>
@@ -219,13 +224,15 @@
                             </ul>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" id="personnel_department_management" onclick="selectionActions(this,'personnel_department_management')">
+                            <a href="javascript:" id="personnel_department_management"
+                               onclick="selectionActions(this,'personnel_department_management')">
                                 <i class="metismenu-icon pe-7s-cash"></i>
                                 部门管理
                             </a>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" id="staff_induction" onclick="selectionActions(this,'staff_induction')">
+                            <a href="javascript:" id="staff_induction"
+                               onclick="selectionActions(this,'staff_induction')">
                                 <i class="metismenu-icon pe-7s-cash"></i>
                                 入职管理
                             </a>
@@ -239,13 +246,15 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" id="staff_salary_enquiry" onclick="selectionActions(this,'staff_salary_enquiry')">
+                                    <a href="javascript:" id="staff_salary_enquiry"
+                                       onclick="selectionActions(this,'staff_salary_enquiry')">
                                         <i class="metismenu-icon"></i>
                                         员工工资查询
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" id="staff_salary_update" onclick="selectionActions(this,'staff_salary_update')">
+                                    <a href="javascript:" id="staff_salary_update"
+                                       onclick="selectionActions(this,'staff_salary_update')">
                                         <i class="metismenu-icon"></i>
                                         工资信息修改
                                     </a>
@@ -253,7 +262,8 @@
                             </ul>
                         </li>
                         <li name="admin">
-                            <a href="javascript:" id="noticmanagerment" onclick="selectionActions(this,'noticmanagerment')">
+                            <a href="javascript:" id="noticmanagerment"
+                               onclick="selectionActions(this,'noticmanagerment')">
                                 <i class="metismenu-icon pe-7s-news-paper"></i>
                                 公告管理
                             </a>
@@ -266,13 +276,15 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:"  id="export_wage_table" onclick="selectionActions(this,'export_wage_table')">
+                                    <a href="javascript:" id="export_wage_table"
+                                       onclick="selectionActions(this,'export_wage_table')">
                                         <i class="metismenu-icon"></i>
                                         导出工资表
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" id="import_wage_table" onclick="selectionActions(this,'import_wage_table')">
+                                    <a href="javascript:" id="import_wage_table"
+                                       onclick="selectionActions(this,'import_wage_table')">
                                         <i class="metismenu-icon"></i>
                                         导入工资表
                                     </a>
@@ -288,7 +300,8 @@
                         </li>
                         <li name="checker admin" class="app-sidebar__heading">考勤应用</li>
                         <li name="checker admin">
-                            <a href="javascript:" id="add_rewardandpenalty" onclick="selectionActions(this,'add_rewardandpenalty')">
+                            <a href="javascript:" id="add_rewardandpenalty"
+                               onclick="selectionActions(this,'add_rewardandpenalty')">
                                 <i class="metismenu-icon pe-7s-news-paper"></i>
                                 员工奖罚
                             </a>
@@ -302,13 +315,15 @@
                             </a>
                             <ul>
                                 <li>
-                                    <a href="javascript:" id="wage_enquiry" onclick="selectionActions(this,'wage_enquiry')">
+                                    <a href="javascript:" id="wage_enquiry"
+                                       onclick="selectionActions(this,'wage_enquiry')">
                                         <i class="metismenu-icon"></i>
                                         工资查询
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:" id="reward_and_penalty" onclick="selectionActions(this,'reward_and_penalty')">
+                                    <a href="javascript:" id="reward_and_penalty"
+                                       onclick="selectionActions(this,'reward_and_penalty')">
                                         <i class="metismenu-icon"></i>
                                         奖罚查询
                                     </a>
@@ -494,13 +509,15 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group form-inline">
                                                         <label class="">员工编号：</label>
-                                                        <label name="pemployeeId" class="ml-0 badge fs-4 badge-info"  style="width: 80px;height: 30px;"></label>
+                                                        <label name="pemployeeId" class="ml-0 badge fs-4 badge-info"
+                                                               style="width: 80px;height: 30px;"></label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
                                                         <label class="">入职职位：</label>
-                                                        <select name="ppositionId" class="ml-0 badge fs-5 badge-info" style="width: 120px;height: 36px;">
+                                                        <select name="ppositionId" class="ml-0 badge fs-5 badge-info"
+                                                                style="width: 120px;height: 36px;">
 
                                                         </select>
                                                     </div>
@@ -509,7 +526,7 @@
                                                     <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group form-inline">
                                                         <label class="">入职时间：</label>
                                                         <input name="poinTime" type="text" name="datepicker"
-                                                               id="ptdatetimepicker3"
+                                                               id="ptdatetimepicker3" readonly style="border: 0"
                                                                class="form-control" value="1990-1-1"/>
                                                     </div>
                                                 </div>
@@ -733,7 +750,9 @@
                                                 </div>
                                             </div>
                                             <div class="row col-12">
-                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"  onclick="setpEmployee()">保存</button>
+                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"
+                                                        onclick="setpEmployee()">保存
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -771,6 +790,11 @@
                 <div name="admin staff_induction">
                     <div class="main-card mb-3 pr-2 pl-2 card">
                         <div class="card-body">
+                            <div class="">
+                                <button class="mb-2 mr-2 col-sm-1 text-center btn btn-success" data-toggle="modal"
+                                        data-target="#staffAdd" onclick="setPosition()">新 增
+                                </button>
+                            </div>
                             <table id="staffList" class="table table-striped row-border table-bordered table-hover"
                                    cellspacing="0"
                                    width="100%">
@@ -802,7 +826,7 @@
                                 <tr>
                                     <th>编号</th>
                                     <th>工号</th>
-<!--                                    <th>姓名</th>-->
+                                    <!--                                    <th>姓名</th>-->
                                     <th>总和</th>
                                     <th>发放日期</th>
                                     <th>社保养老金</th>
@@ -852,20 +876,24 @@
                                 <div class="card-body">
                                     <h4 class="card-title">奖罚添加：</h4>
                                     <form onsubmit="return false;" class="mt-2">
-                                        <input placeholder="工号" id="cemployeeId" type="text" oninput="checkValid (this)" class="mb-2 form-control">
-                                        <input placeholder="姓名" id="cemployeeName" type="text" class="mb-2 form-control" readonly>
+                                        <input placeholder="工号" id="cemployeeId" type="text" oninput="checkValid (this)"
+                                               class="mb-2 form-control">
+                                        <input placeholder="姓名" id="cemployeeName" type="text" class="mb-2 form-control"
+                                               readonly>
                                         <div class="divider">
                                         </div>
                                         <div class="mb-4 form-group">
                                             <div class="mg-center w-55">
                                                 <div class="custom-radio float-left custom-control">
-                                                    <input type="radio" value="reward" id="addRadio" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" value="reward" id="addRadio" name="customRadio"
+                                                           class="custom-control-input">
                                                     <label class="custom-control-label" for="addRadio">
                                                         奖励
                                                     </label>
                                                 </div>
                                                 <div class="custom-radio float-right custom-control">
-                                                    <input type="radio" value="punishment" id="penaltyRadio" name="customRadio" class="custom-control-input">
+                                                    <input type="radio" value="punishment" id="penaltyRadio"
+                                                           name="customRadio" class="custom-control-input">
                                                     <label class="custom-control-label" for="penaltyRadio">
                                                         罚扣
                                                     </label>
@@ -873,14 +901,19 @@
                                             </div>
                                         </div>
                                         <div class="mt-5 mg-center text-center">
-                                            <input placeholder="金额" name="cnumber" type="number" class="mb-2 form-control">
+                                            <input placeholder="金额" name="cnumber" type="number"
+                                                   class="mb-2 form-control">
                                             <div class="position-relative form-group">
                                                 <label for="einfo" class="text-left">具体情况</label>
                                                 <textarea name="text" id="einfo" class="form-control text-left">
                                                 </textarea>
                                             </div>
-                                            <button id="ampbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus" disabled="disabled" onclick="ampAdd()">添加</button>
-                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="ampReset" type="reset">重置</button>
+                                            <button id="ampbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus"
+                                                    disabled="disabled" onclick="ampAdd()">添加
+                                            </button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="ampReset"
+                                                    type="reset">重置
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -1539,7 +1572,7 @@
                                                     <label for="EEmail"
                                                            class=" col-3 col-form-label bg-light br-a">邮箱</label>
                                                     <div class="col-6">
-                                                        <input name="email" id="EEmail" placeholder="邮箱" type="email"
+                                                        <input name="email" id="EEmail" placeholder="邮箱" type="email" autocomplete="off"
                                                                class="form-control">
                                                     </div>
                                                 </div>
@@ -1547,7 +1580,7 @@
                                                     <label for="EPassword"
                                                            class=" col-3 col-form-label bg-light br-a">密码</label>
                                                     <div class="col-6">
-                                                        <input name="epassword" id="EPassword" placeholder="密码"
+                                                        <input name="epassword" id="EPassword" placeholder="密码" autocomplete="off"
                                                                type="password" class="form-control">
                                                     </div>
                                                 </div>
@@ -1753,7 +1786,9 @@
                                                 </div>
                                             </div>
                                             <div class="row col-12">
-                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"  onclick="setEmployee()">保存</button>
+                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"
+                                                        onclick="setEmployee()">保存
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -1928,6 +1963,73 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" onclick="staffSave()">保存</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新增入职模态框-->
+<div class="modal fade" id="staffAdd" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">员工信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return false;" class="">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffId" class="">工号</label>
+                                <input name="staffId" id="staffId" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffName" class="">姓名</label>
+                                <input name="staffName" id="staffName" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffPos" class="">职位</label>
+                                <select name="staffPos" id="staffPos" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffTime" class="">入职时间</label>
+                                <input name="staffTime" id="staffTime" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffEmail" class="">邮箱</label>
+                                <input name="staffEmail" id="staffEmail" placeholder="Email..." type="email" autocomplete="off"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffPwd" class="">密码</label>
+                                <input name="staffPwd" id="staffPwd" placeholder="Password..." type="text" autocomplete="off"
+                                       class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="staffAdd()">添加</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
             </div>
         </div>
     </div>

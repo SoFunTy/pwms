@@ -29,7 +29,7 @@ public class EmployeeController {
     public Result inserEmployee(@RequestBody Map<String, Object> map) {
         map = check(map);
         if (map == null) return ResultGenerator.genErrorResult(406, "输入错误");
-        if (employeeService.queryExist(map.get("employeeId").toString(), map.get("account").toString()) == 1) {
+        if (employeeService.queryExist(map.get("employeeId").toString(), map.get("email").toString()) == 1) {
             return ResultGenerator.genErrorResult(407, "已存在");
         }
         int statu = employeeService.insertEmployee(map);
