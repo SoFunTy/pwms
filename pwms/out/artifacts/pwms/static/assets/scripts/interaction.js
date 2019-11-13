@@ -11,7 +11,6 @@ var sdata = "";
 // if (data == null || data === ""){
 //     showError("请登录！")
 //     window.location.href = baseUrl;
-//
 // }
 
 setData();
