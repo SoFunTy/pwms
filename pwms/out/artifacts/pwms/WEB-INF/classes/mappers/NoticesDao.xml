@@ -41,7 +41,9 @@
           AND STATE = #{state}
         </if>
         order by NOTICES_ID desc
-        limit 5
+        <if test="num != null">
+            limit #{num}
+        </if>
     </select>
 
     <select id="queryBy" parameterType="java.util.Map" resultMap="Notices">

@@ -10,6 +10,7 @@ var staffTable;
 var sdata = "";
 var depTable;
 var noticeTable;
+var nodate;
 //登录验证
 // if (data == null || data === ""){
 //     showError("请登录！")
@@ -140,10 +141,9 @@ function noticeChange(a) {
     var year = myDate.getFullYear();
     var mon = myDate.getMonth() + 1;
     var date = myDate.getDate();
-    $("#nnoticesDate").removeAttr("readonly");
     $("select[name='nstate'] > options[selected='selected']").removeAttr("selected")
     $("#nnoticesDate").val(year + "-" + mon + "-" + date);
-    if (a !== '0')
+    if (a !== "0")
         $.ajax({
             type: "POST",//方法类型
             url: baseUrl + "notice/qli",
@@ -153,25 +153,90 @@ function noticeChange(a) {
             success: function (result) {
                 if (result.resultCode === 200) {
                     var ndata = result.data[0];
+                    nodate = ndata.noticesId;
                     $("#nnoticesDate").val(ndata.noticesDate);
                     $("select[name='nstate'] > option[value='" + ndata.state + "']").attr("selected", "selected");
                     $("#nnotices").val(ndata.notices);
+                    $("#nnoticesDate").removeAttr("readonly");
                 }
             }
         });
     else {
-        $("#nnoticesDate").setAttr("readonly");
+        $("#nnoticesDate").attr("readonly","readonly");
     }
 }
 
 /*公告删除*/
 function noticeDel(a) {
-
+    Swal.fire({
+        title: '确定删除?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确认'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: "POST",//方法类型
+                url: baseUrl + "notice/del",
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify({"noticesId": a}),
+                success: function (result) {
+                    if (result.resultCode === 200) {
+                        showSuccess("删除成功！");
+                        noticeTable.ajax.reload(null, false);
+                    } else {
+                        showError(result.message)
+                    }
+                },
+                error: function () {
+                    showError("后台错误，请联系管理员！");
+                }
+            });
+        }
+    })
 }
 
 /*广告保存*/
 function noticeSave() {
-
+    var url = baseUrl + "notice/up";
+    var data;
+    if ($("#nnoticesDate").attr("readonly") === "readonly") {
+        url = baseUrl + "notice/ins";
+        data = {
+            "noticesDate": $("#nnoticesDate").val(),
+            "notices": $("#nnotices").val(),
+            "state": $("select[name='nstate']").val()
+        };
+    }else{
+        data = {
+            "noticesId": nodate,
+            "noticesDate": $("#nnoticesDate").val(),
+            "notices": $("#nnotices").val(),
+            "state": $("select[name='nstate']").val()
+        };
+    }
+    $.ajax({
+        type: "POST",//方法类型
+        url: url,
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功！");
+                noticeTable.ajax.reload(null, false);
+            } else {
+                showError(result.message)
+            }
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！");
+        }
+    });
+    $("button[data-dismiss='modal']").click();
 }
 
 /**

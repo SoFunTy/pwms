@@ -50,7 +50,7 @@ public class NoticesController {
         if (noticesService.queryExist(map.get("noticesId")) == 0) {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
-        int statu = noticesService.deleteNotices(Long.parseLong(map.get("serialNumber")));
+        int statu = noticesService.deleteNotices(Long.parseLong(map.get("noticesId")));
         return Checker.check(statu);
     }
 
