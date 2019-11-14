@@ -172,7 +172,7 @@ function setLastWages() {
                     else {
                         $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append("" +
                             "                       <div class='col-md-6 col-xl-3'>" +
-                            "                            <div class='card mb-3 widget-content bg-success'>" +
+                            "                            <div class='card mb-3 widget-content bg-danger'>" +
                             "                                <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：" + resdata[i].recodingTime + "  具体情况：" + resdata[i].information + "'>" +
                             "                                    <div class='widget-content-left'>" +
                             "                                        <div class='widget-heading'>罚扣</div>" +
@@ -206,8 +206,14 @@ function setRap() {
             if (result.resultCode === 200) {
                 if(result.data.length !== 0){
                     var resdata = result.data;
+                    var ntime = resdata[0].recodingTime;
                     for (var i = 0 ; i < result.data.length ; i++){
                         if (resdata[i].reward !== 0){
+                            if (ntime.substr(5,2) !== resdata[i].recodingTime.substr(5,2)){
+                                $("div.reward_and_penalty.row").append("<div class='col-lg-12 mt-4 col-xl-12'></div>");
+                            }else{
+                                ntime = resdata[i].recodingTime
+                            }
                             $("div.reward_and_penalty.row").append("" +
                                 "                       <div class='col-lg-6 col-xl-4'>" +
                                 "                            <div class='card mb-3 widget-content'>" +
