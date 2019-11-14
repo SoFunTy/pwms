@@ -36,7 +36,7 @@
             AND EMPLOYEE_ID = #{employeeId}
         </if>
         <if test="recodingTime != null">
-            AND RECODING_TIME = #{recodingTime}
+            AND PERIOD_DIFF( date_format( #{recodingTime} , '%Y%m' ) , date_format( RECODING_TIME, '%Y%m' ) ) =1
         </if>
         <if test="information != null">
             AND INFORMATION = #{information}
@@ -47,6 +47,7 @@
         <if test="punishment != null">
             AND PUNISHMENT = #{punishment}
         </if>
+        order by RECODING_TIME desc
     </select>
 
     <select id="queryForRAP" parameterType="java.util.Map" resultMap="RewardAndPunishment">

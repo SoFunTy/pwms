@@ -31,8 +31,11 @@ $("#personnel_department_management").on("click", function () {
 $("#staff_induction").on("click", function () {
     setstaffTable()
 })
-$("#wage_enquiry").on("click", function () {
+$("#wage_enquiry").one("click", function () {
     setLastWages()
+});
+$("#reward_and_penalty").one("click", function () {
+    setRap()
 });
 $("#account").on("click", function () {
     setDataInto()
@@ -103,25 +106,152 @@ function logout() {
 }
 
 /*
-*查询上月工资信息*/
+*查询上月工资奖罚信息*/
 function setLastWages() {
+    var myDate = new Date;
+    var year = myDate.getFullYear();
+    var mon = myDate.getMonth() + 1;
+    var date = myDate.getDate();
+    var data = {
+        "employeeId": mydata.employeeId,
+        "recodingTime": year + "-" + mon + "-" + date
+    };
     $.ajax({
         type: "POST",
-        url: baseUrl + "wage/qmy",
+        url: baseUrl + "rap/qli",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({"employeeId": mydata.employeeId}),
+        data: JSON.stringify(data),
         success: function (result) {
             if (result.resultCode === 200) {
-                $("#lastMWage").html("￥ " + result.data.TOTAL);
-                $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
-                $("#lastMWageA").html("￥ " + result.data.O_ADD);
-                $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
+                if (result.data.length === 0) {
+                    console.log("无奖罚");
+                    $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append("" +
+                        "                       <div class='col-md-6 col-xl-3'>" +
+                        "                            <div class='card mb-3 widget-content bg-success'>" +
+                        "                                <div class='widget-content-wrapper text-white'>" +
+                        "                                    <div class='widget-content-left'>" +
+                        "                                        <div class='widget-heading'>奖励</div>" +
+                        "                                    </div>" +
+                        "                                    <div class='widget-content-right'>" +
+                        "                                        <div class='widget-numbers text-white'><span>￥ 0</span></div>" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                            </div>" +
+                        "                        </div>" +
+                        "                        <div class='col-md-6 col-xl-3'>\n" +
+                        "                            <div class='card mb-3 widget-content bg-danger'>" +
+                        "                                <div class='widget-content-wrapper text-white'>" +
+                        "                                    <div class='widget-content-left'>" +
+                        "                                        <div class='widget-heading'>罚扣</div>" +
+                        "                                    </div>" +
+                        "                                    <div class='widget-content-right'>\n" +
+                        "                                        <div class='widget-numbers text-white'><span>￥ 0</span></div>" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                            </div>" +
+                        "                        </div>")
+                }
+                var resdata = result.data;
+                for (var i = 0 ; i < result.data.length ; i++){
+                    if (resdata[i].reward !== 0){
+                        $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append(" " +
+                            "                       <div class='col-md-6 col-xl-3'>" +
+                            "                           <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：'>" +
+                            "                               <div class='card mb-3 widget-content bg-success'>" +
+                            "                                    <div class='widget-content-left'>" +
+                            "                                        <div class='widget-heading'>奖励</div>" +
+                            "                                    </div>" +
+                            "                                    <div class='widget-content-right'>" +
+                            "                                        <div class='widget-numbers text-white'><span>￥ " + resdata[i].reward + "</span></div>" +
+                            "                                    </div>" +
+                            "                                </div>" +
+                            "                            </div>" +
+                            "                        </div>");
+                    }
+                    else {
+                        $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append("" +
+                            "                       <div class='col-md-6 col-xl-3'>" +
+                            "                            <div class='card mb-3 widget-content bg-danger'>" +
+                            "                                <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：" + resdata[i].recodingTime + "  具体情况：" + resdata[i].information + "'>" +
+                            "                                    <div class='widget-content-left'>" +
+                            "                                        <div class='widget-heading'>罚扣</div>" +
+                            "                                    </div>" +
+                            "                                    <div class='widget-content-right'>" +
+                            "                                        <div class='widget-numbers text-white'><span>￥ " + resdata[i].punishment + "</span></div>" +
+                            "                                    </div>" +
+                            "                                </div>" +
+                            "                            </div>" +
+                            "                        </div>");
+                    }
+                }
             }
         }
     });
 }
 
+/*
+* 奖罚查询*/
+function setRap() {
+    var data = {
+        "employeeId": mydata.employeeId
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "rap/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                if(result.data.length !== 0){
+                    var resdata = result.data;
+                    for (var i = 0 ; i < result.data.length ; i++){
+                        if (resdata[i].reward !== 0){
+                            $("div.reward_and_penalty.row").append("" +
+                                "                       <div class='col-lg-6 col-xl-4'>" +
+                                "                            <div class='card mb-3 widget-content'>" +
+                                "                                <div class='widget-content-wrapper'>" +
+                                "                                    <div class='widget-content-left'>" +
+                                "                                        <div class='widget-heading'><font style='vertical-align: inherit;'><font\n" +
+                                "                                                style='vertical-align: inherit;'>时间：" + resdata[i].recodingTime + "</font></font></div>" +
+                                "                                        <div class='widget-subheading'>" +
+                                "                                           <font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>奖励</font ></font></div>" +
+                                "                                    </div>" +
+                                "                                    <div class='widget-content-right'>" +
+                                "                                        <div class='widget-numbers text-success'><span><font" +
+                                "                                                style='vertical-align: inherit;'><font style='vertical-align: inherit;'>" + resdata[i].reward + "</font></font></span>" +
+                                "                                        </div>" +
+                                "                                    </div>" +
+                                "                                </div>" +
+                                "                            </div>" +
+                                "                        </div>");
+                        }else{
+                            $("div.reward_and_penalty.row").append("" +
+                                "                       <div class='col-lg-6 col-xl-4'>" +
+                                "                            <div class='card mb-3 widget-content'>" +
+                                "                                <div class='widget-content-wrapper'>" +
+                                "                                    <div class='widget-content-left'>" +
+                                "                                        <div class='widget-heading'><font style='vertical-align: inherit;'><font\n" +
+                                "                                                style='vertical-align: inherit;'>时间：" + resdata[i].recodingTime + "</font></font></div>" +
+                                "                                        <div class='widget-subheading'>" +
+                                "                                           <font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>奖励</font ></font></div>" +
+                                "                                    </div>" +
+                                "                                    <div class='widget-content-right'>" +
+                                "                                        <div class='widget-numbers text-danger'><span><font" +
+                                "                                                style='vertical-align: inherit;'><font style='vertical-align: inherit;'>" + resdata[i].punishment + "</font></font></span>" +
+                                "                                        </div>" +
+                                "                                    </div>" +
+                                "                                </div>" +
+                                "                            </div>" +
+                                "                        </div>");
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
 
 /*
 * 账号密码设置*/
@@ -158,6 +288,7 @@ function checkAValid(a) {
         });
     }
 }
+
 function acctReset() {
     var data = {
         "employeeId": $("#aemployeeId").val(),
@@ -202,6 +333,7 @@ function checkValid(a) {
         });
     }
 }
+
 /*
 * 奖罚添加*/
 function ampAdd() {
@@ -250,10 +382,17 @@ function setIndexWages() {
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.resultCode === 200) {
-                $("#lastMWage").html("￥ " + result.data.TOTAL);
-                $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
-                $("#lastMWageA").html("￥ " + result.data.O_ADD);
-                $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
+                if(result.data.length !== 0){
+                    $("#lastMWage").html("￥ " + result.data.TOTAL);
+                    $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
+                    $("#lastMWageA").html("￥ " + result.data.O_ADD);
+                    $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
+                }else{
+                    $("#lastMWage").html("￥ 0");
+                    $("span[name='LastMWages']").html("￥ 0");
+                    $("#lastMWageA").html("￥ 0");
+                    $("#lastMWageB").html("￥ 0")
+                }
             }
         }
     });
