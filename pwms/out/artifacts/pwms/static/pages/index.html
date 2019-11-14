@@ -865,7 +865,35 @@
 
                 <!--账号密码管理-->
                 <div name="admin accounupdate">
-                    <h1>账号密码管理</h1>
+                    <div class="app-main__inner">
+                        <div class="row mt-13 align-items-center he-100 align-content-center pr-5">
+                            <div class="mg-center main-card mb-3 pl-4 pr-4 pt-2 pb-2 card" style="width: 360px;">
+                                <div class="card-body">
+                                    <h4 class="card-title">密码重置：</h4>
+                                    <form onsubmit="return false;" class="mt-2">
+                                        <input placeholder="工号" id="aemployeeId" type="text" oninput="checkAValid(this)"
+                                               class="mb-2 form-control">
+                                        <input placeholder="姓名" id="aemployeeName" type="text" class="mb-2 form-control"
+                                               readonly>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="mg-center text-center">
+                                            <input placeholder="账号/邮箱" name="aemail" type="email" id="aemail"
+                                                   class="mb-2 form-control" readonly>
+                                            <input placeholder="密码" name="aepassword" type="text" id="aepassword"
+                                                   class="mb-2 form-control">
+                                            <button id="accbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus"
+                                                    disabled="disabled" onclick="acctReset()">修改
+                                            </button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="accReset"
+                                                    type="reset">重置
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!--员工奖罚-->

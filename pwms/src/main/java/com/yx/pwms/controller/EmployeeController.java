@@ -125,6 +125,21 @@ public class EmployeeController {
     }
 
     /**
+     * 根据工号查询邮箱
+     */
+    @RequestMapping(value = "/qbyemail", method = RequestMethod.POST)
+    @ResponseBody
+    public Result queryByEmployeeIdForEmail(@RequestBody Map<String, String> map) {
+        if (employeeService.queryExist(map.get("employeeId"), null) == 0) {
+            return ResultGenerator.genErrorResult(408, "无此数据");
+        }
+        Employee employee = employeeService.queryByEmployeeId(map.get("employeeId"));
+        if (!Objects.isNull(employee))
+            return Checker.check(employee.getEmail());
+        return ResultGenerator.genErrorResult(408, "");
+    }
+
+    /**
      * description: 非空参数检验
      *
      * @return Map

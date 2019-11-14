@@ -1,7 +1,7 @@
 $(document).ready(function () {
     window.sessionStorage.setItem('data', "");
-})
-
+});
+var baseUrl = "http://localhost:8080/pwms/";
 /**
  * 判空
  *
@@ -9,7 +9,7 @@ $(document).ready(function () {
  * @returns {boolean}
  */
 function isNull(obj) {
-    if (obj == null || obj == undefined || obj.trim() == "") {
+    if (obj == null || obj.trim() === "") {
         return true;
     }
     return false;
@@ -82,15 +82,15 @@ function login() {
         showError("请输入正确的密码!");
         return false;
     }
-    var data = {email: account, epassword: password}
+    var data = {email: account, epassword: password};
     $.ajax({
         type: "POST",//方法类型
-        url: "user/login",
+        url: baseUrl + "user/login",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
         success: function (result) {
-            if (result.resultCode == 200) {
+            if (result.resultCode === 200) {
                 showSuccess();
                 window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
                 setTimeout(function () {
@@ -98,7 +98,7 @@ function login() {
                 }, 1500);
                 return;
             }
-            if (result.resultCode == 409) {
+            if (result.resultCode === 409) {
                 showError("登陆失败!请检查账号和密码！");
                 return;
             }

@@ -1,5 +1,6 @@
 var mydata = JSON.parse(window.sessionStorage.getItem("mydata"));
-var baseUrl = "http://167.179.81.212:8080/pwms/";
+// var baseUrl = "http://167.179.81.212:8080/pwms/";
+var baseUrl = "http://localhost:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
 var ndata = "";
@@ -29,6 +30,9 @@ $("#personnel_department_management").on("click", function () {
 });
 $("#staff_induction").on("click", function () {
     setstaffTable()
+})
+$("#wage_enquiry").on("click", function () {
+    setLastWages()
 });
 $("#account").on("click", function () {
     setDataInto()
@@ -99,6 +103,82 @@ function logout() {
 }
 
 /*
+*查询上月工资信息*/
+function setLastWages() {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "wage/qmy",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"employeeId": mydata.employeeId}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                $("#lastMWage").html("￥ " + result.data.TOTAL);
+                $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
+                $("#lastMWageA").html("￥ " + result.data.O_ADD);
+                $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
+            }
+        }
+    });
+}
+
+
+/*
+* 账号密码设置*/
+function checkAValid(a) {
+    if ($(a).val() !== "" || $(a).val().length > 4) {
+        $.ajax({
+            type: "POST",
+            url: baseUrl + "user/qbyname",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            async: false,
+            data: JSON.stringify({"employeeId": $(a).val()}),
+            success: function (result) {
+                if (result.resultCode === 200 || result.data !== "") {
+                    $("#aemployeeName").val(result.data);
+                    $.ajax({
+                        type: "POST",
+                        url: baseUrl + "user/qbyemail",
+                        dataType: "json",
+                        contentType: "application/json;charset=UTF-8",
+                        data: JSON.stringify({"employeeId": $(a).val()}),
+                        success: function (result) {
+                            $("input[name='aemail']").val(result.data);
+                        }
+                    });
+                    $("#accbtn").removeAttr("disabled")
+                }
+                if (result.resultCode === 408) {
+                    $("#aemployeeName").val("");
+                    $("#aemail").val("");
+                    $("#accbtn").attr("disabled", "disabled")
+                }
+            }
+        });
+    }
+}
+function acctReset() {
+    var data = {
+        "employeeId": $("#aemployeeId").val(),
+        "epassword": $("#aepassword").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "user/up",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("修改成功");
+                $("button[name='accReset']").click()
+            }
+        }
+    });
+}
+
+/*
 * 奖罚输入
 * */
 function checkValid(a) {
@@ -122,7 +202,6 @@ function checkValid(a) {
         });
     }
 }
-
 /*
 * 奖罚添加*/
 function ampAdd() {

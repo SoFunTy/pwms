@@ -1,7 +1,7 @@
 $(document).ready(function () {
     window.sessionStorage.setItem('data', "");
 });
-
+var baseUrl = "http://localhost:8080/pwms/";
 /**
  * 判空
  *
@@ -85,7 +85,7 @@ function login() {
     var data = {email: account, epassword: password};
     $.ajax({
         type: "POST",//方法类型
-        url: "user/login",
+        url: baseUrl + "user/login",
         dataType:"json",
         contentType : "application/json;charset=UTF-8",
         data: JSON.stringify(data),
