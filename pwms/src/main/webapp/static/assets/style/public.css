@@ -616,6 +616,30 @@ div.row.rowlist .event_list li p span {
 }
 
 
+#noticeList_length > label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+#noticeList_filter > label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+#noticeList_filter > label > input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+#noticeList_wrapper > div:nth-child(3){
+    height: 39px;
+}
+#noticeList_paginate > ul > li{
+    margin: 0;
+    padding: 0;
+}
+
+
 #departmentList_length > label {
     font-weight: normal;
     text-align: left;
@@ -659,4 +683,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 .pagination li{
     margin: 0;
     padding: 0;
+}
+
+#noticeList > tbody > tr{
+    width: 39px;
 }

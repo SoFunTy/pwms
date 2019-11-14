@@ -8,6 +8,8 @@ var wageTable;
 var wdata = "";
 var staffTable;
 var sdata = "";
+var depTable;
+var noticeTable;
 //登录验证
 // if (data == null || data === ""){
 //     showError("请登录！")
@@ -28,9 +30,12 @@ $("#personnel_management_all").on("click", function () {
 $("#personnel_department_management").on("click", function () {
     setDepartment()
 });
+$("#noticmanagerment").on("click", function () {
+    setNoticesList()
+});
 $("#staff_induction").on("click", function () {
     setstaffTable()
-})
+});
 $("#wage_enquiry").one("click", function () {
     setLastWages()
 });
@@ -70,6 +75,104 @@ function userTypeCheck(a) {
     $("div[name*='index']").css("display", "block")
 }
 
+
+/*
+* 公告管理
+* 预留（使用wangEditer富文本编辑对公告进行编辑）*/
+function setNoticesList() {
+    noticeTable = $('#noticeList').DataTable({
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        "retrieve": "true",
+        "ajax": {
+            "url": baseUrl + "notice/qal",
+            "type": "POST",
+            "dataSrc": "data"
+        },
+        "bAutoWidth": true,
+        "columns": [
+            {"data": "noticesId"},
+            {"data": "noticesDate"},
+            {
+                "data": "notices",
+                "orderable": false
+            },
+            {
+                "data": "state"
+            },
+            {
+                "data": "noticesId",
+                "orderable": false,
+                "mRender": function (data, type, full) {
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info' data-toggle='modal' data-target='.noticeChange' onclick='noticeChange(" + data + ")'>修改</button>" +
+                        "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info btn-outline-danger ml-2' data-toggle='modal' data-target='.confirm' onclick='noticeDel(" + data + ")'>删除</button>";
+                }
+            }
+        ]
+    })
+}
+
+/*公告模态框设值*/
+function noticeChange(a) {
+    var myDate = new Date;
+    var year = myDate.getFullYear();
+    var mon = myDate.getMonth() + 1;
+    var date = myDate.getDate();
+    $("#nnoticesDate").removeAttr("readonly");
+    $("select[name='nstate'] > options[selected='selected']").removeAttr("selected")
+    $("#nnoticesDate").val(year + "-" + mon + "-" + date);
+    if (a !== '0')
+        $.ajax({
+            type: "POST",//方法类型
+            url: baseUrl + "notice/qli",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({"noticesId": a}),
+            success: function (result) {
+                if (result.resultCode === 200) {
+                    var ndata = result.data[0];
+                    $("#nnoticesDate").val(ndata.noticesDate);
+                    $("select[name='nstate'] > option[value='" + ndata.state + "']").attr("selected", "selected");
+                    $("#nnotices").val(ndata.notices);
+                }
+            }
+        });
+    else {
+        $("#nnoticesDate").setAttr("readonly");
+    }
+}
+
+/*公告删除*/
+function noticeDel(a) {
+
+}
+
+/*广告保存*/
+function noticeSave() {
+
+}
 
 /**
  * description: 数据加载
@@ -153,11 +256,11 @@ function setLastWages() {
                         "                        </div>")
                 }
                 var resdata = result.data;
-                for (var i = 0 ; i < result.data.length ; i++){
-                    if (resdata[i].reward !== 0){
+                for (var i = 0; i < result.data.length; i++) {
+                    if (resdata[i].reward !== 0) {
                         $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append(" " +
                             "                       <div class='col-md-6 col-xl-3'>" +
-                            "                           <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：'>" +
+                            "                           <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：" + resdata[i].recodingTime + "              备注：" + resdata[i].information + "'>" +
                             "                               <div class='card mb-3 widget-content bg-success'>" +
                             "                                    <div class='widget-content-left'>" +
                             "                                        <div class='widget-heading'>奖励</div>" +
@@ -168,12 +271,11 @@ function setLastWages() {
                             "                                </div>" +
                             "                            </div>" +
                             "                        </div>");
-                    }
-                    else {
+                    } else {
                         $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append("" +
                             "                       <div class='col-md-6 col-xl-3'>" +
                             "                            <div class='card mb-3 widget-content bg-danger'>" +
-                            "                                <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：" + resdata[i].recodingTime + "  具体情况：" + resdata[i].information + "'>" +
+                            "                                <div class='widget-content-wrapper text-white' data-toggle='tooltip' data-placement='top' title='' data-original-title='时间：" + resdata[i].recodingTime + "              备注：" + resdata[i].information + "'>" +
                             "                                    <div class='widget-content-left'>" +
                             "                                        <div class='widget-heading'>罚扣</div>" +
                             "                                    </div>" +
@@ -185,6 +287,7 @@ function setLastWages() {
                             "                        </div>");
                     }
                 }
+                loadJs();
             }
         }
     });
@@ -204,14 +307,14 @@ function setRap() {
         data: JSON.stringify(data),
         success: function (result) {
             if (result.resultCode === 200) {
-                if(result.data.length !== 0){
+                if (result.data.length !== 0) {
                     var resdata = result.data;
                     var ntime = resdata[0].recodingTime;
-                    for (var i = 0 ; i < result.data.length ; i++){
-                        if (resdata[i].reward !== 0){
-                            if (ntime.substr(0,7) !== resdata[i].recodingTime.substr(0,7)){
+                    for (var i = 0; i < result.data.length; i++) {
+                        if (resdata[i].reward !== 0) {
+                            if (ntime.substr(0, 7) !== resdata[i].recodingTime.substr(0, 7)) {
                                 $("div.reward_and_penalty.row").append("<div class='col-lg-12 mt-4 col-xl-12'></div>");
-                            }else{
+                            } else {
                                 ntime = resdata[i].recodingTime
                             }
                             $("div.reward_and_penalty.row").append("" +
@@ -232,7 +335,7 @@ function setRap() {
                                 "                                </div>" +
                                 "                            </div>" +
                                 "                        </div>");
-                        }else{
+                        } else {
                             $("div.reward_and_penalty.row").append("" +
                                 "                       <div class='col-lg-6 col-xl-4'>" +
                                 "                            <div class='card mb-3 widget-content'>" +
@@ -241,7 +344,7 @@ function setRap() {
                                 "                                        <div class='widget-heading'><font style='vertical-align: inherit;'><font\n" +
                                 "                                                style='vertical-align: inherit;'>时间：" + resdata[i].recodingTime + "</font></font></div>" +
                                 "                                        <div class='widget-subheading'>" +
-                                "                                           <font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>奖励</font ></font></div>" +
+                                "                                           <font style='vertical-align: inherit;'><font style='vertical-align: inherit;'>罚扣</font ></font></div>" +
                                 "                                    </div>" +
                                 "                                    <div class='widget-content-right'>" +
                                 "                                        <div class='widget-numbers text-danger'><span><font" +
@@ -257,6 +360,12 @@ function setRap() {
             }
         }
     });
+}
+
+/*
+* 重加载js，绑定tip事件*/
+function loadJs() {
+    $.getScript('../assets/scripts/main.js');
 }
 
 /*
@@ -388,12 +497,12 @@ function setIndexWages() {
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.resultCode === 200) {
-                if(result.data.length !== 0){
+                if (result.data.length !== 0) {
                     $("#lastMWage").html("￥ " + result.data.TOTAL);
                     $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
                     $("#lastMWageA").html("￥ " + result.data.O_ADD);
                     $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
-                }else{
+                } else {
                     $("#lastMWage").html("￥ 0");
                     $("span[name='LastMWages']").html("￥ 0");
                     $("#lastMWageA").html("￥ 0");
@@ -489,7 +598,7 @@ function setNotices() {
         url: baseUrl + "notice/qli",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({}),
+        data: JSON.stringify({"state": "已发布", "num": 5}),
         success: function (result) {
             if (result.resultCode === 200) {
                 for (var i = 1; i <= 5; i++) {
@@ -860,7 +969,6 @@ function setpEmployee() {
 }
 
 /*部门管理模块*/
-var depTable;
 
 function setDepartment() {
     depTable = $('#departmentList').DataTable({

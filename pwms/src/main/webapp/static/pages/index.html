@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="../assets/style/public.css">
     <link rel="stylesheet" href="../assets/style/lq.datetimepick.css">
+<!--    <link rel="stylesheet" href="../assets/style/jquery.qtip.min.css">-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="../assets/scripts/jquery-3.4.1.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-
+<!--    <script src="../assets/scripts/jquery.qtip.min.js"></script>-->
 
 </head>
 <body>
@@ -850,7 +851,28 @@
 
                 <!--公告管理-->
                 <div name="admin noticmanagerment">
-                    <h1>公告管理</h1>
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <div class="">
+                                <button class="mb-2 mr-2 col-sm-1 text-center btn btn-success" data-toggle="modal"
+                                        data-target="#noticeChange" onclick="noticeChange('0')">新 增
+                                </button>
+                            </div>
+                            <table id="noticeList" class="table table-striped table-bordered table-hover text-center"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th style="width: 8%;">日期</th>
+                                    <th style="width: 65%;">内容</th>
+                                    <th>发布状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
                 <!--工资表导入/导出-->
@@ -1026,15 +1048,15 @@
                         <div class="col-md-6 col-xl-12 box">
                             <ul class="event_year">
                                 <li class="current">
-                                    <label class="lable-year" for="2013">2013</label>
+                                    <label class="lable-year" for="2019">2019</label>
                                 </li>
                                 <li>
-                                    <label class="lable-year" for="2012">2012</label>
+                                    <label class="lable-year" for="2018">2018</label>
                                 </li>
                             </ul>
                             <ul class="event_list">
                                 <div>
-                                    <h3 id="2013">2013</h3>
+                                    <h3 id="2019">2019</h3>
                                     <li><span>5月</span>
                                         <!--工资简列-->
                                         <div class="row pl-4">
@@ -1404,7 +1426,7 @@
                                     </li>
                                 </div>
                                 <div>
-                                    <h3 id="2012">2012</h3>
+                                    <h3 id="2018">2018</h3>
                                     <li><span>9月</span>
                                         <!--工资简列-->
                                         <div class="row pl-4">
@@ -2021,47 +2043,55 @@
         </div>
     </div>
 </div>
+<!--公告模态框-->
+<div class="modal fade noticeChange" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noticeChange">公告信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="nnoticesDate" class="">日期</label>
+                            <input name="nnoticesDate" type="text" name="datepicker"
+                                       id="nnoticesDate"  class="form-control"
+                                       class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="depChargeId" class="">发布状态</label>
+                            <select name="nstate" class="form-control">
+                                <option value="待发布">待发布</option>
+                                <option value="已发布">已发布</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="position-relative form-group">
+                            <label for="nnotices" class="">内容</label>
+                            <textarea name="nnotices" id="nnotices" style="height: 200px;" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="noticeSave()">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="../assets/scripts/main.js"></script>
 <script src="../assets/scripts/lq.datetimepick.js"></script>
 <script src="../assets/scripts/selectUi.js"></script>
+<script src="../assets/scripts/public.js"></script>
 <script src="../assets/scripts/interaction.js"></script>
-<script type="text/javascript">
-
-    $("#ptdatetimepicker3").on("click", function (e) {
-        e.stopPropagation();
-        $(this).lqdatetimepicker({
-            css: 'datetime-day',
-            dateType: 'D',
-            selectback: function () {
-            }
-        });
-    });
-    $("#pdatetimepicker3").on("click", function (e) {
-        e.stopPropagation();
-        $(this).lqdatetimepicker({
-            css: 'datetime-day',
-            dateType: 'D',
-            selectback: function () {
-            }
-        });
-    });
-    $("#datetimepicker3").on("click", function (e) {
-        e.stopPropagation();
-        $(this).lqdatetimepicker({
-            css: 'datetime-day',
-            dateType: 'D',
-            selectback: function () {
-            }
-        });
-    });
-    $(".lable-year").click(function () {
-        $('.event_year>li').removeClass('current');
-        $(this).parent('li').addClass('current');
-        var year = $(this).attr('for');
-        $('#' + year).parent().prevAll('div').slideUp(800);
-        $('#' + year).parent().slideDown(800).nextAll('div').slideDown(800);
-    });
-</script>
 </div>
 </body>
 </html>
