@@ -1439,15 +1439,12 @@ function wrecord(a) {
 
 function setwageTable() {
     var wagesTable = $('#exportwagesList').DataTable({
-        buttons: [
+        "dom": "Bfrtip",
+        "buttons": [
             {
-                extend: 'excelHtml5',
-                text: 'Save current page',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    }
-                }
+                "extend": "excelHtml5",
+                "text": "导出excel",
+                "autoFilter": "true"
             }
         ],
         language: {

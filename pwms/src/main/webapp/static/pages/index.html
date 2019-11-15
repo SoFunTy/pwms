@@ -12,14 +12,17 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="../assets/style/public.css">
     <link rel="stylesheet" href="../assets/style/lq.datetimepick.css">
-<!--    <link rel="stylesheet" href="../assets/style/jquery.qtip.min.css">-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="../assets/scripts/jquery-3.4.1.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
     <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script charset="utf8" src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
-<!--    <script src="../assets/scripts/jquery.qtip.min.js"></script>-->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js "></script>
 
 </head>
 <body>
@@ -880,7 +883,8 @@
                 <div name="admin export_wage_table">
                     <div class="main-card mb-3 pr-2 pl-2 card">
                         <div class="card-body">
-                            <table id="exportwagesList" class="table table-striped row-border table-bordered table-hover"
+                            <table id="exportwagesList"
+                                   class="table table-striped row-border table-bordered table-hover"
                                    cellspacing="0"
                                    width="100%">
                                 <thead>
@@ -905,7 +909,7 @@
                 </div>
                 <!--导入工资表-->
                 <div name="admin import_wage_table">
-                    <h1>导入工资表</h1>
+
                 </div>
 
                 <!--账号密码管理-->
@@ -1604,7 +1608,8 @@
                                                     <label for="EEmail"
                                                            class=" col-3 col-form-label bg-light br-a">邮箱</label>
                                                     <div class="col-6">
-                                                        <input name="email" id="EEmail" placeholder="邮箱" type="email" autocomplete="off"
+                                                        <input name="email" id="EEmail" placeholder="邮箱" type="email"
+                                                               autocomplete="off"
                                                                class="form-control">
                                                     </div>
                                                 </div>
@@ -1612,7 +1617,8 @@
                                                     <label for="EPassword"
                                                            class=" col-3 col-form-label bg-light br-a">密码</label>
                                                     <div class="col-6">
-                                                        <input name="epassword" id="EPassword" placeholder="密码" autocomplete="off"
+                                                        <input name="epassword" id="EPassword" placeholder="密码"
+                                                               autocomplete="off"
                                                                type="password" class="form-control">
                                                     </div>
                                                 </div>
@@ -2045,14 +2051,16 @@
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="staffEmail" class="">邮箱</label>
-                                <input name="staffEmail" id="staffEmail" placeholder="Email..." type="email" autocomplete="off"
+                                <input name="staffEmail" id="staffEmail" placeholder="Email..." type="email"
+                                       autocomplete="off"
                                        class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="staffPwd" class="">密码</label>
-                                <input name="staffPwd" id="staffPwd" placeholder="Password..." type="text" autocomplete="off"
+                                <input name="staffPwd" id="staffPwd" placeholder="Password..." type="text"
+                                       autocomplete="off"
                                        class="form-control">
                             </div>
                         </div>
@@ -2067,7 +2075,8 @@
     </div>
 </div>
 <!--公告模态框-->
-<div class="modal fade noticeChange" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="display: none;" aria-hidden="true">
+<div class="modal fade noticeChange" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -2082,8 +2091,8 @@
                         <div class="position-relative form-group">
                             <label for="nnoticesDate" class="">日期</label>
                             <input name="nnoticesDate" type="text" name="datepicker"
-                                       id="nnoticesDate"  class="form-control" readonly="readonly"
-                                       class="form-control"/>
+                                   id="nnoticesDate" class="form-control" readonly="readonly"
+                                   class="form-control"/>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -2098,7 +2107,8 @@
                     <div class="col-md-12">
                         <div class="position-relative form-group">
                             <label for="nnotices" class="">内容</label>
-                            <textarea name="nnotices" id="nnotices" style="height: 200px;" class="form-control"></textarea>
+                            <textarea name="nnotices" id="nnotices" style="height: 200px;"
+                                      class="form-control"></textarea>
                         </div>
                     </div>
                 </div>
