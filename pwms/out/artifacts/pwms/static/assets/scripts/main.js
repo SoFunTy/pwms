@@ -15481,8 +15481,8 @@
             r && (t = document.querySelector(r));
             var a = n(t).data("bs.modal") ? "toggle" : o({}, n(t).data(), n(this).data());
             "A" !== this.tagName && "AREA" !== this.tagName || e.preventDefault();
-            var l = n(t).on(K.SHOW, function (e) {
-                e.isDefaultPrevented() || l.on(K.HIDDEN, function () {
+            var l = n(t).one(K.SHOW, function (e) {
+                e.isDefaultPrevented() || l.one(K.HIDDEN, function () {
                     n(i).is(":visible") && i.focus()
                 })
             });

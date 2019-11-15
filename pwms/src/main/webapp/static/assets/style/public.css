@@ -640,6 +640,30 @@ div.row.rowlist .event_list li p span {
 }
 
 
+#exportwagesList_length > label {
+    font-weight: normal;
+    text-align: left;
+    white-space: nowrap;
+}
+#exportwagesList_filter > label {
+    font-weight: normal;
+    white-space: nowrap;
+    text-align: left;
+}
+#exportwagesList_filter > label > input {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+}
+#exportwagesList_wrapper > div:nth-child(3){
+    height: 39px;
+}
+#exportwagesList_paginate > ul > li{
+    margin: 0;
+    padding: 0;
+}
+
+
 #departmentList_length > label {
     font-weight: normal;
     text-align: left;

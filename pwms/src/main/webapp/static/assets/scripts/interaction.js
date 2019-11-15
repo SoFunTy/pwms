@@ -52,6 +52,10 @@ $("#notice").on("click", function () {
 $("#staff_salary_enquiry").on("click", function () {
     setwagesTable()
 });
+$("#export_wage_table").on("click", function () {
+    setwageTable()
+});
+
 
 /**
  * description: 根据权限显示对于模块
@@ -162,7 +166,7 @@ function noticeChange(a) {
             }
         });
     else {
-        $("#nnoticesDate").attr("readonly","readonly");
+        $("#nnoticesDate").attr("readonly", "readonly");
     }
 }
 
@@ -210,7 +214,7 @@ function noticeSave() {
             "notices": $("#nnotices").val(),
             "state": $("select[name='nstate']").val()
         };
-    }else{
+    } else {
         data = {
             "noticesId": nodate,
             "noticesDate": $("#nnoticesDate").val(),
@@ -1334,7 +1338,6 @@ function staffAdd() {
 /*
 * 员工工资表
 * */
-
 function setwagesTable() {
     wageTable = $('#wagesList').DataTable({
         language: {
@@ -1427,6 +1430,102 @@ function wrecord(a) {
 
 }
 
+/*
+* 工资导出*/
+
+/*
+* 员工工资表
+* */
+
+function setwageTable() {
+    var wagesTable = $('#exportwagesList').DataTable({
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: 'Save current page',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    }
+                }
+            }
+        ],
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        "retrieve": "true",
+        "ajax": {
+            "url": baseUrl + "wage/qal",
+            "dataType": "json",
+            "type": "POST",
+            "dataSrc": "data"
+        },
+        "columns": [
+            {
+                "data": "wagesId",
+                "class": "fc-1"
+            },
+            {
+                "data": "employeeId"
+            },
+            {
+                "data": "releaseTime"
+            },
+            {
+                "data": "persion",
+                "orderable": false
+            },
+            {
+                "data": "eInsurance",
+                "orderable": false
+            },
+            {
+                "data": "iInsurance",
+                "orderable": false
+            },
+            {
+                "data": "fund",
+                "orderable": false
+            },
+            {
+                "data": "subsidy",
+                "orderable": false
+            },
+            {
+                "data": "oAdd",
+                "orderable": false
+            },
+            {
+                "data": "oBuckle",
+                "orderable": false
+            },
+            {
+                "data": "total"
+            }
+        ]
+    })
+}
 
 /*
 * 账号设置
