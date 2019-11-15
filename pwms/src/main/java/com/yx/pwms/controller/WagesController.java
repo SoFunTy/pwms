@@ -41,8 +41,7 @@ public class WagesController {
     @RequestMapping(value = "/qal", method = RequestMethod.POST)
     @ResponseBody
     public Result queryAll() {
-        List<Wages> raps = wagesService.queryList(new HashMap<>());
-        return Checker.check(raps);
+        return Checker.check(wagesService.queryAll());
     }
 
     /**

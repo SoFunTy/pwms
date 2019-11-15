@@ -712,3 +712,9 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 #noticeList > tbody > tr{
     width: 39px;
 }
+
+#exportwagesList_wrapper > div.dt-buttons > a{
+    display: block;
+    background-color: #28a745;
+    border-radius: .5rem;
+}

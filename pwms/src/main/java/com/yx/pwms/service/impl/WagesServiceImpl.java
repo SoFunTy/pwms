@@ -28,6 +28,11 @@ public class WagesServiceImpl implements WagesService {
     }
 
     @Override
+    public List<Map> queryAll() {
+        return wagesDao.queryAll();
+    }
+
+    @Override
     public Map<String, Object> queryMy(Map<String, Object> map) {
         return wagesDao.queryMy((String) map.get("employeeId"));
     }

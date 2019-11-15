@@ -22,6 +22,13 @@ public interface WagesService {
     List<Wages> queryList(Map<String, Object> map);
 
     /**
+     * description: 查询
+     * @params
+     * @return Map<String, Object> map
+     */
+    List<Map> queryAll();
+
+    /**
      * description: 查询个人上月
      * @params Map<String, Object> map
      * @return List

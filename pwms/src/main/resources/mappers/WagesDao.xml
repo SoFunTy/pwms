@@ -35,6 +35,13 @@
     where WAGES_ID = #{wagesId}
     </delete>
 
+    <select id="queryAll" resultType="java.util.HashMap">
+        select
+        WAGES_ID wagesId,WAGES.EMPLOYEE_ID employeeId, EMPLOYEE_NAME employeeName, RELEASE_TIME releaseTime, PERSION persion, E_INSURANCE eInsurance, I_INSURANCE iInsurance, FUND fund, SUBSIDY subsidy,O_ADD oAdd, O_BUCKLE oBuckle, TOTAL total
+        from WAGES,EMPLOYEE
+        where WAGES.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID
+    </select>
+
     <select id="queryMy" parameterType="java.lang.String" resultType="java.util.HashMap">
         select
         TOTAL,O_ADD,O_BUCKLE

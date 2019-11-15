@@ -1380,6 +1380,10 @@ function setwagesTable() {
                 "data": "employeeId"
             },
             {
+                "data": "employeeName",
+                "orderable": false
+            },
+            {
                 "data": "total"
             },
             {
@@ -1432,25 +1436,22 @@ function wrecord(a) {
 
 /*
 * 工资导出*/
-
 /*
 * 员工工资表
 * */
-
 function setwageTable() {
     var wagesTable = $('#exportwagesList').DataTable({
         "dom": "Bfrtip",
         "buttons": [
             {
                 "extend": "excelHtml5",
-                "text": "导出excel",
+                "text": "导出选中内容",
                 // "autoFilter": "true"
-                "exportOptions":{
-                    "columns": ([1,2,3,4,5,6,7,8,9,10])
+                "exportOptions": {
+                    "columns": ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
                 },
-                "exportInfo":{
-                    "filename": "工资表"
-                }
+                "extension": ".xlsx",
+                "filename": "工资表"
             }
         ],
         language: {
@@ -1491,6 +1492,10 @@ function setwageTable() {
             },
             {
                 "data": "employeeId"
+            },
+            {
+                "data": "employeeName",
+                "orderable": false
             },
             {
                 "data": "releaseTime"

@@ -24,6 +24,13 @@ public interface WagesDao {
 
     /**
      * description: 查询
+     * @params
+     * @return Map<String, Object> map
+     */
+    List<Map> queryAll();
+
+    /**
+     * description: 查询
      * @params Map<String, Object> map
      * @return List<Employee>
      */
