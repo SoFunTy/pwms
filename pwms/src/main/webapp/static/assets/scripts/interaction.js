@@ -1444,7 +1444,13 @@ function setwageTable() {
             {
                 "extend": "excelHtml5",
                 "text": "导出excel",
-                "autoFilter": "true"
+                // "autoFilter": "true"
+                "exportOptions":{
+                    "columns": ([1,2,3,4,5,6,7,8,9,10])
+                },
+                "exportInfo":{
+                    "filename": "工资表"
+                }
             }
         ],
         language: {

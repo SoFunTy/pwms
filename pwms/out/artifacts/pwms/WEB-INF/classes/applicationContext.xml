@@ -10,10 +10,6 @@
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <!-- 自动扫描 -->
-<!--    <context:component-scan base-package="com.yx.pwms">-->
-<!--        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
-<!--    </context:component-scan>-->
-    <context:component-scan base-package="com.yx.pwms.dao"/>
     <context:component-scan base-package="com.yx.pwms.service"/>
 
     <!-- 配置Druid Start -->
@@ -73,6 +69,11 @@
         <property name="slowSqlMillis" value="200"/>
         <property name="logSlowSql" value="true"/>
     </bean>
+    <!--mapper映射扫描-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yx.pwms.dao"/>
+    </bean>
+
     <!-- Start 监控spring的切面-->
     <bean id="druid-stat-interceptor"
           class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
