@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `pwms` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `pwms`;
 -- MySQL dump 10.13  Distrib 8.0.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: pwms
@@ -144,6 +146,29 @@ INSERT INTO `NOTICES` VALUES (1,'2019-09-30','安徽省第五届普通高等学�
 UNLOCK TABLES;
 
 --
+-- Table structure for table `PDMAN_DB_VERSION`
+--
+
+DROP TABLE IF EXISTS `PDMAN_DB_VERSION`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `PDMAN_DB_VERSION` (
+  `DB_VERSION` varchar(256) DEFAULT NULL,
+  `VERSION_DESC` varchar(1024) DEFAULT NULL,
+  `CREATED_TIME` varchar(32) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `PDMAN_DB_VERSION`
+--
+
+LOCK TABLES `PDMAN_DB_VERSION` WRITE;
+/*!40000 ALTER TABLE `PDMAN_DB_VERSION` DISABLE KEYS */;
+/*!40000 ALTER TABLE `PDMAN_DB_VERSION` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `POSITIONS`
 --
 
@@ -241,4 +266,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-15 17:30:18
+-- Dump completed on 2019-11-18  9:56:55
