@@ -51,4 +51,5 @@ public interface EmployeeDao {
      */
     int updateEmployee(Map<String, Object> map);
 
+    void updateEmployeeById();
 }

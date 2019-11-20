@@ -63,7 +63,7 @@
             AND EMPLOYEE_ID = #{employeeId}
         </if>
         <if test="releaseTime != null">
-            AND RELEASE_TIME = #{releaseTime}
+            AND PERIOD_DIFF(date_format(#{releaseTime}, '%Y%m' ) , date_format(RELEASE_TIME, '%Y%m' ) ) = 0
         </if>
         <if test="persion != null">
             AND PERSION = #{persion}

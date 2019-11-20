@@ -20,6 +20,30 @@ var nodate;
 setData();
 userTypeCheck(mydata.permission.dicValue);
 
+/**
+ * description: 根据权限显示对于模块
+ * 权限等级 3<2<1
+ * @params a 等级
+ */
+function userTypeCheck(a) {
+    switch (a) {
+        case "3":
+            $("li[name*='common']").css("display", "block");
+            break;
+        case "2":
+            $("li[name*='checker']").css("display", "block");
+            break;
+        case "1":
+            $("li[name*='admin']").css("display", "block");
+            break;
+        default:
+            break;
+    }
+    $("div[name*='admin']").css("display", "none");
+    $("div[name*='index']").css("display", "block")
+}
+
+
 $("#personnel_management_all").on("click", function () {
     setempTable()
 });
@@ -55,30 +79,6 @@ $("#staff_salary_enquiry").on("click", function () {
 $("#export_wage_table").on("click", function () {
     setwageTable()
 });
-
-
-/**
- * description: 根据权限显示对于模块
- * 权限等级 3<2<1
- * @params a 等级
- */
-function userTypeCheck(a) {
-    switch (a) {
-        case "3":
-            $("li[name*='common']").css("display", "block");
-            break;
-        case "2":
-            $("li[name*='checker']").css("display", "block");
-            break;
-        case "1":
-            $("li[name*='admin']").css("display", "block");
-            break;
-        default:
-            break;
-    }
-    $("div[name*='admin']").css("display", "none");
-    $("div[name*='index']").css("display", "block")
-}
 
 
 /*
@@ -203,7 +203,7 @@ function noticeDel(a) {
     })
 }
 
-/*广告保存*/
+/*公告保存*/
 function noticeSave() {
     var url = baseUrl + "notice/up";
     var data;
@@ -288,6 +288,35 @@ function setLastWages() {
         "employeeId": mydata.employeeId,
         "recodingTime": year + "-" + mon + "-" + date
     };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "wage/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({"employeeId": mydata.employeeId,"releaseTime":year + "-" + (mon-1) + "-" + date}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                if (result.data.length !== 0) {
+                    var thisdata = result.data[0];
+                    $("#LastMWages1").html("￥ " + thisdata.persion);
+                    $("#LastMWages2").html("￥ " + thisdata.eInsurance);
+                    $("#LastMWages3").html("￥ " + thisdata.iInsurance);
+                    $("#LastMWages4").html("￥ " + thisdata.fund);
+                    $("#LastMWages5").html("￥ " + thisdata.subsidy);
+                    $("#LastMWages6").html("￥ " + thisdata.oAdd);
+                    $("#LastMWages7").html("￥ " + thisdata.oBuckle);
+                } else {
+                    $("#LastMWages1").html("￥ 0");
+                    $("#LastMWages2").html("￥ 0");
+                    $("#LastMWages3").html("￥ 0");
+                    $("#LastMWages4").html("￥ 0");
+                    $("#LastMWages5").html("￥ 0");
+                    $("#LastMWages6").html("￥ 0");
+                    $("#LastMWages7").html("￥ 0");
+                }
+            }
+        }
+    });
     $.ajax({
         type: "POST",
         url: baseUrl + "rap/qli",
@@ -565,18 +594,16 @@ function setIndexWages() {
         contentType: "application/json;charset=UTF-8",
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
-            if (result.resultCode === 200) {
-                if (result.data.length !== 0) {
+            if (result.data !== null) {
                     $("#lastMWage").html("￥ " + result.data.TOTAL);
                     $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
                     $("#lastMWageA").html("￥ " + result.data.O_ADD);
                     $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
-                } else {
+            } else {
                     $("#lastMWage").html("￥ 0");
                     $("span[name='LastMWages']").html("￥ 0");
                     $("#lastMWageA").html("￥ 0");
                     $("#lastMWageB").html("￥ 0")
-                }
             }
         }
     });
@@ -1092,15 +1119,16 @@ function setDepartment() {
         ]
     })
 }
-
+var newDepId = 0;
 function depreload() {
-    $("input[name='depId']").val("");
-    $("input[name='depId']").removeAttr("readonly");
+    $("#departmentList > tbody > tr > td.sorting_1").each(function () {if ($(this).html()>newDepId)newDepId = $(this).html()});
+    $("input[name='depId']").val(parseInt(newDepId)+1);
     $("input[name='depName']").val("");
-    $("input[name='depChargeId']").val("")
+    $("input[name='depChargeId']").val("");
 }
 
 function depChange(a) {
+    newDepId = 0;
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "dep/qby",
@@ -1155,9 +1183,9 @@ function depDel(a) {
 
 function depSave() {
     var url = baseUrl + "dep/up";
-    if ($("input[name='depId']").attr("readonly") == null) {
+    if (newDepId != 0) {
         url = baseUrl + "dep/ins";
-        if ($("input[name='depId']").val() === "" || $("input[name='depName']").val() === "") {
+        if ($("input[name='depName']").val() === "") {
             showError("请正确输入");
             return;
         }
@@ -1177,6 +1205,7 @@ function depSave() {
             if (result.resultCode === 200) {
                 showSuccess("保存成功！");
                 depTable.ajax.reload(null, false);
+                $("button[data-dismiss='modal']").click();
             } else {
                 showError(result.message)
             }
@@ -1185,7 +1214,6 @@ function depSave() {
             showError("后台错误，请联系管理员！");
         }
     });
-    $("button[data-dismiss='modal']").click();
 }
 
 /*
@@ -1312,6 +1340,7 @@ function staffAdd() {
         "employeeName": $("input[name='staffName']").val(),
         "positionId": $("select[name='staffPos']").val(),
         "oinTime": $("input[name='staffTime']").val(),
+        "idNumber": $("input[name='staffIdCard']").val(),
         "email": $("input[name='staffEmail']").val(),
         "epassword": $("input[name='staffPwd']").val()
     };
@@ -1433,6 +1462,7 @@ function setwagesTable() {
 function wrecord(a) {
 
 }
+
 
 /*
 * 工资导出*/

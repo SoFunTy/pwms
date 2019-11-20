@@ -1,6 +1,6 @@
-$(document).ready(function () {
-    window.sessionStorage.setItem('data', "");
-});
+// $(document).ready(function () {
+//     window.sessionStorage.setItem('data', "");
+// });
 // var baseUrl = "http://66.42.62.119:8080/pwms/";
 var baseUrl = "http://localhost:8080/pwms/";
 /**

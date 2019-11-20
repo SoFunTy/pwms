@@ -33,7 +33,7 @@ public class DepartmentController {
         Department department = check(map);
         if (department == null) return ResultGenerator.genErrorResult(406, "输入错误");
         if (departmentService.queryExist(department.getDepartmentId()) == 1) {
-            return ResultGenerator.genErrorResult(407, "部门已存在");
+            return ResultGenerator.genErrorResult(407, "部门编号已存在");
         }
         int statu = departmentService.insertDepartment(department);
         return Checker.check(statu);

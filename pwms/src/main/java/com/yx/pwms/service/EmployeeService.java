@@ -57,4 +57,5 @@ public interface EmployeeService {
      * @return int
      */
     int updateEmployee(Map<String, Object> map);
+    void updateEmployeeById();
 }

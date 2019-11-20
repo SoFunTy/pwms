@@ -59,9 +59,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int queryExist(String employeeId, String email) {
         HashMap<String, Object> map = new HashMap<>();
-        map.put("employeeId",employeeId);
-        if (email != null && email != "") map.put("email",email);
-        if (employeeDao.queryList(map).size() != 0){
+        if (email != null && !email.equals("")) map.put("email",email);
+        if ( employeeDao.queryList(map).size() != 0 || employeeDao.queryByEmployeeId(employeeId) != null){
             return 1;
         }
         return 0;
@@ -70,12 +69,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int updateEmployee(Map<String, Object> map) {
         if (!Objects.isNull(map.get("epassword"))){
-            if(map.get("epassword").toString().length() < 16)
+            if(map.get("epassword").toString().length() < 32)
                 map.put("epassword", MD5Util.MD5Encode(map.get("epassword").toString(), "UTF-8"));
             else
                 map.remove("epassword");
         }
         return employeeDao.updateEmployee(map);
+    }
+
+    @Override
+    public void updateEmployeeById() {
+        employeeDao.updateEmployeeById();
+        return;
     }
 
 }

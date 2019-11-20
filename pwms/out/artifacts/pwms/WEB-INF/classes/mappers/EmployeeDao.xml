@@ -348,6 +348,15 @@
         where email = #{email} and epassword = #{epassword}
     </select>
 
+    <update id="updateEmployeeById" parameterType="java.util.Map">
+        update EMPLOYEE
+        set BRITH = STR_TO_DATE(CONCAT(SUBSTRING(id_number,7,4),'-',SUBSTRING(id_number,11,2),'-',SUBSTRING(id_number,13,2)),'%Y-%m-%d'),
+        SEX=(
+        case when mod(substr(id_number,17,1),2)=1 then 1
+            when mod(substr(id_number,17,1),2)=0 then 2
+            else '' end )
+    </update>
+
     <update id="updateEmployee" parameterType="java.util.Map">
         update EMPLOYEE
         <set>

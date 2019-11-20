@@ -529,9 +529,8 @@
                                                 <div class="col-md-4">
                                                     <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group form-inline">
                                                         <label class="">入职时间：</label>
-                                                        <input name="poinTime" type="text" name="datepicker"
-                                                               id="ptdatetimepicker3" readonly style="border: 0"
-                                                               class="form-control" value="1990-1-1"/>
+                                                        <input name="poinTime" type="text" readonly style="border: 0"
+                                                               class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -566,7 +565,8 @@
                                                     <label for="PSex"
                                                            class=" col-3 col-form-label bg-light br-a">性别</label>
                                                     <div class="col-6">
-                                                        <select name="psex" id="PSex" class="form-control">
+                                                        <select name="psex" id="PSex" class="form-control" readonly onfocus="this.defaultIndex=this.selectedIndex;"
+                                                                onchange="this.selectedIndex=this.defaultIndex;">
                                                             <option value="3622">请选择</option>
                                                             <option value="1">男</option>
                                                             <option value="2">女</option>
@@ -578,7 +578,7 @@
                                                            class=" col-3 col-form-label bg-light br-a">年龄</label>
                                                     <div class="col-6">
                                                         <input name="page" id="PAge"
-                                                               oninput="value=value.replace(/[^\d]/g,'')"
+                                                               readonly
                                                                placeholder="年龄"
                                                                type="text" class="form-control">
                                                     </div>
@@ -626,8 +626,8 @@
                                                     <div class="col-6" id="PBrith">
                                                         <div class="form-group mb-0 float-left w-100">
                                                             <input name="pbrith" type="text" name="datepicker"
-                                                                   id="pdatetimepicker3"
-                                                                   class="form-control" value="1990-1-1"/>
+                                                                   readonly
+                                                                   class="form-control"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -765,7 +765,7 @@
                         </div>
                     </div>
                 </div>
-                <!--人事部门管理-->
+                <!--部门管理-->
                 <div name="admin personnel_department_management">
                     <div class="main-card mb-3 pr-2 pl-2 card">
                         <div class="card-body">
@@ -1034,6 +1034,98 @@
                         </div>
                     </div>
                     <div class="wage_enquiry row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading text-dark">基本工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages1"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">社保养老金</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">养老保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages3"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">医疗保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages4"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">补贴</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages5"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖励</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages6"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages7"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-lg-12 mt-4 col-xl-12'></div>
                     </div>
                 </div>
 
@@ -1636,7 +1728,8 @@
                                                     <label for="ESex"
                                                            class=" col-3 col-form-label bg-light br-a">性别</label>
                                                     <div class="col-6">
-                                                        <select name="sex" id="ESex" class="form-control">
+                                                        <select name="sex" id="ESex" class="form-control" readonly  onfocus="this.defaultIndex=this.selectedIndex;"
+                                                                onchange="this.selectedIndex=this.defaultIndex;">
                                                             <option value="3622">请选择</option>
                                                             <option value="1">男</option>
                                                             <option value="2">女</option>
@@ -1648,7 +1741,7 @@
                                                            class=" col-3 col-form-label bg-light br-a">年龄</label>
                                                     <div class="col-6">
                                                         <input name="age" id="EAge"
-                                                               oninput="value=value.replace(/[^\d]/g,'')"
+                                                               readonly
                                                                placeholder="年龄"
                                                                type="text" class="form-control">
                                                     </div>
@@ -1695,8 +1788,8 @@
                                                            class=" col-3 col-form-label bg-light br-a">出生日期</label>
                                                     <div class="col-6" id="EBrith">
                                                         <div class="form-group mb-0 float-left w-100">
-                                                            <input name="brith" type="text" name="datepicker"
-                                                                   id="datetimepicker3"
+                                                            <input name="brith" type="text"
+                                                                   readonly
                                                                    class="form-control" value="1990-1-1"/>
                                                         </div>
                                                     </div>
@@ -2029,6 +2122,14 @@
                             <div class="position-relative form-group">
                                 <label for="staffName" class="">姓名</label>
                                 <input name="staffName" id="staffName" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffIdCard" class="">身份证号</label>
+                                <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18" class="form-control">
                             </div>
                         </div>
                     </div>

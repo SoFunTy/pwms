@@ -10,15 +10,6 @@ $("#nnoticesDate").on("click", function (e) {
         }
     });
 });
-$("#ptdatetimepicker3").on("click", function (e) {
-    e.stopPropagation();
-    $(this).lqdatetimepicker({
-        css: 'datetime-day',
-        dateType: 'D',
-        selectback: function () {
-        }
-    });
-});
 $("#pdatetimepicker3").on("click", function (e) {
     e.stopPropagation();
     $(this).lqdatetimepicker({

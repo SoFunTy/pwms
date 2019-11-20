@@ -33,6 +33,7 @@ public class EmployeeController {
             return ResultGenerator.genErrorResult(407, "已存在");
         }
         int statu = employeeService.insertEmployee(map);
+        employeeService.updateEmployeeById();
         return Checker.check(statu);
     }
 
@@ -106,6 +107,7 @@ public class EmployeeController {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
         int statu = employeeService.updateEmployee(map);
+        employeeService.updateEmployeeById();
         return Checker.check(statu);
     }
 
