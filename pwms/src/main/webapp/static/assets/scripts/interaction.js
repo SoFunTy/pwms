@@ -1415,7 +1415,7 @@ function setwagesTable() {
         "columns": [
             {
                 "data": "wagesId",
-                "class": "fc-1"
+                "class": "fc-1  text-center"
             },
             {
                 "data": "employeeId"
@@ -1485,11 +1485,20 @@ function setwagesTable() {
             {
                 "data": "wagesId",
                 "orderable": false,
+                "class": "text-center",
                 "mRender": function (data, type, full) {
                     return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' onclick='wrecord(" + data + ")'>修改</button>";
                 }
             }
-        ]
+        ],
+        "processing": true,
+        "autoWidth": true,
+        "scrollX": true,//x方向滚动
+        "scrollCollapse": true,
+        "fixedColumns" : {
+            "leftColumns" : 1,
+            "rightColumns": 1
+        }
     });
 }
 
@@ -1554,7 +1563,7 @@ function setwageTable() {
         "columns": [
             {
                 "data": "wagesId",
-                "class": "fc-1"
+                "class": "fc-1 text-center"
             },
             {
                 "data": "employeeId"
@@ -1621,7 +1630,9 @@ function setwageTable() {
             {
                 "data": "wageDeductedTax"
             }
-        ]
+        ],
+        "processing": true,
+        "autoWidth": true
     })
 }
 

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="../assets/style/public.css">
     <link rel="stylesheet" href="../assets/style/lq.datetimepick.css">
+<!--    <link rel="stylesheet" href="../assets/style/fixedColumns.bootstrap4.min.css">-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="../assets/scripts/jquery-3.4.1.min.js"></script>
 
@@ -21,8 +22,11 @@
 
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+    <script src="../assets/scripts/dataTables.fixedColumns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js "></script>
+
+
 
 </head>
 <body>
@@ -822,13 +826,12 @@
                 <!--员工工资查询-->
                 <div name="admin staff_salary_enquiry">
                     <div class="main-card mb-3 pr-2 pl-2 card">
-                        <div class="card-body">
+                        <div class="card-body" style="width: 92%;">
                             <table id="wagesList" class="table table-striped row-border table-bordered table-hover"
-                                   cellspacing="0"
-                                   width="100%">
+                                   cellspacing="0">
                                 <thead>
-                                <tr>
-                                    <th>编号</th>
+                                <tr style="white-space: nowrap;">
+                                    <th style="background-color: #fff;">编号</th>
                                     <th>工号</th>
                                     <th>姓名</th>
                                     <th>税后工资</th>
@@ -846,9 +849,10 @@
                                     <th>生育保险</th>
                                     <th>住房公积金</th>
                                     <th>个人所得税</th>
-                                    <th width="120px">操作</th>
+                                    <th style="background-color: #fff;" width="60px">操作</th>
                                 </tr>
                                 </thead>
+                                <tbody style="white-space: nowrap;"></tbody>
                             </table>
                         </div>
                     </div>
@@ -894,8 +898,8 @@
                                    cellspacing="0"
                                    width="100%">
                                 <thead>
-                                <tr>
-                                    <th>编号</th>
+                                <tr style="white-space: nowrap;">
+                                    <th style="background-color: #fff;">编号</th>
                                     <th>工号</th>
                                     <th>姓名</th>
                                     <th>发放日期</th>
@@ -915,6 +919,7 @@
                                     <th>税后工资</th>
                                 </tr>
                                 </thead>
+                                <tbody style="white-space: nowrap;"></tbody>
                             </table>
                         </div>
                     </div>

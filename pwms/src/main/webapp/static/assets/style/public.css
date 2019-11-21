@@ -568,6 +568,7 @@ div.row.rowlist .event_list li p span {
 }
 
 
+
 #employeeList_length > label {
     font-weight: normal;
     text-align: left;
@@ -717,4 +718,11 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
     display: block;
     background-color: #28a745;
     border-radius: .5rem;
+}
+
+#wagesList_wrapper > div:nth-child(2) > div > div.DTFC_ScrollWrapper > div.DTFC_RightWrapper > div.DTFC_RightBodyWrapper > div > table > tbody > tr > td{
+    background-color: #fff;
+}
+#wagesList_wrapper > div:nth-child(2) > div > div.DTFC_ScrollWrapper > div.DTFC_LeftWrapper > div.DTFC_LeftBodyWrapper > div > table > tbody > tr > td {
+    background-color: #fff;
 }
