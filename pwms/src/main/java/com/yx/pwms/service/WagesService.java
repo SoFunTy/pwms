@@ -35,7 +35,7 @@ public interface WagesService {
      */
     Map<String, Object> queryMy(Map<String, Object> map);
 
-    int queryExist(long wagesId);
+    int queryExist(Integer wagesId);
 
     /**
      * description: 更新

@@ -38,7 +38,7 @@ public class WagesServiceImpl implements WagesService {
     }
 
     @Override
-    public int queryExist(long wagesId) {
+    public int queryExist(Integer wagesId) {
         if (!Objects.isNull(queryList((Map<String, Object>) new HashMap<>().put("wagesId",wagesId)))){
             return 1;
         }

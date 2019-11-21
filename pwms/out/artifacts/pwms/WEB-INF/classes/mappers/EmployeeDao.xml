@@ -355,6 +355,7 @@
         case when mod(substr(id_number,17,1),2)=1 then 1
             when mod(substr(id_number,17,1),2)=0 then 2
             else '' end )
+        where LENGTH(id_number) = 18;
     </update>
 
     <update id="updateEmployee" parameterType="java.util.Map">

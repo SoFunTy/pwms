@@ -298,13 +298,19 @@ function setLastWages() {
             if (result.resultCode === 200) {
                 if (result.data.length !== 0) {
                     var thisdata = result.data[0];
-                    $("#LastMWages1").html("￥ " + thisdata.persion);
-                    $("#LastMWages2").html("￥ " + thisdata.eInsurance);
-                    $("#LastMWages3").html("￥ " + thisdata.iInsurance);
-                    $("#LastMWages4").html("￥ " + thisdata.fund);
-                    $("#LastMWages5").html("￥ " + thisdata.subsidy);
-                    $("#LastMWages6").html("￥ " + thisdata.oAdd);
-                    $("#LastMWages7").html("￥ " + thisdata.oBuckle);
+                    $("#LastMWages1").html("￥ " + thisdata.basePay);
+                    $("#LastMWages2").html("￥ " + thisdata.postWage);
+                    $("#LastMWages3").html("￥ " + thisdata.jxw);
+                    $("#LastMWages4").html("￥ " + thisdata.allowance);
+                    $("#LastMWages5").html("￥ " + thisdata.bouns);
+                    $("#LastMWages6").html("￥ " + thisdata.penalty);
+                    $("#LastMWages7").html("￥ " + thisdata.eInsurance);
+                    $("#LastMWages8").html("￥ " + thisdata.iInsurance);
+                    $("#LastMWages9").html("￥ " + thisdata.uInsurance);
+                    $("#LastMWages10").html("￥ " + thisdata.wInsurance);
+                    $("#LastMWages11").html("￥ " + thisdata.mInsurance);
+                    $("#LastMWages12").html("￥ " + thisdata.housingFund);
+                    $("#LastMWages13").html("￥ " + thisdata.iitFeelsCold);
                 } else {
                     $("#LastMWages1").html("￥ 0");
                     $("#LastMWages2").html("￥ 0");
@@ -313,6 +319,12 @@ function setLastWages() {
                     $("#LastMWages5").html("￥ 0");
                     $("#LastMWages6").html("￥ 0");
                     $("#LastMWages7").html("￥ 0");
+                    $("#LastMWages8").html("￥ 0");
+                    $("#LastMWages9").html("￥ 0");
+                    $("#LastMWages10").html("￥ 0");
+                    $("#LastMWages11").html("￥ 0");
+                    $("#LastMWages12").html("￥ 0");
+                    $("#LastMWages13").html("￥ 0");
                 }
             }
         }
@@ -595,10 +607,10 @@ function setIndexWages() {
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.data !== null) {
-                    $("#lastMWage").html("￥ " + result.data.TOTAL);
-                    $("span[name='LastMWages']").html("￥ " + result.data.TOTAL);
-                    $("#lastMWageA").html("￥ " + result.data.O_ADD);
-                    $("#lastMWageB").html("￥ " + result.data.O_BUCKLE)
+                    $("#lastMWage").html("￥ " + result.data.wageDeductedTax);
+                    $("span[name='LastMWages']").html("￥ " + result.data.wageDeductedTax);
+                    $("#lastMWageA").html("￥ " + result.data.bouns);
+                    $("#lastMWageB").html("￥ " + result.data.penalty)
             } else {
                     $("#lastMWage").html("￥ 0");
                     $("span[name='LastMWages']").html("￥ 0");
@@ -1413,13 +1425,33 @@ function setwagesTable() {
                 "orderable": false
             },
             {
-                "data": "total"
+                "data": "wageDeductedTax"
             },
             {
                 "data": "releaseTime"
             },
             {
-                "data": "persion",
+                "data": "basePay",
+                "orderable": false
+            },
+            {
+                "data": "postWage",
+                "orderable": false
+            },
+            {
+                "data": "jxw",
+                "orderable": false
+            },
+            {
+                "data": "allowance",
+                "orderable": false
+            },
+            {
+                "data": "bouns",
+                "orderable": false
+            },
+            {
+                "data": "penalty",
                 "orderable": false
             },
             {
@@ -1431,19 +1463,23 @@ function setwagesTable() {
                 "orderable": false
             },
             {
-                "data": "fund",
+                "data": "uInsurance",
                 "orderable": false
             },
             {
-                "data": "subsidy",
+                "data": "wInsurance",
                 "orderable": false
             },
             {
-                "data": "oAdd",
+                "data": "mInsurance",
                 "orderable": false
             },
             {
-                "data": "oBuckle",
+                "data": "housingFund",
+                "orderable": false
+            },
+            {
+                "data": "iitFeelsCold",
                 "orderable": false
             },
             {
@@ -1531,7 +1567,27 @@ function setwageTable() {
                 "data": "releaseTime"
             },
             {
-                "data": "persion",
+                "data": "basePay",
+                "orderable": false
+            },
+            {
+                "data": "postWage",
+                "orderable": false
+            },
+            {
+                "data": "jxw",
+                "orderable": false
+            },
+            {
+                "data": "allowance",
+                "orderable": false
+            },
+            {
+                "data": "bouns",
+                "orderable": false
+            },
+            {
+                "data": "penalty",
                 "orderable": false
             },
             {
@@ -1543,23 +1599,27 @@ function setwageTable() {
                 "orderable": false
             },
             {
-                "data": "fund",
+                "data": "uInsurance",
                 "orderable": false
             },
             {
-                "data": "subsidy",
+                "data": "wInsurance",
                 "orderable": false
             },
             {
-                "data": "oAdd",
+                "data": "mInsurance",
                 "orderable": false
             },
             {
-                "data": "oBuckle",
+                "data": "housingFund",
                 "orderable": false
             },
             {
-                "data": "total"
+                "data": "iitFeelsCold",
+                "orderable": false
+            },
+            {
+                "data": "wageDeductedTax"
             }
         ]
     })

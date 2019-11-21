@@ -5,46 +5,60 @@
         <id column="WAGES_ID" jdbcType="INTEGER" property="wagesId" />
         <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
         <result column="RELEASE_TIME" jdbcType="DATE" property="releaseTime" />
-        <result column="PERSION" jdbcType="DOUBLE" property="persion" />
+        <result column="BASE_PAY" jdbcType="DOUBLE" property="basePay" />
+        <result column="POST_WAGE" jdbcType="DOUBLE" property="postWage" />
+        <result column="JXW" jdbcType="DOUBLE" property="jxw" />
+        <result column="ALLOWANCE" jdbcType="DOUBLE" property="allowance" />
+        <result column="BOUNS" jdbcType="DOUBLE" property="bouns" />
+        <result column="PENALTY" jdbcType="DOUBLE" property="penalty" />
         <result column="E_INSURANCE" jdbcType="DOUBLE" property="eInsurance" />
         <result column="I_INSURANCE" jdbcType="DOUBLE" property="iInsurance" />
-        <result column="FUND" jdbcType="DOUBLE" property="fund" />
-        <result column="SUBSIDY" jdbcType="DOUBLE" property="subsidy" />
-        <result column="O_ADD" jdbcType="DOUBLE" property="oAdd" />
-        <result column="O_BUCKLE" jdbcType="DOUBLE" property="oBuckle" />
-        <result column="TOTAL" jdbcType="DOUBLE" property="total" />
+        <result column="U_INSURANCE" jdbcType="DOUBLE" property="uInsurance" />
+        <result column="W_INSURANCE" jdbcType="DOUBLE" property="wInsurance" />
+        <result column="M_INSURANCE" jdbcType="DOUBLE" property="mInsurance" />
+        <result column="HOUSING_FUND" jdbcType="DOUBLE" property="housingFund" />
+        <result column="IIT_FEELS_COLD" jdbcType="DOUBLE" property="iitFeelsCold" />
+        <result column="WAGE_DEDUCTED_TAX" jdbcType="DOUBLE" property="wageDeductedTax" />
     </resultMap>
     <sql id="Wages_Column_List">
-     WAGES_ID,EMPLOYEE_ID, RELEASE_TIME, PERSION, E_INSURANCE, I_INSURANCE, FUND, SUBSIDY,
-    O_ADD, O_BUCKLE, TOTAL
-    </sql>
+    WAGES_ID, EMPLOYEE_ID, RELEASE_TIME, BASE_PAY, POST_WAGE, JXW, ALLOWANCE, BOUNS,
+    PENALTY, E_INSURANCE, I_INSURANCE, U_INSURANCE, W_INSURANCE, M_INSURANCE, HOUSING_FUND,
+    IIT_FEELS_COLD, WAGE_DEDUCTED_TAX
+  </sql>
 
     <insert id="insertWages" parameterType="java.util.Map">
-    insert into WAGES (EMPLOYEE_ID, RELEASE_TIME, PERSION,
-      E_INSURANCE, I_INSURANCE, FUND,
-      SUBSIDY, O_ADD, O_BUCKLE,
-      TOTAL)
-    values (#{employeeId}, #{releaseTime}, #{persion},
-      #{eInsurance}, #{iInsurance}, #{fund},
-      #{subsidy}, #{oAdd}, #{oBuckle},
-      #{total})
-     </insert>
+    insert into WAGES (WAGES_ID, EMPLOYEE_ID, RELEASE_TIME,
+      BASE_PAY, POST_WAGE, JXW,
+      ALLOWANCE, BOUNS, PENALTY,
+      E_INSURANCE, I_INSURANCE, U_INSURANCE,
+      W_INSURANCE, M_INSURANCE, HOUSING_FUND,
+      IIT_FEELS_COLD, WAGE_DEDUCTED_TAX)
+    values (#{wagesId,jdbcType=INTEGER}, #{employeeId,jdbcType=VARCHAR}, #{releaseTime,jdbcType=DATE},
+      #{basePay,jdbcType=DOUBLE}, #{postWage,jdbcType=DOUBLE}, #{jxw,jdbcType=DOUBLE},
+      #{allowance,jdbcType=DOUBLE}, #{bouns,jdbcType=DOUBLE}, #{penalty,jdbcType=DOUBLE},
+      #{eInsurance,jdbcType=DOUBLE}, #{iInsurance,jdbcType=DOUBLE}, #{uInsurance,jdbcType=DOUBLE},
+      #{wInsurance,jdbcType=DOUBLE}, #{mInsurance,jdbcType=DOUBLE}, #{housingFund,jdbcType=DOUBLE},
+      #{iitFeelsCold,jdbcType=DOUBLE}, #{wageDeductedTax,jdbcType=DOUBLE})
+  </insert>
 
-    <delete id="deleteWages" parameterType="java.lang.Long">
+    <delete id="deleteWages" parameterType="java.lang.Integer">
     delete from WAGES
     where WAGES_ID = #{wagesId}
     </delete>
 
     <select id="queryAll" resultType="java.util.HashMap">
         select
-        WAGES_ID wagesId,WAGES.EMPLOYEE_ID employeeId, EMPLOYEE_NAME employeeName, RELEASE_TIME releaseTime, PERSION persion, E_INSURANCE eInsurance, I_INSURANCE iInsurance, FUND fund, SUBSIDY subsidy,O_ADD oAdd, O_BUCKLE oBuckle, TOTAL total
+        WAGES_ID wagesId,WAGES.EMPLOYEE_ID employeeId, EMPLOYEE_NAME employeeName, RELEASE_TIME releaseTime,
+        BASE_PAY basePay, POST_WAGE postWage, JXW jxw, ALLOWANCE allowance,
+        BOUNS bouns, PENALTY penalty, E_INSURANCE eInsurance, I_INSURANCE iInsurance, U_INSURANCE uInsurance, W_INSURANCE wInsurance, M_INSURANCE mInsurance,
+        HOUSING_FUND housingFund, IIT_FEELS_COLD iitFeelsCold, WAGE_DEDUCTED_TAX wageDeductedTax
         from WAGES,EMPLOYEE
         where WAGES.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID
     </select>
 
-    <select id="queryMy" parameterType="java.lang.String" resultType="java.util.HashMap">
+    <select id="queryMy" parameterType="java.lang.String" resultType="Wages">
         select
-        TOTAL,O_ADD,O_BUCKLE
+        <include refid="Wages_Column_List"/>
         from WAGES
         where
          EMPLOYEE_ID = #{employeeId} and
@@ -53,7 +67,7 @@
 
     <select id="queryList" parameterType="java.util.Map" resultMap="Wages">
         select
-        <include refid="Wages_Column_List" />
+        <include refid="Wages_Column_List"/>
         from WAGES
         where 1=1
         <if test="wagesId != null">
@@ -65,8 +79,23 @@
         <if test="releaseTime != null">
             AND PERIOD_DIFF(date_format(#{releaseTime}, '%Y%m' ) , date_format(RELEASE_TIME, '%Y%m' ) ) = 0
         </if>
-        <if test="persion != null">
-            AND PERSION = #{persion}
+        <if test="basePay != null">
+            AND BASE_PAY = #{basePay}
+        </if>
+        <if test="postWage != null">
+            AND POST_WAGE = #{postWage}
+        </if>
+        <if test="jxw != null">
+            AND JXW = #{jxw}
+        </if>
+        <if test="allowance != null">
+            AND ALLOWANCE = #{allowance}
+        </if>
+        <if test="bouns != null">
+            AND BOUNS = #{bouns}
+        </if>
+        <if test="penalty != null">
+            AND PENALTY = #{penalty}
         </if>
         <if test="eInsurance != null">
             AND E_INSURANCE = #{eInsurance}
@@ -74,20 +103,23 @@
         <if test="iInsurance != null">
             AND I_INSURANCE = #{iInsurance}
         </if>
-        <if test="fund != null">
-            AND FUND = #{fund}
+        <if test="uInsurance != null">
+            AND U_INSURANCE = #{uInsurance}
         </if>
-        <if test="subsidy != null">
-            AND SUBSIDY = #{subsidy}
+        <if test="wInsurance != null">
+            AND W_INSURANCE = #{wInsurance}
         </if>
-        <if test="oAdd != null">
-            AND O_ADD = #{oAdd}
+        <if test="mInsurance != null">
+            AND M_INSURANCE = #{mInsurance}
         </if>
-        <if test="oBuckle != null">
-            AND O_BUCKLE = #{oBuckle}
+        <if test="housingFund != null">
+            AND HOUSING_FUND = #{housingFund}
         </if>
-        <if test="total != null">
-            AND TOTAL = #{total}
+        <if test="iitFeelsCold != null">
+            AND IIT_FEELS_COLD = #{iitFeelsCold}
+        </if>
+        <if test="wageDeductedTax != null">
+            AND WAGE_DEDUCTED_TAX = #{wageDeductedTax}
         </if>
     </select>
 
@@ -95,13 +127,28 @@
         update WAGES
         <set>
             <if test="employeeId != null">
-                EMPLOYEE_ID = #{employeeId}
+                EMPLOYEE_ID = #{employeeId},
             </if>
             <if test="releaseTime != null">
                 RELEASE_TIME = #{releaseTime},
             </if>
-            <if test="persion != null">
-                PERSION = #{persion},
+            <if test="basePay != null">
+                BASE_PAY = #{basePay},
+            </if>
+            <if test="postWage != null">
+                POST_WAGE = #{postWage},
+            </if>
+            <if test="jxw != null">
+                JXW = #{jxw},
+            </if>
+            <if test="allowance != null">
+                ALLOWANCE = #{allowance},
+            </if>
+            <if test="bouns != null">
+                BOUNS = #{bouns},
+            </if>
+            <if test="penalty != null">
+                PENALTY = #{penalty},
             </if>
             <if test="eInsurance != null">
                 E_INSURANCE = #{eInsurance},
@@ -109,23 +156,26 @@
             <if test="iInsurance != null">
                 I_INSURANCE = #{iInsurance},
             </if>
-            <if test="fund != null">
-                FUND = #{fund},
+            <if test="uInsurance != null">
+                U_INSURANCE = #{uInsurance},
             </if>
-            <if test="subsidy != null">
-                SUBSIDY = #{subsidy},
+            <if test="wInsurance != null">
+                W_INSURANCE = #{wInsurance},
             </if>
-            <if test="oAdd != null">
-                O_ADD = #{oAdd},
+            <if test="mInsurance != null">
+                M_INSURANCE = #{mInsurance},
             </if>
-            <if test="oBuckle != null">
-                O_BUCKLE = #{oBuckle},
+            <if test="housingFund != null">
+                HOUSING_FUND = #{housingFund},
             </if>
-            <if test="total != null">
-                TOTAL = #{total},
+            <if test="iitFeelsCold != null">
+                IIT_FEELS_COLD = #{iitFeelsCold},
+            </if>
+            <if test="wageDeductedTax != null">
+                WAGE_DEDUCTED_TAX = #{wageDeductedTax},
             </if>
         </set>
-        where WAGES_ID = #{wagesId},
+        where WAGES_ID = #{wagesId}
     </update>
 
 </mapper>

@@ -831,15 +831,21 @@
                                     <th>编号</th>
                                     <th>工号</th>
                                     <th>姓名</th>
-                                    <th>总和</th>
+                                    <th>税后工资</th>
                                     <th>发放日期</th>
-                                    <th>社保养老金</th>
+                                    <th>基本工资</th>
+                                    <th>岗位工资</th>
+                                    <th>绩效津贴</th>
+                                    <th>补助</th>
+                                    <th>奖金</th>
+                                    <th>罚扣</th>
                                     <th>养老保险</th>
                                     <th>医疗保险</th>
-                                    <th>公积金</th>
-                                    <th>通讯补贴</th>
-                                    <th>其他加</th>
-                                    <th>其他扣</th>
+                                    <th>失业保险</th>
+                                    <th>工伤保险</th>
+                                    <th>生育保险</th>
+                                    <th>住房公积金</th>
+                                    <th>个人所得税</th>
                                     <th width="120px">操作</th>
                                 </tr>
                                 </thead>
@@ -893,14 +899,20 @@
                                     <th>工号</th>
                                     <th>姓名</th>
                                     <th>发放日期</th>
-                                    <th>社保养老金</th>
+                                    <th>基本工资</th>
+                                    <th>岗位工资</th>
+                                    <th>绩效津贴</th>
+                                    <th>补助</th>
+                                    <th>奖金</th>
+                                    <th>罚扣</th>
                                     <th>养老保险</th>
                                     <th>医疗保险</th>
-                                    <th>公积金</th>
-                                    <th>通讯补贴</th>
-                                    <th>其他加</th>
-                                    <th>其他扣</th>
-                                    <th>总和</th>
+                                    <th>失业保险</th>
+                                    <th>工伤保险</th>
+                                    <th>生育保险</th>
+                                    <th>住房公积金</th>
+                                    <th>个人所得税</th>
+                                    <th>税后工资</th>
                                 </tr>
                                 </thead>
                             </table>
@@ -1051,7 +1063,7 @@
                             <div class="card mb-3 widget-content bg-light">
                                 <div class="widget-content-wrapper text-dark">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">社保养老金</div>
+                                        <div class="widget-heading">岗位工资</div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus"><span id="LastMWages2"></span>
@@ -1064,7 +1076,7 @@
                             <div class="card mb-3 widget-content bg-light">
                                 <div class="widget-content-wrapper text-dark">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">养老保险</div>
+                                        <div class="widget-heading">绩效津贴</div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus"><span id="LastMWages3"></span>
@@ -1077,7 +1089,7 @@
                             <div class="card mb-3 widget-content bg-light">
                                 <div class="widget-content-wrapper text-dark">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">医疗保险</div>
+                                        <div class="widget-heading">补助</div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus"><span id="LastMWages4"></span>
@@ -1090,7 +1102,7 @@
                             <div class="card mb-3 widget-content bg-light">
                                 <div class="widget-content-wrapper text-dark">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">补贴</div>
+                                        <div class="widget-heading">奖金</div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus"><span id="LastMWages5"></span>
@@ -1103,7 +1115,7 @@
                             <div class="card mb-3 widget-content bg-light">
                                 <div class="widget-content-wrapper text-dark">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">奖励</div>
+                                        <div class="widget-heading">罚扣</div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus"><span id="LastMWages6"></span>
@@ -1116,10 +1128,89 @@
                             <div class="card mb-3 widget-content bg-light">
                                 <div class="widget-content-wrapper text-dark">
                                     <div class="widget-content-left">
-                                        <div class="widget-heading">罚扣</div>
+                                        <div class="widget-heading">养老保险</div>
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus"><span id="LastMWages7"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading text-dark">医疗保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages8"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">失业保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages9"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">工伤保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages10"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">生育保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages11"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">住房公积金</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages12"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">个人所得税</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages13"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -2126,7 +2217,7 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label for="staffIdCard" class="">身份证号</label>
                                 <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18" class="form-control">

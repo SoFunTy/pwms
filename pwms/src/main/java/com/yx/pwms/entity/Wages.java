@@ -1,124 +1,198 @@
 package com.yx.pwms.entity;
 
-
-import java.sql.Date;
+import java.util.Date;
 
 public class Wages {
+    private Integer wagesId;
 
-  private Long wagesId;
-  private String employeeId;
-  private java.sql.Date releaseTime;
-  private double persion;
-  private double eInsurance;
-  private double iInsurance;
-  private double fund;
-  private double subsidy;
-  private double oAdd;
-  private double oBuckle;
-  private double total;
+    private String employeeId;
 
-  public Wages() {
-  }
+    private Date releaseTime;
 
-  public Wages(Long wagesId, String employeeId, Date releaseTime, double persion, double eInsurance, double iInsurance, double fund, double subsidy, double oAdd, double oBuckle, double total) {
-    this.wagesId = wagesId;
-    this.employeeId = employeeId;
-    this.releaseTime = releaseTime;
-    this.persion = persion;
-    this.eInsurance = eInsurance;
-    this.iInsurance = iInsurance;
-    this.fund = fund;
-    this.subsidy = subsidy;
-    this.oAdd = oAdd;
-    this.oBuckle = oBuckle;
-    this.total = total;
-  }
+    private Double basePay;
 
-  public Long getWagesId() {
-    return wagesId;
-  }
+    private Double postWage;
 
-  public void setWagesId(Long wagesId) {
-    this.wagesId = wagesId;
-  }
+    private Double jxw;
 
-  public String getEmployeeId() {
-    return employeeId;
-  }
+    private Double allowance;
 
-  public void setEmployeeId(String employeeId) {
-    this.employeeId = employeeId;
-  }
+    private Double bouns;
 
-  public Date getReleaseTime() {
-    return releaseTime;
-  }
+    private Double penalty;
 
-  public void setReleaseTime(Date releaseTime) {
-    this.releaseTime = releaseTime;
-  }
+    private Double eInsurance;
 
-  public double getPersion() {
-    return persion;
-  }
+    private Double iInsurance;
 
-  public void setPersion(double persion) {
-    this.persion = persion;
-  }
+    private Double uInsurance;
 
-  public double geteInsurance() {
-    return eInsurance;
-  }
+    private Double wInsurance;
 
-  public void seteInsurance(double eInsurance) {
-    this.eInsurance = eInsurance;
-  }
+    private Double mInsurance;
 
-  public double getiInsurance() {
-    return iInsurance;
-  }
+    private Double housingFund;
 
-  public void setiInsurance(double iInsurance) {
-    this.iInsurance = iInsurance;
-  }
+    private Double iitFeelsCold;
 
-  public double getFund() {
-    return fund;
-  }
+    private Double wageDeductedTax;
 
-  public void setFund(double fund) {
-    this.fund = fund;
-  }
+    public Wages() {
+    }
 
-  public double getSubsidy() {
-    return subsidy;
-  }
+    public Wages(Integer wagesId, String employeeId, Date releaseTime, Double basePay, Double postWage, Double jxw, Double allowance, Double bouns, Double penalty, Double eInsurance, Double iInsurance, Double uInsurance, Double wInsurance, Double mInsurance, Double housingFund, Double iitFeelsCold, Double wageDeductedTax) {
+        this.wagesId = wagesId;
+        this.employeeId = employeeId;
+        this.releaseTime = releaseTime;
+        this.basePay = basePay;
+        this.postWage = postWage;
+        this.jxw = jxw;
+        this.allowance = allowance;
+        this.bouns = bouns;
+        this.penalty = penalty;
+        this.eInsurance = eInsurance;
+        this.iInsurance = iInsurance;
+        this.uInsurance = uInsurance;
+        this.wInsurance = wInsurance;
+        this.mInsurance = mInsurance;
+        this.housingFund = housingFund;
+        this.iitFeelsCold = iitFeelsCold;
+        this.wageDeductedTax = wageDeductedTax;
+    }
 
-  public void setSubsidy(double subsidy) {
-    this.subsidy = subsidy;
-  }
+    public Integer getWagesId() {
+        return wagesId;
+    }
 
-  public double getoAdd() {
-    return oAdd;
-  }
+    public void setWagesId(Integer wagesId) {
+        this.wagesId = wagesId;
+    }
 
-  public void setoAdd(double oAdd) {
-    this.oAdd = oAdd;
-  }
+    public String getEmployeeId() {
+        return employeeId;
+    }
 
-  public double getoBuckle() {
-    return oBuckle;
-  }
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
 
-  public void setoBuckle(double oBuckle) {
-    this.oBuckle = oBuckle;
-  }
+    public Date getReleaseTime() {
+        return releaseTime;
+    }
 
-  public double getTotal() {
-    return total;
-  }
+    public void setReleaseTime(Date releaseTime) {
+        this.releaseTime = releaseTime;
+    }
 
-  public void setTotal(double total) {
-    this.total = total;
-  }
+    public Double getBasePay() {
+        return basePay;
+    }
+
+    public void setBasePay(Double basePay) {
+        this.basePay = basePay;
+    }
+
+    public Double getPostWage() {
+        return postWage;
+    }
+
+    public void setPostWage(Double postWage) {
+        this.postWage = postWage;
+    }
+
+    public Double getJxw() {
+        return jxw;
+    }
+
+    public void setJxw(Double jxw) {
+        this.jxw = jxw;
+    }
+
+    public Double getAllowance() {
+        return allowance;
+    }
+
+    public void setAllowance(Double allowance) {
+        this.allowance = allowance;
+    }
+
+    public Double getBouns() {
+        return bouns;
+    }
+
+    public void setBouns(Double bouns) {
+        this.bouns = bouns;
+    }
+
+    public Double getPenalty() {
+        return penalty;
+    }
+
+    public void setPenalty(Double penalty) {
+        this.penalty = penalty;
+    }
+
+    public Double geteInsurance() {
+        return eInsurance;
+    }
+
+    public void seteInsurance(Double eInsurance) {
+        this.eInsurance = eInsurance;
+    }
+
+    public Double getiInsurance() {
+        return iInsurance;
+    }
+
+    public void setiInsurance(Double iInsurance) {
+        this.iInsurance = iInsurance;
+    }
+
+    public Double getuInsurance() {
+        return uInsurance;
+    }
+
+    public void setuInsurance(Double uInsurance) {
+        this.uInsurance = uInsurance;
+    }
+
+    public Double getwInsurance() {
+        return wInsurance;
+    }
+
+    public void setwInsurance(Double wInsurance) {
+        this.wInsurance = wInsurance;
+    }
+
+    public Double getmInsurance() {
+        return mInsurance;
+    }
+
+    public void setmInsurance(Double mInsurance) {
+        this.mInsurance = mInsurance;
+    }
+
+    public Double getHousingFund() {
+        return housingFund;
+    }
+
+    public void setHousingFund(Double housingFund) {
+        this.housingFund = housingFund;
+    }
+
+    public Double getIitFeelsCold() {
+        return iitFeelsCold;
+    }
+
+    public void setIitFeelsCold(Double iitFeelsCold) {
+        this.iitFeelsCold = iitFeelsCold;
+    }
+
+    public Double getWageDeductedTax() {
+        return wageDeductedTax;
+    }
+
+    public void setWageDeductedTax(Double wageDeductedTax) {
+        this.wageDeductedTax = wageDeductedTax;
+    }
 }
