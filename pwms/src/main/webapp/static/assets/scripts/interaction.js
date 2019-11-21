@@ -43,6 +43,12 @@ function userTypeCheck(a) {
     $("div[name*='index']").css("display", "block")
 }
 
+/*登出*/
+function logout() {
+    window.sessionStorage.removeItem('mydata');
+    window.location.href = baseUrl;
+}
+
 
 $("#personnel_management_all").on("click", function () {
     setempTable()
@@ -271,11 +277,6 @@ function setHeadicon() {
     $("div[class*='employee-position']").html(mydata.positionId.positionName);
 }
 
-/*登出*/
-function logout() {
-    window.sessionStorage.removeItem('mydata');
-    window.location.href = baseUrl;
-}
 
 /*
 *查询上月工资奖罚信息*/
@@ -338,7 +339,6 @@ function setLastWages() {
         success: function (result) {
             if (result.resultCode === 200) {
                 if (result.data.length === 0) {
-                    console.log("无奖罚");
                     $("div.app-main__outer > div > div:nth-child(15) > div:nth-child(3)").append("" +
                         "                       <div class='col-md-6 col-xl-3'>" +
                         "                            <div class='card mb-3 widget-content bg-success'>" +
@@ -445,7 +445,7 @@ function setRap() {
                                 "                                </div>" +
                                 "                            </div>" +
                                 "                        </div>");
-                        } else {
+                        } else if (resdata[i].punishment !== 0){
                             $("div.reward_and_penalty.row").append("" +
                                 "                       <div class='col-lg-6 col-xl-4'>" +
                                 "                            <div class='card mb-3 widget-content'>" +
@@ -466,6 +466,32 @@ function setRap() {
                                 "                        </div>");
                         }
                     }
+                }else {
+                    $("div.reward_and_penalty.row").append("" +
+                        "                       <div class='col-md-6 col-xl-3'>" +
+                        "                            <div class='card mb-3 widget-content bg-success'>" +
+                        "                                <div class='widget-content-wrapper text-white'>" +
+                        "                                    <div class='widget-content-left'>" +
+                        "                                        <div class='widget-heading'>奖励</div>" +
+                        "                                    </div>" +
+                        "                                    <div class='widget-content-right'>" +
+                        "                                        <div class='widget-numbers text-white'><span>￥ 0</span></div>" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                            </div>" +
+                        "                        </div>" +
+                        "                        <div class='col-md-6 col-xl-3'>\n" +
+                        "                            <div class='card mb-3 widget-content bg-danger'>" +
+                        "                                <div class='widget-content-wrapper text-white'>" +
+                        "                                    <div class='widget-content-left'>" +
+                        "                                        <div class='widget-heading'>罚扣</div>" +
+                        "                                    </div>" +
+                        "                                    <div class='widget-content-right'>\n" +
+                        "                                        <div class='widget-numbers text-white'><span>￥ 0</span></div>" +
+                        "                                    </div>" +
+                        "                                </div>" +
+                        "                            </div>" +
+                        "                        </div>")
                 }
             }
         }
@@ -825,12 +851,14 @@ function record(a) {
                     $("select[name='psex']").find("option:contains('" + ndata.sex.dicValue + "')").attr("selected", "selected");
                 if (ndata.age !== null)
                     $("input[name='page']").val(ndata.age);
+                if (ndata.pol !== '')
                 if (ndata.pol.dicId !== null)
                     $("select[name='ppol'] > option[value='" + ndata.pol.dicId + "']").attr("selected", "selected");
                 if (ndata.brith !== null)
                     $("input[name='pbrith']").val(ndata.brith);
                 if (ndata.idNumber !== null)
                     $("input[name='pidNumber']").val(ndata.idNumber);
+                if (ndata.education !== '')
                 if (ndata.education.dicId !== null)
                     $("select[name='peducation'] > option[value='" + ndata.education.dicId + "']").attr("selected", "selected");
                 if (ndata.university !== null)
@@ -841,10 +869,13 @@ function record(a) {
                     $("input[name='phomeNote']").val(ndata.homeNote);
                 if (ndata.phone !== null)
                     $("input[name='pphone']").val(ndata.phone);
+                if (ndata.marriage !== '')
                 if (ndata.marriage.dicId !== null)
                     $("select[name='pmarriage'] > option[value='" + ndata.marriage.dicId + "']").attr("selected", "selected");
+                if (ndata.health !== '')
                 if (ndata.health.dicId !== null)
                     $("select[name='phealth'] > option[value='" + ndata.health.dicId + "']").attr("selected", "selected");
+                if (ndata.bloodType !== '')
                 if (ndata.bloodType.dicId !== null)
                     $("select[name='pbloodType'] > option[value='" + ndata.bloodType.dicId + "']").attr("selected", "selected");
                 if (ndata.note !== null)
@@ -857,7 +888,10 @@ function record(a) {
 }
 
 /*动态加载职位select option*/
+var nstaffId = 0;
 function setPosition() {
+    $("#staffList > tbody > tr > td:nth-child(1)").each(function () {if (parseInt($(this).html())>nstaffId)nstaffId = parseInt($(this).html())});
+    $("input[name='staffId']").val(parseInt(nstaffId)+1);
     $("select[name='ppositionId']").empty();
     $("select[name='ppositionId']").append("<option value = '3623'>请选择</option>");
     $("select[name='staffPos']").empty();
@@ -1032,13 +1066,9 @@ function setpNatives02(a) {
 function setpEmployee() {
     var data = {
         "employeeId": ndata.employeeId,
-        "positionId": $("select[name='ppositionId']").val(),
-        "oinTime": $("input[name='poinTime']").val(),
         "email": $("input[name='pemail']").val(),
         "epassword": $("input[name='pepassword']").val(),
         "employeeName": $("input[name='pemployeeName']").val(),
-        "sex": $("select[name='psex']").val(),
-        "age": $("input[name='page']").val(),
         "nattional": $("select[name='pnattional']").val(),
         "natives01": $("select[name='pnatives01']").val(),
         "natives02": $("select[name='pnatives02']").val(),
@@ -1272,8 +1302,7 @@ function setstaffTable() {
         "columns": [
             {
                 "data": "employeeId",
-                "class": "fc-1",
-                "orderable": false
+                "class": "fc-1"
             },
             {
                 "data": "employeeName",
@@ -1300,8 +1329,9 @@ function setstaffTable() {
                     return "<button  type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' data-toggle='modal' data-target='#staffChange' onclick='srecord(" + data + ")'>修改入职情况</button>";
                 }
             }
-        ]
-    })
+        ],
+        "order": [[ 0, "desc" ]]
+    });
 }
 
 /*加载数据模态框*/
@@ -1635,6 +1665,8 @@ function setwageTable() {
         "autoWidth": true
     })
 }
+/*
+* 工资导入*/
 
 /*
 * 账号设置
