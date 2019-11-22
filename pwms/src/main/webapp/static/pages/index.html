@@ -25,6 +25,7 @@
     <script src="../assets/scripts/dataTables.fixedColumns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 
 
 
@@ -195,16 +196,9 @@
                         <li name="admin" class="app-sidebar__heading">工资统计</li>
                         <li name="admin">
                             <a href="javascript:" id="departmental_wage_month"
-                               onclick="selectionActions(this,'departmental_wage_month')">
+                               onclick="selectionActions(this,'departmental_wage')">
                                 <i class="metismenu-icon pe-7s-date"></i>
-                                部门工资统计（月）
-                            </a>
-                        </li>
-                        <li name="admin">
-                            <a href="javascript:" id="departmental_wage_year"
-                               onclick="selectionActions(this,'departmental_wage_year')">
-                                <i class="metismenu-icon pe-7s-display1"></i>
-                                部门工资统计（年）
+                                部门工资统计
                             </a>
                         </li>
                         <li name="admin" class="app-sidebar__heading">人事管理</li>
@@ -470,13 +464,86 @@
                 </div>
 
                 <!--工资统计-->
-                <!--部门工资统计（月）-->
-                <div name="admin departmental_wage_month">
-                    <h1>部门工资统计（月）</h1>
-                </div>
-                <!--部门工资统计（年）-->
-                <div name="admin departmental_wage_year">
-                    <h1>部门工资统计（年）</h1>
+                <div name="admin departmental_wage">
+                    <div class="tab-content">
+                        <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Line Chart</h5>
+                                            <div><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+                                                <canvas id="aline-chart" class="chartjs-render-monitor" style="display: block; width: 100%; height: 600px;"></canvas>
+                                            </div>
+                                            <script>
+                                                var ctx = document.getElementById('aline-chart');
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'line',
+                                                    data: {
+                                                        labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '10月', '11月', '12月'],
+                                                        datasets: [{
+                                                            label: '各部门工资总和：',
+                                                            data: [120000, 190000, 310000, 110000, 210000, 210000,120000, 190000, 310000, 210000, 210000, 310000],
+                                                            backgroundColor: [
+                                                                'rgba(255, 99, 132, 0.2)'
+                                                            ],
+                                                            borderColor: [
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)',
+                                                                'rgb(255,29,40)'
+                                                            ],
+                                                            borderWidth: 3
+                                                        },
+                                                            {
+                                                                label: '各部门：',
+                                                                data: [220000, 120000, 340000, 140000, 200000, 220000,140000, 220000, 220000, 240000, 260000, 310000],
+                                                                backgroundColor: [
+                                                                    'rgba(0,228,255,0.2)'
+                                                                ],
+                                                                borderColor: [
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)',
+                                                                    'rgb(15,0,255)'
+                                                                ],
+                                                                borderWidth: 3
+                                                            }
+                                                        ]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            yAxes: [{
+                                                                ticks: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            }]
+                                                        }
+                                                    }
+                                                });
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!--人事管理-->

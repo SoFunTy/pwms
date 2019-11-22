@@ -354,7 +354,8 @@
         SEX=(
         case when mod(substr(id_number,17,1),2)=1 then 1
             when mod(substr(id_number,17,1),2)=0 then 2
-            else '' end )
+            else '' end ),
+        age = ROUND(DATEDIFF(CURDATE(), brith)/365.2422)
         where LENGTH(id_number) = 18;
     </update>
 
