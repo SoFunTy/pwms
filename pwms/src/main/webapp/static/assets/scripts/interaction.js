@@ -172,7 +172,10 @@ function noticeChange(a) {
             }
         });
     else {
-        $("#nnoticesDate").attr("readonly", "readonly");
+        $("#nnoticesDate").removeAttr("readonly");
+        $("#nnoticesDate").val("");
+        $("select[name='nstate'] > option[value='待发布']").attr("selected", "selected");
+        $("#nnotices").val("");
     }
 }
 
@@ -1553,7 +1556,7 @@ function setwageTable() {
                 "text": "导出选中内容",
                 // "autoFilter": "true"
                 "exportOptions": {
-                    "columns": ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                    "columns": ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])
                 },
                 "extension": ".xlsx",
                 "filename": "工资表"
