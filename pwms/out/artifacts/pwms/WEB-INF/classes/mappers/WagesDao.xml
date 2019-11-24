@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yx.pwms.dao.WagesDao">
     <resultMap id="Wages" type="com.yx.pwms.entity.Wages">
-        <id column="WAGES_ID" jdbcType="INTEGER" property="wagesId" />
-        <result column="EMPLOYEE_ID" jdbcType="VARCHAR" property="employeeId" />
-        <result column="RELEASE_TIME" jdbcType="DATE" property="releaseTime" />
-        <result column="BASE_PAY" jdbcType="DOUBLE" property="basePay" />
-        <result column="POST_WAGE" jdbcType="DOUBLE" property="postWage" />
-        <result column="JXW" jdbcType="DOUBLE" property="jxw" />
-        <result column="ALLOWANCE" jdbcType="DOUBLE" property="allowance" />
-        <result column="BOUNS" jdbcType="DOUBLE" property="bouns" />
-        <result column="PENALTY" jdbcType="DOUBLE" property="penalty" />
-        <result column="E_INSURANCE" jdbcType="DOUBLE" property="eInsurance" />
-        <result column="I_INSURANCE" jdbcType="DOUBLE" property="iInsurance" />
-        <result column="U_INSURANCE" jdbcType="DOUBLE" property="uInsurance" />
-        <result column="W_INSURANCE" jdbcType="DOUBLE" property="wInsurance" />
-        <result column="M_INSURANCE" jdbcType="DOUBLE" property="mInsurance" />
-        <result column="HOUSING_FUND" jdbcType="DOUBLE" property="housingFund" />
-        <result column="IIT_FEELS_COLD" jdbcType="DOUBLE" property="iitFeelsCold" />
-        <result column="WAGE_DEDUCTED_TAX" jdbcType="DOUBLE" property="wageDeductedTax" />
+        <id column="WAGES_ID" property="wagesId" />
+        <result column="EMPLOYEE_ID" property="employeeId" />
+        <result column="RELEASE_TIME" property="releaseTime" />
+        <result column="BASE_PAY" property="basePay" />
+        <result column="POST_WAGE" property="postWage" />
+        <result column="JXW" property="jxw" />
+        <result column="ALLOWANCE" property="allowance" />
+        <result column="BOUNS" property="bouns" />
+        <result column="PENALTY" property="penalty" />
+        <result column="E_INSURANCE" property="eInsurance" />
+        <result column="I_INSURANCE" property="iInsurance" />
+        <result column="U_INSURANCE" property="uInsurance" />
+        <result column="W_INSURANCE" property="wInsurance" />
+        <result column="M_INSURANCE" property="mInsurance" />
+        <result column="HOUSING_FUND" property="housingFund" />
+        <result column="IIT_FEELS_COLD" property="iitFeelsCold" />
+        <result column="WAGE_DEDUCTED_TAX" property="wageDeductedTax" />
     </resultMap>
     <sql id="Wages_Column_List">
     WAGES_ID, EMPLOYEE_ID, RELEASE_TIME, BASE_PAY, POST_WAGE, JXW, ALLOWANCE, BOUNS,
@@ -56,13 +56,31 @@
         where WAGES.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID
     </select>
 
-    <select id="queryMy" parameterType="java.lang.String" resultType="Wages">
+    <select id="stsatisThisYear" resultType="java.util.HashMap">
+        SELECT DEPARTMENT_ID departmentId,DEPARTMENT_NAME departmentName,SUM(WAGE_DEDUCTED_TAX) total FROM WAGES E,
+        (SELECT DEPARTMENT_ID,EMPLOYEE_ID,DEPARTMENT_NAME FROM EMPLOYEE C,
+        (SELECT POSITION_ID,A.DEPARTMENT_ID,DEPARTMENT_NAME FROM POSITIONS A, DEPARTMENT B WHERE A.DEPARTMENT_ID = B.DEPARTMENT_ID) D
+        WHERE C.POSITION_ID = D.POSITION_ID) F
+        WHERE E.EMPLOYEE_ID = F.EMPLOYEE_ID
+        AND date_format(RELEASE_TIME, '%Y') = date_format(curdate(), '%Y') group by DEPARTMENT_ID order by DEPARTMENT_ID;
+    </select>
+    <select id="stsatisThisMonth" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT DEPARTMENT_ID departmentId,DEPARTMENT_NAME departmentName,SUM(WAGE_DEDUCTED_TAX) total FROM WAGES E,
+        (SELECT DEPARTMENT_ID,EMPLOYEE_ID,DEPARTMENT_NAME FROM EMPLOYEE C,
+        (SELECT POSITION_ID,A.DEPARTMENT_ID,DEPARTMENT_NAME FROM POSITIONS A, DEPARTMENT B WHERE A.DEPARTMENT_ID = B.DEPARTMENT_ID) D
+        WHERE C.POSITION_ID = D.POSITION_ID) F
+        WHERE E.EMPLOYEE_ID = F.EMPLOYEE_ID
+        AND date_format(RELEASE_TIME, '%Y-%m') = date_format(#{ntime}, '%Y-%m') group by DEPARTMENT_ID order by DEPARTMENT_ID;
+    </select>
+
+
+    <select id="queryMy" parameterType="java.lang.String" resultMap="Wages">
         select
         <include refid="Wages_Column_List"/>
         from WAGES
         where
          EMPLOYEE_ID = #{employeeId} and
-         period_diff(date_format(curdate() , '%Y%m') , date_format(RELEASE_TIME, '%Y%m')) =1;;
+         period_diff(date_format(curdate() , '%Y%m') , date_format(RELEASE_TIME, '%Y%m')) =1;
     </select>
 
     <select id="queryList" parameterType="java.util.Map" resultMap="Wages">

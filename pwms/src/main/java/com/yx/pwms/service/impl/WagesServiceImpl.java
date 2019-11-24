@@ -33,7 +33,7 @@ public class WagesServiceImpl implements WagesService {
     }
 
     @Override
-    public Map<String, Object> queryMy(Map<String, Object> map) {
+    public Wages queryMy(Map<String, Object> map) {
         return wagesDao.queryMy((String) map.get("employeeId"));
     }
 
@@ -53,5 +53,10 @@ public class WagesServiceImpl implements WagesService {
     @Override
     public List<Map> stsatisThisYear() {
         return wagesDao.stsatisThisYear();
+    }
+
+    @Override
+    public List<Map> stsatisThisMonth(Map<String, Object> map) {
+        return wagesDao.stsatisThisMonth(map);
     }
 }

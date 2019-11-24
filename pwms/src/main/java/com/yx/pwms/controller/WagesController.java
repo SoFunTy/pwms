@@ -60,7 +60,7 @@ public class WagesController {
     @RequestMapping(value = "/qmy", method = RequestMethod.POST)
     @ResponseBody
     public Result queryMyWages(@RequestBody Map<String, Object> map) {
-        Map<String, Object> rap = wagesService.queryMy(map);
+        Wages rap = wagesService.queryMy(map);
         return Checker.check(rap);
     }
 

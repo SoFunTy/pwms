@@ -91,8 +91,10 @@ $("#export_wage_table").on("click", function () {
 
 
 /*统计*/
-var myChart;
+var myChart1,myChart2;
 function setStatistics () {
+    var timeYm = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
+    $("#statisMonthInput").val(timeYm);
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "statis/sTheYear",
@@ -107,9 +109,7 @@ function setStatistics () {
                     departmentName[i] = this.departmentName;
                     total[i++] = this.total;
                 });
-                console.log(departmentName);
-                console.log(total);
-                myChart = new Chart($("#myline-chart"), {
+                myChart1 = new Chart($("#myline-chart"), {
                     type: 'bar',
                     data: {
                         labels: departmentName,
@@ -117,7 +117,7 @@ function setStatistics () {
                             label: '工资总和',
                             data: total,
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)'
+                                'rgba(255,184,184,0.8)'
                             ],
                             borderColor: [
                                 'rgb(195,57,255)',
@@ -145,10 +145,105 @@ function setStatistics () {
             showError("后台错误，请联系管理员！");
         }
     });
-    // var myPieChart = new Chart($("#myline-chart"),{
-    //
-    // })
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "statis/sTheMonth",
+        dataType: "json",
+        data: JSON.stringify({"ntime": new Date()}),
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var departmentName = [];
+                var total = [];
+                var i = 0;
+                $.each(result.data, function () {
+                    departmentName[i] = this.departmentName;
+                    total[i++] = this.total;
+                });
+                myChart2 = new Chart($("#mypie-chart"), {
+                    type: 'pie',
+                    data: {
+                        labels: departmentName,
+                        datasets: [{
+                            label: '工资总和',
+                            data: total,
+                            backgroundColor: [
+                                'rgb(220,160,255)',
+                                'rgb(127,255,116)',
+                                'rgb(100,190,255)',
+                                'rgb(255,172,108)'
+                            ],
+                            borderWidth: 3
+                        }
+                        ]
+                    }
+                });
+            }
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！");
+        }
+    });
+    /*添加年月option选项*/
+    for (var i = 2019; i <= new Date().getFullYear(); i++){
+        $("#statisYearInput").append("<option value='" + i +  "'>" + i + "</option>");
+    }
+    for (var i = 1; i <= new Date().getMonth()+1; i++){
+        $("#statisMonthInput").append("<option value='" + i +  "'>" + i + "</option>");
+    }
+    $("#statisYearInput > option[value='" + new Date().getFullYear() + "']").attr("selected", "selected");
+    $("#statisMonthInput > option[value='" + (new Date().getMonth()+1) + "']").attr("selected", "selected");
 }
+/*刷新月工资统计饼图*/
+$("#statisYearInput").on("change",function () {myChart2Change()});
+$("#statisMonthInput").on("change",function () {myChart2Change()});
+function myChart2Change() {
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "statis/sTheMonth",
+        dataType: "json",
+        data: JSON.stringify({"ntime": ($("#statisYearInput").val() + "-" + $("#statisMonthInput").val() + "-01")}),
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result.resultCode === 200) {
+                myChart2.clear();
+                if (result.data.length === 0){
+                    showError("无此记录");
+                    return;
+                }
+                var departmentName = [];
+                var total = [];
+                var i = 0;
+                $.each(result.data, function () {
+                    departmentName[i] = this.departmentName;
+                    total[i++] = this.total;
+                });
+                myChart2 = new Chart($("#mypie-chart"), {
+                    type: 'pie',
+                    data: {
+                        labels: departmentName,
+                        datasets: [{
+                            label: '工资总和',
+                            data: total,
+                            backgroundColor: [
+                                'rgb(220,160,255)',
+                                'rgb(127,255,116)',
+                                'rgb(100,190,255)',
+                                'rgb(255,172,108)'
+                            ],
+                            borderWidth: 3
+                        }
+                        ]
+                    }
+                });
+            }
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！");
+        }
+    });
+}
+
 
 /*
 * 公告管理

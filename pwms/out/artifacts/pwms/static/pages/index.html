@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="../assets/style/public.css">
     <link rel="stylesheet" href="../assets/style/lq.datetimepick.css">
-<!--    <link rel="stylesheet" href="../assets/style/fixedColumns.bootstrap4.min.css">-->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="../assets/scripts/sweetalert2@9.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>-->
     <script src="../assets/scripts/jquery-3.4.1.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
@@ -24,10 +24,9 @@
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
     <script src="../assets/scripts/dataTables.fixedColumns.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+
     <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js "></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-
-
 
 </head>
 <body>
@@ -139,7 +138,7 @@
                                         $("#Timer").html(
                                             now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日"
                                         );
-                                        $("input[id='staffTime']").val(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate())
+                                        $("input[id='staffTime']").val(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate());
 
                                     }
                                 </script>
@@ -195,7 +194,7 @@
                         </li>
                         <li name="admin" class="app-sidebar__heading">工资统计</li>
                         <li name="admin">
-                            <a href="javascript:" id="departmental_wage_month"
+                            <a href="javascript:" id="departmental_wage"
                                onclick="selectionActions(this,'departmental_wage')">
                                 <i class="metismenu-icon pe-7s-date"></i>
                                 部门工资统计
@@ -374,6 +373,47 @@
                             </div>
                         </div>
                     </div>
+                    <div name="admin index" class="row" id="amin_index">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading pl-5">待入职</div>
+                                        </div>
+                                        <div class="widget-content-right pr-5">
+                                            <div class="widget-numbers text-success">3人</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading pl-5">在职</div>
+                                        </div>
+                                        <div class="widget-content-right pr-5">
+                                            <div class="widget-numbers text-warning">45人</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading pl-5">公告</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="index row">
                         <div class="col-md-6 col-xl-4">
                             <div class="card mb-3 widget-content bg-vicious-stance">
@@ -449,7 +489,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="copyright row col-md-12 mt-5">
+<!--                    <div class="copyright row col-md-12 mt-5">
                         <div class="col-md-12 col-xl-12">
                             <div class="card mb-4 widget-content bg-light">
                                 <div class="widget-content-wrapper pl-10">
@@ -460,84 +500,47 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
 
                 <!--工资统计-->
                 <div name="admin departmental_wage">
                     <div class="tab-content">
-                        <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
+                        <div class="tab-pane tabs-animation fade active show" role="tabpanel">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-6">
                                     <div class="main-card mb-3 card">
                                         <div class="card-body">
-                                            <h5 class="card-title">Line Chart</h5>
-                                            <div><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                                                <canvas id="aline-chart" class="chartjs-render-monitor" style="display: block; width: 100%; height: 600px;"></canvas>
+                                            <h5 class="card-title">部门本年已发工资</h5>
+                                            <canvas id="myline-chart" style="width: 100%; height: 400px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body pt-3">
+                                            <div>
+                                                <div class="float-left"><h5 class="card-title">部门月发已发工资</h5></div>
+                                                <div class="float-right">
+                                                    <form class="form-inline">日期：
+                                                        <div class="position-relative row form-group">
+                                                            <div class="col-6">
+                                                                <select name="statisYearInput" id="statisYearInput"  style="height: 30px;padding-top: 0"
+                                                                        class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="position-relative row form-group">
+                                                            <div class="col-6">
+                                                                <select name="statisMonthInput" id="statisMonthInput"  style="height: 30px;padding-top: 0"
+                                                                        class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
                                             </div>
-                                            <script>
-                                                var ctx = document.getElementById('aline-chart');
-                                                var myChart = new Chart(ctx, {
-                                                    type: 'line',
-                                                    data: {
-                                                        labels: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '10月', '11月', '12月'],
-                                                        datasets: [{
-                                                            label: '各部门工资总和：',
-                                                            data: [120000, 190000, 310000, 110000, 210000, 210000,120000, 190000, 310000, 210000, 210000, 310000],
-                                                            backgroundColor: [
-                                                                'rgba(255, 99, 132, 0.2)'
-                                                            ],
-                                                            borderColor: [
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)',
-                                                                'rgb(255,29,40)'
-                                                            ],
-                                                            borderWidth: 3
-                                                        },
-                                                            {
-                                                                label: '各部门：',
-                                                                data: [220000, 120000, 340000, 140000, 200000, 220000,140000, 220000, 220000, 240000, 260000, 310000],
-                                                                backgroundColor: [
-                                                                    'rgba(0,228,255,0.2)'
-                                                                ],
-                                                                borderColor: [
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)',
-                                                                    'rgb(15,0,255)'
-                                                                ],
-                                                                borderWidth: 3
-                                                            }
-                                                        ]
-                                                    },
-                                                    options: {
-                                                        scales: {
-                                                            yAxes: [{
-                                                                ticks: {
-                                                                    beginAtZero: true
-                                                                }
-                                                            }]
-                                                        }
-                                                    }
-                                                });
-                                            </script>
+                                            <canvas id="mypie-chart" style="width: 100%; height: 400px;"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -601,7 +604,7 @@
                                                     <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group form-inline">
                                                         <label class="">入职时间：</label>
                                                         <input name="poinTime" type="text" readonly style="border: 0"
-                                                               class="form-control" />
+                                                               class="form-control"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -636,7 +639,8 @@
                                                     <label for="PSex"
                                                            class=" col-3 col-form-label bg-light br-a">性别</label>
                                                     <div class="col-6">
-                                                        <select name="psex" id="PSex" class="form-control" readonly onfocus="this.defaultIndex=this.selectedIndex;"
+                                                        <select name="psex" id="PSex" class="form-control" readonly
+                                                                onfocus="this.defaultIndex=this.selectedIndex;"
                                                                 onchange="this.selectedIndex=this.defaultIndex;">
                                                             <option value="3622">请选择</option>
                                                             <option value="1">男</option>
@@ -1891,7 +1895,8 @@
                                                     <label for="ESex"
                                                            class=" col-3 col-form-label bg-light br-a">性别</label>
                                                     <div class="col-6">
-                                                        <select name="sex" id="ESex" class="form-control" readonly  onfocus="this.defaultIndex=this.selectedIndex;"
+                                                        <select name="sex" id="ESex" class="form-control" readonly
+                                                                onfocus="this.defaultIndex=this.selectedIndex;"
                                                                 onchange="this.selectedIndex=this.defaultIndex;">
                                                             <option value="3622">请选择</option>
                                                             <option value="1">男</option>
@@ -2161,7 +2166,8 @@
     </div>
 </div>
 <!--修改头像模态框-->
-<div class="modal fade headIconChange" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+<div class="modal fade headIconChange" tabindex="-1" role="dialog" id="tab-content-1"
+     aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -2172,7 +2178,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="tab-pane tabs-animation fade active show" id="tab-content-1" role="tabpanel">
+                <div class="tab-pane tabs-animation fade active show" role="tabpanel">
                     <div class="main-card mb-3 card">
                         <div class="card-body header-icons">
                             <h5 class="card-title"></h5>
@@ -2292,7 +2298,8 @@
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label for="staffIdCard" class="">身份证号</label>
-                                <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18" class="form-control">
+                                <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18"
+                                       class="form-control">
                             </div>
                         </div>
                     </div>
@@ -2389,6 +2396,5 @@
 <script src="../assets/scripts/selectUi.js"></script>
 <script src="../assets/scripts/public.js"></script>
 <script src="../assets/scripts/interaction.js"></script>
-</div>
 </body>
 </html>

@@ -33,7 +33,7 @@ public interface WagesService {
      * @params Map<String, Object> map
      * @return List
      */
-    Map<String, Object> queryMy(Map<String, Object> map);
+    Wages queryMy(Map<String, Object> map);
 
     int queryExist(Integer wagesId);
 
@@ -50,4 +50,10 @@ public interface WagesService {
      * @return
      */
     List<Map> stsatisThisYear();
+    /**
+     * description: 本月各部门工资计算
+     * @params
+     * @return
+     */
+    List<Map> stsatisThisMonth(Map<String, Object> map);
 }

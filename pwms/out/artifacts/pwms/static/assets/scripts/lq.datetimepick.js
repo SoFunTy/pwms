@@ -1,3 +1,4 @@
+// http://www.jq22.com/jquery-info3189
 var lq_datetimepick = false;
 $.fn.lqdatetimepicker = function (options) {
     lq_datetimepick = true;

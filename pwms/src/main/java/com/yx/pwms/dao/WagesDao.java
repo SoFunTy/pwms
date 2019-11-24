@@ -41,7 +41,7 @@ public interface WagesDao {
      * @params Map<String, Object> map
      * @return List
      */
-    Map<String, Object> queryMy(String employeeId);
+    Wages queryMy(String employeeId);
 
     /**
      * description: 更新
@@ -49,11 +49,16 @@ public interface WagesDao {
      * @return int
      */
     int updateWages(Map<String, Object> map);
-
     /**
      * description: 本年各部门工资计算
      * @params
      * @return
      */
     List<Map> stsatisThisYear();
+    /**
+     * description: 本月各部门工资计算
+     * @params
+     * @return
+     */
+    List<Map> stsatisThisMonth(Map<String, Object> map);
 }
