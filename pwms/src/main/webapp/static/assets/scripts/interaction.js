@@ -1005,6 +1005,8 @@ function record(a) {
                 $("label[name='pemployeeId']").html(ndata.employeeId);
                 setPosition();
                 $("input[name='poinTime']").val(ndata.oinTime);
+                if (ndata.permission !== null)
+                    $("select[name='permission'] > option[value='" + ndata.permission.dicId + "']").attr("selected", "selected");
                 $("input[name='pemail']").val(ndata.email);
                 $("input[name='pepassword']").val(ndata.epassword);
                 $("input[name='pemployeeName']").val(ndata.employeeName);
@@ -1227,6 +1229,7 @@ function setpNatives02(a) {
 function setpEmployee() {
     var data = {
         "employeeId": ndata.employeeId,
+        "permission": $("select[name='permission']").val(),
         "email": $("input[name='pemail']").val(),
         "epassword": $("input[name='pepassword']").val(),
         "employeeName": $("input[name='pemployeeName']").val(),
