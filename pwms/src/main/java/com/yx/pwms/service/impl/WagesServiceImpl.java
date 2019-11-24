@@ -49,4 +49,9 @@ public class WagesServiceImpl implements WagesService {
     public int updateWages(Map<String, Object> map) {
         return wagesDao.updateWages(map);
     }
+
+    @Override
+    public List<Map> stsatisThisYear() {
+        return wagesDao.stsatisThisYear();
+    }
 }

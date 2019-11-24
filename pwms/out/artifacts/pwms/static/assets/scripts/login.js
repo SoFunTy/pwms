@@ -99,7 +99,7 @@ function login() {
                 }, 1500);
                 return;
             }
-            if (result.resultCode === 409) {
+            if (result.resultCode === 409 || result.resultCode === 410 ) {
                 showError("登陆失败!请检查账号和密码！");
                 return;
             }

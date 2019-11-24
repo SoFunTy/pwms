@@ -43,4 +43,11 @@ public interface WagesService {
      * @return int
      */
     int updateWages(Map<String, Object> map);
+
+    /**
+     * description: 本年各部门工资计算
+     * @params
+     * @return
+     */
+    List<Map> stsatisThisYear();
 }

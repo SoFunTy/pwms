@@ -56,6 +56,15 @@
         where WAGES.EMPLOYEE_ID = EMPLOYEE.EMPLOYEE_ID
     </select>
 
+    <select id="stsatisThisYear" resultType="java.util.HashMap">
+        SELECT DEPARTMENT_ID departmentId,DEPARTMENT_NAME departmentName,SUM(WAGE_DEDUCTED_TAX) total FROM WAGES E,
+        (SELECT DEPARTMENT_ID,EMPLOYEE_ID,DEPARTMENT_NAME FROM EMPLOYEE C,
+        (SELECT POSITION_ID,A.DEPARTMENT_ID,DEPARTMENT_NAME FROM POSITIONS A, DEPARTMENT B WHERE A.DEPARTMENT_ID = B.DEPARTMENT_ID) D
+        WHERE C.POSITION_ID = D.POSITION_ID) F
+        WHERE E.EMPLOYEE_ID = F.EMPLOYEE_ID
+        AND date_format(RELEASE_TIME, '%Y') = date_format(curdate(), '%Y') group by DEPARTMENT_ID order by DEPARTMENT_ID;
+    </select>
+
     <select id="queryMy" parameterType="java.lang.String" resultType="Wages">
         select
         <include refid="Wages_Column_List"/>

@@ -58,6 +58,9 @@ $("#personnel_management_all").on("click", function () {
 //         record(mydata.employeeId)
 //     }
 // });
+$("#departmental_wage").on("click", function () {
+    setStatistics()
+});
 $("#personnel_department_management").on("click", function () {
     setDepartment()
 });
@@ -86,6 +89,66 @@ $("#export_wage_table").on("click", function () {
     setwageTable()
 });
 
+
+/*统计*/
+var myChart;
+function setStatistics () {
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "statis/sTheYear",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var departmentName = [];
+                var total = [];
+                var i = 0;
+                $.each(result.data, function () {
+                    departmentName[i] = this.departmentName;
+                    total[i++] = this.total;
+                });
+                console.log(departmentName);
+                console.log(total);
+                myChart = new Chart($("#myline-chart"), {
+                    type: 'bar',
+                    data: {
+                        labels: departmentName,
+                        datasets: [{
+                            label: '工资总和',
+                            data: total,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgb(195,57,255)',
+                                'rgb(21,255,51)',
+                                'rgb(11,151,255)',
+                                'rgb(255,120,23)'
+                            ],
+                            borderWidth: 3
+                        }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！");
+        }
+    });
+    // var myPieChart = new Chart($("#myline-chart"),{
+    //
+    // })
+}
 
 /*
 * 公告管理
@@ -172,7 +235,10 @@ function noticeChange(a) {
             }
         });
     else {
-        $("#nnoticesDate").attr("readonly", "readonly");
+        $("#nnoticesDate").removeAttr("readonly");
+        $("#nnoticesDate").val("");
+        $("select[name='nstate'] > option[value='待发布']").attr("selected", "selected");
+        $("#nnotices").val("");
     }
 }
 
@@ -1553,7 +1619,7 @@ function setwageTable() {
                 "text": "导出选中内容",
                 // "autoFilter": "true"
                 "exportOptions": {
-                    "columns": ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+                    "columns": ([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17])
                 },
                 "extension": ".xlsx",
                 "filename": "工资表"
