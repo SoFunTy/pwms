@@ -80,7 +80,7 @@
         from WAGES
         where
          EMPLOYEE_ID = #{employeeId} and
-         period_diff(date_format(curdate() , '%Y%m') , date_format(RELEASE_TIME, '%Y%m')) =1;
+         period_diff(date_format(curdate() , '%Y%m') , date_format(RELEASE_TIME, '%Y%m')) = 0;
     </select>
 
     <select id="queryList" parameterType="java.util.Map" resultMap="Wages">

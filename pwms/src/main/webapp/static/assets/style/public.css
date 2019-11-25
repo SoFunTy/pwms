@@ -267,123 +267,8 @@ div.col-8.main-card.card.float-left.pl-2 > div.card-body.mt-5.pt-5.pl-1 {
     background-repeat: no-repeat;
 }
 
-div.app-main__inner > div.row.rowlist table {
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-div.app-main__inner > div.row.rowlist caption, th {
-    font-weight: normal;
-    text-align: left;
-}
-
 div.row.rowlist ul li {
     list-style: none;
-}
-
-div.row.rowlist h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
-}
-
-div.row.rowlist h5 {
-    font-size: 18px;
-    margin-bottom: 20px;
-    color: #666;
-}
-
-div.row.rowlist h5 span {
-    font-size: 12px;
-    color: #ccc;
-    font-weight: normal;
-}
-
-div.row.rowlist a {
-    text-decoration: none;
-    color: #1C3D72
-}
-
- div.row.rowlist img {
-    -ms-interpolation-mode: bicubic;
-}
-
-div.row.rowlist .box {
-    width: 100%;
-    margin: 18px auto 0 auto;
-}
-
-div.row.rowlist .event_year {
-    width: 4.4rem;
-    text-align: center;
-    float: left;
-    margin-top: 10px;
-}
-
-div.row.rowlist .event_year li {
-    width: 3.75rem;
-    height: 2.5rem;
-    line-height: 40px;
-    background: #FFF;
-    margin-bottom: 1px;
-    font-size: 18px;
-    color: #828282;
-    cursor: pointer;
-}
-
-div.row.rowlist .event_year li.current {
-    width: 4.4rem;
-    background: #0066ff url('../images/img/jian.png') 60px 0 no-repeat;
-    color: #FFF;
-    text-align: left;
-    padding-left: 9px;
-}
-
-div.row.rowlist .event_list {
-    width: 94rem;
-    float: right;
-    background: url('../images/img/dian3.png') 139px 0 repeat-y;
-    margin: 10px 0 20px 0;
-}
-
-div.row.rowlist .event_list h3 {
-    margin: 0 0 10px 132px;
-    font-size: 24px;
-    color: #0066ff;
-    padding-left: 25px;
-    background: url('../images/img/jian.png') 0 -45px no-repeat;
-    height: 38px;
-    line-height: 30px;
-    font-style: italic;
-}
-
-div.row.rowlist .event_list li {
-    background: url('../images/img/jian.png') 136px -80px no-repeat;
-}
-
-div.row.rowlist .event_list li span {
-    width: 5.5rem;
-    text-align: right;
-    display: block;
-    float: left;
-    margin-top: 10px;
-}
-
-div.row.rowlist .event_list li p {
-    width: 40rem;
-    margin-left: 24px;
-    display: inline-block;
-    padding-left: 10px;
-    background: url('../images/img/jian.png') -21px 0 no-repeat;
-    line-height: 25px;
-    _float: left;
-}
-
-div.row.rowlist .event_list li p span {
-    width: 80rem;
-    text-align: left;
-    border-bottom: 2px solid #DDD;
-    padding: 10px 15px;
-    background: #FFF;
-    margin: 0;
 }
 
 .ml-11 {
@@ -726,4 +611,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 }
 #wagesList_wrapper > div:nth-child(2) > div > div.DTFC_ScrollWrapper > div.DTFC_LeftWrapper > div.DTFC_LeftBodyWrapper > div > table > tbody > tr > td {
     background-color: #fff;
+}
+
+#flowlist > li > div > div:nth-child > div > div > div.widget-content-right{
+    padding-left: 115px;
 }

@@ -58,7 +58,7 @@ $("#personnel_management_all").on("click", function () {
 //         record(mydata.employeeId)
 //     }
 // });
-$("#departmental_wage").on("click", function () {
+$("#departmental_wage").one("click", function () {
     setStatistics()
 });
 $("#personnel_department_management").on("click", function () {
@@ -85,14 +85,18 @@ $("#notice").on("click", function () {
 $("#staff_salary_enquiry").on("click", function () {
     setwagesTable()
 });
+$("#flow_bill").one("click", function () {
+    setFlowBill()
+});
 $("#export_wage_table").on("click", function () {
     setwageTable()
 });
 
 
 /*统计*/
-var myChart1,myChart2;
-function setStatistics () {
+var myChart1, myChart2;
+
+function setStatistics() {
     var timeYm = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     $("#statisMonthInput").val(timeYm);
     $.ajax({
@@ -185,18 +189,24 @@ function setStatistics () {
         }
     });
     /*添加年月option选项*/
-    for (var i = 2019; i <= new Date().getFullYear(); i++){
-        $("#statisYearInput").append("<option value='" + i +  "'>" + i + "</option>");
+    for (var i = 2019; i <= new Date().getFullYear(); i++) {
+        $("#statisYearInput").append("<option value='" + i + "'>" + i + "</option>");
     }
-    for (var i = 1; i <= new Date().getMonth()+1; i++){
-        $("#statisMonthInput").append("<option value='" + i +  "'>" + i + "</option>");
+    for (var i = 1; i <= new Date().getMonth() + 1; i++) {
+        $("#statisMonthInput").append("<option value='" + i + "'>" + i + "</option>");
     }
     $("#statisYearInput > option[value='" + new Date().getFullYear() + "']").attr("selected", "selected");
-    $("#statisMonthInput > option[value='" + (new Date().getMonth()+1) + "']").attr("selected", "selected");
+    $("#statisMonthInput > option[value='" + (new Date().getMonth() + 1) + "']").attr("selected", "selected");
 }
+
 /*刷新月工资统计饼图*/
-$("#statisYearInput").on("change",function () {myChart2Change()});
-$("#statisMonthInput").on("change",function () {myChart2Change()});
+$("#statisYearInput").on("change", function () {
+    myChart2Change()
+});
+$("#statisMonthInput").on("change", function () {
+    myChart2Change()
+});
+
 function myChart2Change() {
     $.ajax({
         type: "POST",//方法类型
@@ -207,7 +217,7 @@ function myChart2Change() {
         success: function (result) {
             if (result.resultCode === 200) {
                 myChart2.clear();
-                if (result.data.length === 0){
+                if (result.data.length === 0) {
                     showError("无此记录");
                     return;
                 }
@@ -455,7 +465,7 @@ function setLastWages() {
         url: baseUrl + "wage/qli",
         dataType: "json",
         contentType: "application/json;charset=UTF-8",
-        data: JSON.stringify({"employeeId": mydata.employeeId,"releaseTime":year + "-" + (mon-1) + "-" + date}),
+        data: JSON.stringify({"employeeId": mydata.employeeId, "releaseTime": year + "-" + mon + "-" + date}),
         success: function (result) {
             if (result.resultCode === 200) {
                 if (result.data.length !== 0) {
@@ -606,7 +616,7 @@ function setRap() {
                                 "                                </div>" +
                                 "                            </div>" +
                                 "                        </div>");
-                        } else if (resdata[i].punishment !== 0){
+                        } else if (resdata[i].punishment !== 0) {
                             $("div.reward_and_penalty.row").append("" +
                                 "                       <div class='col-lg-6 col-xl-4'>" +
                                 "                            <div class='card mb-3 widget-content'>" +
@@ -627,7 +637,7 @@ function setRap() {
                                 "                        </div>");
                         }
                     }
-                }else {
+                } else {
                     $("div.reward_and_penalty.row").append("" +
                         "                       <div class='col-md-6 col-xl-3'>" +
                         "                            <div class='card mb-3 widget-content bg-success'>" +
@@ -794,15 +804,15 @@ function setIndexWages() {
         data: JSON.stringify({"employeeId": mydata.employeeId}),
         success: function (result) {
             if (result.data !== null) {
-                    $("#lastMWage").html("￥ " + result.data.wageDeductedTax);
-                    $("span[name='LastMWages']").html("￥ " + result.data.wageDeductedTax);
-                    $("#lastMWageA").html("￥ " + result.data.bouns);
-                    $("#lastMWageB").html("￥ " + result.data.penalty)
+                $("#lastMWage").html("￥ " + result.data.wageDeductedTax);
+                $("span[name='LastMWages']").html("￥ " + result.data.wageDeductedTax);
+                $("#lastMWageA").html("￥ " + result.data.bouns);
+                $("#lastMWageB").html("￥ " + result.data.penalty)
             } else {
-                    $("#lastMWage").html("￥ 0");
-                    $("span[name='LastMWages']").html("￥ 0");
-                    $("#lastMWageA").html("￥ 0");
-                    $("#lastMWageB").html("￥ 0")
+                $("#lastMWage").html("￥ 0");
+                $("span[name='LastMWages']").html("￥ 0");
+                $("#lastMWageA").html("￥ 0");
+                $("#lastMWageB").html("￥ 0")
             }
         }
     });
@@ -1015,15 +1025,15 @@ function record(a) {
                 if (ndata.age !== null)
                     $("input[name='page']").val(ndata.age);
                 if (ndata.pol !== '')
-                if (ndata.pol.dicId !== null)
-                    $("select[name='ppol'] > option[value='" + ndata.pol.dicId + "']").attr("selected", "selected");
+                    if (ndata.pol.dicId !== null)
+                        $("select[name='ppol'] > option[value='" + ndata.pol.dicId + "']").attr("selected", "selected");
                 if (ndata.brith !== null)
                     $("input[name='pbrith']").val(ndata.brith);
                 if (ndata.idNumber !== null)
                     $("input[name='pidNumber']").val(ndata.idNumber);
                 if (ndata.education !== '')
-                if (ndata.education.dicId !== null)
-                    $("select[name='peducation'] > option[value='" + ndata.education.dicId + "']").attr("selected", "selected");
+                    if (ndata.education.dicId !== null)
+                        $("select[name='peducation'] > option[value='" + ndata.education.dicId + "']").attr("selected", "selected");
                 if (ndata.university !== null)
                     $("input[name='puniversity']").val(ndata.university);
                 if (ndata.major !== null)
@@ -1033,14 +1043,14 @@ function record(a) {
                 if (ndata.phone !== null)
                     $("input[name='pphone']").val(ndata.phone);
                 if (ndata.marriage !== '')
-                if (ndata.marriage.dicId !== null)
-                    $("select[name='pmarriage'] > option[value='" + ndata.marriage.dicId + "']").attr("selected", "selected");
+                    if (ndata.marriage.dicId !== null)
+                        $("select[name='pmarriage'] > option[value='" + ndata.marriage.dicId + "']").attr("selected", "selected");
                 if (ndata.health !== '')
-                if (ndata.health.dicId !== null)
-                    $("select[name='phealth'] > option[value='" + ndata.health.dicId + "']").attr("selected", "selected");
+                    if (ndata.health.dicId !== null)
+                        $("select[name='phealth'] > option[value='" + ndata.health.dicId + "']").attr("selected", "selected");
                 if (ndata.bloodType !== '')
-                if (ndata.bloodType.dicId !== null)
-                    $("select[name='pbloodType'] > option[value='" + ndata.bloodType.dicId + "']").attr("selected", "selected");
+                    if (ndata.bloodType.dicId !== null)
+                        $("select[name='pbloodType'] > option[value='" + ndata.bloodType.dicId + "']").attr("selected", "selected");
                 if (ndata.note !== null)
                     $("textarea[name='pnote']").val(ndata.note);
                 setpNatOption();
@@ -1052,9 +1062,12 @@ function record(a) {
 
 /*动态加载职位select option*/
 var nstaffId = 0;
+
 function setPosition() {
-    $("#staffList > tbody > tr > td:nth-child(1)").each(function () {if (parseInt($(this).html())>nstaffId)nstaffId = parseInt($(this).html())});
-    $("input[name='staffId']").val(parseInt(nstaffId)+1);
+    $("#staffList > tbody > tr > td:nth-child(1)").each(function () {
+        if (parseInt($(this).html()) > nstaffId) nstaffId = parseInt($(this).html())
+    });
+    $("input[name='staffId']").val(parseInt(nstaffId) + 1);
     $("select[name='ppositionId']").empty();
     $("select[name='ppositionId']").append("<option value = '3623'>请选择</option>");
     $("select[name='staffPos']").empty();
@@ -1325,10 +1338,14 @@ function setDepartment() {
         ]
     })
 }
+
 var newDepId = 0;
+
 function depreload() {
-    $("#departmentList > tbody > tr > td.sorting_1").each(function () {if ($(this).html()>newDepId)newDepId = $(this).html()});
-    $("input[name='depId']").val(parseInt(newDepId)+1);
+    $("#departmentList > tbody > tr > td.sorting_1").each(function () {
+        if ($(this).html() > newDepId) newDepId = $(this).html()
+    });
+    $("input[name='depId']").val(parseInt(newDepId) + 1);
     $("input[name='depName']").val("");
     $("input[name='depChargeId']").val("");
 }
@@ -1494,7 +1511,7 @@ function setstaffTable() {
                 }
             }
         ],
-        "order": [[ 0, "desc" ]]
+        "order": [[0, "desc"]]
     });
 }
 
@@ -1689,8 +1706,8 @@ function setwagesTable() {
         "autoWidth": true,
         "scrollX": true,//x方向滚动
         "scrollCollapse": true,
-        "fixedColumns" : {
-            "leftColumns" : 1,
+        "fixedColumns": {
+            "leftColumns": 1,
             "rightColumns": 1
         }
     });
@@ -1702,9 +1719,241 @@ function wrecord(a) {
 
 }
 
+function setFlowBill() {
+    var data = {
+        "employeeId": mydata.employeeId
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "wage/qli",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                if (result.data.length !== 0) {
+                    var thisdata = result.data;
+                    var listmuea = {
+                        "releaseTime": "时间",
+                        "basePay": "基本工资",
+                        "postWage": "岗位工资",
+                        "jxw": "绩效津贴",
+                        "allowance": "补助",
+                        "bouns": "奖金",
+                        "penalty": "罚扣",
+                        "eInsurance": "养老保险",
+                        "iInsurance": "医疗保险",
+                        "uInsurance": "失业保险",
+                        "wInsurance": "工伤保险",
+                        "mInsurance": "生育保险",
+                        "housingFund": "住房公积金",
+                        "iitFeelsCold": "个人所得税",
+                        "wageDeductedTax": "税后工资"
+                    };
+                    for (var i = 0; i < thisdata.length; i++) {
+                            var liststr =
+                                "<div class=\"row pl-4\">\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.basePay + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].basePay + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.postWage + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].postWage + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.jxw + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].jxw + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.allowance + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].allowance + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.bouns + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].bouns + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.penalty + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].penalty + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.eInsurance + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].eInsurance + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.iInsurance + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].iInsurance + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.uInsurance + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].uInsurance + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.wInsurance + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].wInsurance + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.mInsurance + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].mInsurance + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.housingFund + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].housingFund + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.iitFeelsCold + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-success\"><span>￥ " + thisdata[i].iitFeelsCold + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n" +
+                                "                                            <div class=\"col-md-6 col-xl-3\">\n" +
+                                "                                                <div class=\"card mb-3 widget-content bg-light\">\n" +
+                                "                                                    <div class=\"widget-content-wrapper\">\n" +
+                                "                                                        <div class=\"widget-content-left\">\n" +
+                                "                                                            <div class=\"widget-heading text-dark\">" + listmuea.wageDeductedTax + "</div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                        <div class=\"widget-content-right\">\n" +
+                                "                                                            <div class=\"widget-numbers text-primary\"><span>￥ " + thisdata[i].wageDeductedTax + "</span>\n" +
+                                "                                                            </div>\n" +
+                                "                                                        </div>\n" +
+                                "                                                    </div>\n" +
+                                "                                                </div>\n" +
+                                "                                            </div>\n";
+                        $("#flowlist").append("<li class='mb-3'>\n" +
+                            "<span style='width: 100%;text-align: left;padding-left: 25px'>" + listmuea.releaseTime + ":" + thisdata[i].releaseTime.substr(0, 10) + ":</span>\n" +
+                            liststr +
+                            "</li>");
+                    }
+                } else {
+                    $("#flowlist").append("<div class='row pl-4'><div class='col-md-6 col-xl-3'>"
+                        + "<div class='card mb-3 widget-content bg-light'><div class='widget-content-wrapper'><div class='widget-content-left'><div class='widget-heading text-dark'>基本工资</div>"
+                        + "</div><div class='widget-content-right'><div class='widget-numbers text-success'><span>无信息</span></div></div></div></div></div>"
+                    );
+                }
+            }
+        }
+    });
+}
 
 /*
 * 工资导出*/
+
 /*
 * 员工工资表
 * */
@@ -1829,6 +2078,7 @@ function setwageTable() {
         "autoWidth": true
     })
 }
+
 /*
 * 工资导入*/
 
@@ -2075,20 +2325,4 @@ function showSuccess(a) {
         icon: 'success',
         title: a
     });
-}
-
-/*确认框*/
-function confirm() {
-    Swal.fire({
-        title: '确定删除?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: '确认'
-    }).then((result) => {
-        if (result.value) {
-            a
-        }
-    })
 }
