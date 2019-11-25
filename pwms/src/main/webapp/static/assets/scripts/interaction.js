@@ -11,11 +11,11 @@ var sdata = "";
 var depTable;
 var noticeTable;
 var nodate;
+
 //登录验证
-// if (data == null || data === ""){
-//     showError("请登录！")
-//     window.location.href = baseUrl;
-// }
+if (mydata == null || mydata === ""){
+    window.location.href = baseUrl;
+}
 
 setData();
 userTypeCheck(mydata.permission.dicValue);
@@ -26,6 +26,7 @@ userTypeCheck(mydata.permission.dicValue);
  * @params a 等级
  */
 function userTypeCheck(a) {
+    $("#amin_index").attr("hidden","hidden")
     switch (a) {
         case "3":
             $("li[name*='common']").css("display", "block");
@@ -35,6 +36,7 @@ function userTypeCheck(a) {
             break;
         case "1":
             $("li[name*='admin']").css("display", "block");
+            $("#amin_index").removeAttr("hidden");
             break;
         default:
             break;
@@ -49,7 +51,9 @@ function logout() {
     window.location.href = baseUrl;
 }
 
-
+$("#index").on("click",function () {
+    setData()
+})
 $("#personnel_management_all").on("click", function () {
     setempTable()
 });
@@ -424,6 +428,8 @@ function noticeSave() {
  * description: 数据加载
  */
 function setData() {
+    //在职情况
+    setInJob();
     //主页工资
     setIndexWages();
     //主页公告
@@ -788,6 +794,22 @@ function ampAdd() {
             if (result.resultCode === 200) {
                 showSuccess("添加成功");
                 $("button[name='ampReset']").click()
+            }
+        }
+    });
+}
+
+/*设置在职情况*/
+function setInJob() {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "statis/sInJob",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result.data !== null) {
+                $("#waitJob").html(result.data[1].num);
+                $("#inJob").html(result.data[0].num);
             }
         }
     });
@@ -1698,7 +1720,9 @@ function setwagesTable() {
                 "orderable": false,
                 "class": "text-center",
                 "mRender": function (data, type, full) {
-                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' onclick='wrecord(" + data + ")'>修改</button>";
+                    var wsreData = [full.employeeId,full.employeeName,full.jxw,full.allowance,full.bouns,full.penalty];
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-secondary' " +
+                        "onclick='wrecord(" + data + "," + full.employeeId + ",\"" + full.employeeName + "\"," + full.jxw + "," + full.allowance + "," + full.bouns + "," + full.penalty + ")'>修改</button>";
                 }
             }
         ],
@@ -1715,10 +1739,44 @@ function setwagesTable() {
 
 /*
 * 工资信息显示*/
-function wrecord(a) {
-
+function wrecord() {
+    $("#staff_salary_update").click();
+    $("#cwageTip").html("");
+    $("#cwageIds").attr("value",arguments[0]);
+    $("#cwagesId").val(arguments[1]);
+    $("#cwagesName").val(arguments[2]);
+    $("#cjxw").val(arguments[3]);
+    $("#callowance").val(arguments[4]);
+    $("#cbouns").val(arguments[5]);
+    $("#cpenalty").val(arguments[6]);
+    $("#cwageIds").removeAttr("disabled");
 }
 
+/*工资修改*/
+function wageUpdate() {
+    var data = {
+        "wagesId" : $("#cwageIds").attr("value"),
+        "jxw" : $("#cjxw").val(),
+        "allowance" : $("#callowance").val(),
+        "bouns" : $("#cbouns").val(),
+        "penalty" : $("#cpenalty").val()
+    };
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "wage/up",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功");
+                wageTable.ajax.reload(null, false);
+            }
+        }
+    });
+}
+
+/*工资台账*/
 function setFlowBill() {
     var data = {
         "employeeId": mydata.employeeId

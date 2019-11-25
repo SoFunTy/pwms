@@ -52,4 +52,11 @@ public interface EmployeeDao {
     int updateEmployee(Map<String, Object> map);
 
     void updateEmployeeById();
+
+    /**
+     * description: 在职、待入职情况
+     * @params
+     * @return
+     */
+    List<Map> stsatisEmployee();
 }

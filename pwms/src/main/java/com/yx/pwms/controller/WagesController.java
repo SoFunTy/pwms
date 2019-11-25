@@ -71,10 +71,8 @@ public class WagesController {
     @ResponseBody
     public Result updateRewardAndPunishment(@RequestBody Map<String, Object> map) {
         if (Objects.isNull(map.get("wagesId"))) return ResultGenerator.genErrorResult(406, "输入错误");
-        if (wagesService.queryExist(Integer.parseInt(map.get("noticesId").toString())) == 0) {
-            return ResultGenerator.genErrorResult(408, "无此数据");
-        }
         int statu = wagesService.updateWages(map);
+        wagesService.calculateWageById(Integer.parseInt(map.get("wagesId").toString()));
         return Checker.check(statu);
     }
 }

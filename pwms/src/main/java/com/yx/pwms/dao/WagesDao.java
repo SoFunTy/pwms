@@ -61,4 +61,15 @@ public interface WagesDao {
      * @return
      */
     List<Map> stsatisThisMonth(Map<String, Object> map);
+    /**
+     * description: 更新后工资工资计算
+     * @params
+     * @return
+     */
+    int calculateWageById1(Integer wageId);
+    int calculateWageById2(Integer wageId);
+    int calculateWageById3(Integer wageId);
+    int calculateWageById4(Integer wageId);
+    int calculateWageById5(Integer wageId);
+    int calculateWageById6(Integer wageId);
 }

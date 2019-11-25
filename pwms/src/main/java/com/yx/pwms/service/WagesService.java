@@ -56,4 +56,10 @@ public interface WagesService {
      * @return
      */
     List<Map> stsatisThisMonth(Map<String, Object> map);
+    /**
+     * description: 更新后工资工资计算
+     * @params
+     * @return
+     */
+    int calculateWageById(Integer wageId);
 }

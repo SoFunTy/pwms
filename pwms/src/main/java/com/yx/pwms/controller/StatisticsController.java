@@ -42,4 +42,10 @@ public class StatisticsController {
     public Result statisticsMonth(@RequestBody Map<String, Object> map){
         return Checker.check(wagesService.stsatisThisMonth(map));
     }
+
+    @RequestMapping(value = "/sInJob", method = RequestMethod.POST)
+    @ResponseBody
+    public Result statisticsEmployee(){
+        return Checker.check(employeeService.stsatisEmployee());
+    }
 }

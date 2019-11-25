@@ -379,7 +379,7 @@
                                             <div class="widget-heading pl-5">待入职</div>
                                         </div>
                                         <div class="widget-content-right pr-5">
-                                            <div class="widget-numbers text-success">3人</div>
+                                            <div class="widget-numbers text-success"><span id="waitJob"></span>人</div>
                                         </div>
                                     </div>
                                 </div>
@@ -393,7 +393,7 @@
                                             <div class="widget-heading pl-5">在职</div>
                                         </div>
                                         <div class="widget-content-right pr-5">
-                                            <div class="widget-numbers text-warning">45人</div>
+                                            <div class="widget-numbers text-warning"><span id="inJob"></span>人</div>
                                         </div>
                                     </div>
                                 </div>
@@ -404,7 +404,7 @@
                                 <div class="widget-content-outer">
                                     <div class="widget-content-wrapper">
                                         <div class="widget-content-left">
-                                            <div class="widget-heading pl-5">公告</div>
+                                            <div class="widget-heading">&nbsp;&nbsp;&nbsp;&nbsp;赚钱的时候不矫情，花钱的时候不磨叽，生活真的不会因为你哭泣而对你温柔，但你可以通过努力而活的风情万种。</div>
                                         </div>
                                     </div>
                                 </div>
@@ -942,7 +942,40 @@
                 </div>
                 <!--工资信息修改-->
                 <div name="admin staff_salary_update">
-                    <h1>工资信息修改</h1>
+                    <div class="app-main__inner">
+                        <div class="row mt-12 align-items-center he-100 align-content-center pr-5">
+                            <div class="mg-center main-card mb-3 pl-4 pr-4 pt-2 pb-2 card" style="width: 360px;">
+                                <div class="card-body">
+                                    <h4 class="card-title">工资修改：</h4>
+                                    <form onsubmit="return false;" class="mt-2">
+                                        <input placeholder="工号" id="cwagesId" type="text"
+                                               class="mb-2 form-control" readonly>
+                                        <input placeholder="姓名" id="cwagesName" type="text" class="mb-2 form-control"
+                                               readonly>
+                                        <div class="divider">
+                                        </div>
+                                        <strong id="cwageTip" style="display: block; width: 100%; margin: 0 auto; text-align: center">请在员工工资查询中选择所需修改记录</strong>
+                                        <div class="mt-4 mg-center text-center">
+                                            <input placeholder="绩效津贴" id="cjxw" type="number"
+                                                   class="mb-2 form-control">
+                                            <input placeholder="补助" id="callowance" type="number"
+                                                   class="mb-2 form-control">
+                                            <input placeholder="奖金" id="cbouns" type="number"
+                                                   class="mb-2 form-control">
+                                            <input placeholder="罚扣" id="cpenalty" type="number"
+                                                   class="mb-2 form-control">
+                                            <button id="cwageIds" class="mt-2 mb-2 mr-2 col-4 btn btn-focus" value=""
+                                                    disabled="disabled" onclick="wageUpdate()">保存
+                                            </button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="ampReset"
+                                                    type="reset">重置
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!--公告管理-->

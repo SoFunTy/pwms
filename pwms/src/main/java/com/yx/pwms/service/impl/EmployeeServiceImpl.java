@@ -83,4 +83,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return;
     }
 
+    @Override
+    public List<Map>  stsatisEmployee() {
+        return employeeDao.stsatisEmployee();
+    }
+
 }

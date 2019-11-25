@@ -5,6 +5,7 @@ import com.yx.pwms.entity.Wages;
 import com.yx.pwms.service.WagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,5 +59,17 @@ public class WagesServiceImpl implements WagesService {
     @Override
     public List<Map> stsatisThisMonth(Map<String, Object> map) {
         return wagesDao.stsatisThisMonth(map);
+    }
+
+    @Transactional(readOnly = false)
+    @Override
+    public int calculateWageById(Integer wageId) {
+        wagesDao.calculateWageById1(wageId);
+        wagesDao.calculateWageById2(wageId);
+        wagesDao.calculateWageById3(wageId);
+        wagesDao.calculateWageById4(wageId);
+        wagesDao.calculateWageById5(wageId);
+        wagesDao.calculateWageById6(wageId);
+        return 1;
     }
 }

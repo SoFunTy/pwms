@@ -196,4 +196,53 @@
         where WAGES_ID = #{wagesId}
     </update>
 
+    <update id="calculateWageById1" parameterType="java.lang.Integer">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where WAGES_ID = #{wagesId}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set b.E_INSURANCE = a.total*0.08,b.I_INSURANCE = a.total*0.02,b.U_INSURANCE = a.total*0.005,b.W_INSURANCE = a.total*0.002,b.M_INSURANCE = a.total*0.01,
+        b.HOUSING_FUND = a.total*0.08
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID;
+    </update>
+    <update id="calculateWageById2" parameterType="java.lang.Integer">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where WAGES_ID = #{wagesId}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = 0
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 0 and 5000;
+    </update>
+    <update id="calculateWageById3" parameterType="java.lang.Integer">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where WAGES_ID = #{wagesId}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = (a.total-5000)*0.03
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 5001 and 8000;
+    </update>
+    <update id="calculateWageById4" parameterType="java.lang.Integer">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = WAGES_ID = #{wagesId}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = (a.total-5000)*0.1
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 8001 and 17000;
+    </update>
+    <update id="calculateWageById5" parameterType="java.lang.Integer">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = WAGES_ID = #{wagesId}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = (a.total-5000)*0.2
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 17001 and 30000;
+    </update>
+    <update id="calculateWageById6" parameterType="java.lang.Integer">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty
+        -E_INSURANCE-I_INSURANCE-U_INSURANCE-W_INSURANCE-M_INSURANCE-HOUSING_FUND-IIT_FEELS_COLD total
+        from WAGES where WAGES_ID = #{wagesId}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set WAGE_DEDUCTED_TAX = a.total
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID;
+    </update>
 </mapper>
