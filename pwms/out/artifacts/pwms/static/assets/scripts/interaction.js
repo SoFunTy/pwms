@@ -1,6 +1,7 @@
 var mydata = JSON.parse(window.sessionStorage.getItem("mydata"));
-// var baseUrl = "http://66.42.62.119:8080/pwms/";
-var baseUrl = "http://localhost:8080/pwms/";
+// var baseUrl = "http://pwms.xyz/";
+// var baseUrl = "http://localhost:8080/pwms/";
+var baseUrl = "http://172.17.0.1:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
 var ndata = "";
