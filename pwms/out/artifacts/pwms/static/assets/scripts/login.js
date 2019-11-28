@@ -2,7 +2,7 @@
 //     window.sessionStorage.setItem('data', "");
 // });
 // var baseUrl = "http://pwms.xyz/";
-var baseUrl = "http://172.17.0.1:8080/pwms/";
+var baseUrl = "http://localhost:8080/pwms/";
 /**
  * 判空
  *

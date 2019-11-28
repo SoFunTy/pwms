@@ -616,3 +616,8 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination {
 #flowlist > li > div > div:nth-child > div > div > div.widget-content-right{
     padding-left: 115px;
 }
+
+pre{
+    font-size: 1rem !important;
+    word-wrap: break-word !important;
+}

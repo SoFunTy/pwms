@@ -1,7 +1,7 @@
 var mydata = JSON.parse(window.sessionStorage.getItem("mydata"));
 // var baseUrl = "http://pwms.xyz/";
 // var baseUrl = "http://localhost:8080/pwms/";
-var baseUrl = "http://172.17.0.1:8080/pwms/";
+var baseUrl = "http://localhost:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
 var ndata = "";
@@ -325,7 +325,6 @@ function noticeChange(a) {
     var mon = myDate.getMonth() + 1;
     var date = myDate.getDate();
     $("select[name='nstate'] > options[selected='selected']").removeAttr("selected")
-    $("#nnoticesDate").val(year + "-" + mon + "-" + date);
     if (a !== "0")
         $.ajax({
             type: "POST",//方法类型
@@ -341,12 +340,22 @@ function noticeChange(a) {
                     $("select[name='nstate'] > option[value='" + ndata.state + "']").attr("selected", "selected");
                     $("#nnotices").val(ndata.notices);
                     $("#nnoticesDate").removeAttr("readonly");
+                    $("#nnoticesDate").on("click", function (e) {
+                        e.stopPropagation();
+                        $(this).lqdatetimepicker({
+                            css: 'datetime-day',
+                            dateType: 'D',
+                            selectback: function () {
+                            }
+                        });
+                    });
                 }
             }
         });
     else {
-        $("#nnoticesDate").removeAttr("readonly");
-        $("#nnoticesDate").val("");
+        $("#nnoticesDate").on("click", function (e) {});
+        $("#nnoticesDate").attr("readonly","readonly");
+        $("#nnoticesDate").val(year + "-" + mon + "-" + date);
         $("select[name='nstate'] > option[value='待发布']").attr("selected", "selected");
         $("#nnotices").val("");
     }
@@ -403,6 +412,10 @@ function noticeSave() {
             "notices": $("#nnotices").val(),
             "state": $("select[name='nstate']").val()
         };
+    }
+    if (data.notices === ""){
+        showError("请输入公告内容！");
+        return;
     }
     $.ajax({
         type: "POST",//方法类型
@@ -679,7 +692,7 @@ function setRap() {
 /*
 * 重加载js，绑定tip事件*/
 function loadJs() {
-    $.getScript('../assets/scripts/main.js');
+    // $.getScript('../assets/scripts/main.js');
 }
 
 /*
@@ -723,6 +736,13 @@ function acctReset() {
         "employeeId": $("#aemployeeId").val(),
         "epassword": $("#aepassword").val()
     };
+    if (data.epassword === "密码"){
+        showError("请输入密码！");
+        return;
+    }else if (data.epassword.length < 6){
+        showError("密码需大于6位！");
+        return;
+    }
     $.ajax({
         type: "POST",
         url: baseUrl + "user/up",
@@ -931,7 +951,7 @@ function setNotices() {
             if (result.resultCode === 200) {
                 for (var i = 1; i <= 5; i++) {
                     $("h5[name=notices" + i + "]").html(result.data[i - 1].noticesDate);
-                    $("p[name=notices" + i + "]").html(result.data[i - 1].notices);
+                    $("pre[name=notices" + i + "]").html(result.data[i - 1].notices);
                 }
             }
         }
@@ -1092,9 +1112,7 @@ function setPosition() {
     });
     $("input[name='staffId']").val(parseInt(nstaffId) + 1);
     $("select[name='ppositionId']").empty();
-    $("select[name='ppositionId']").append("<option value = '3623'>请选择</option>");
     $("select[name='staffPos']").empty();
-    $("select[name='staffPos']").append("<option value = '3623'>请选择</option>");
     $.ajax({
         type: "POST",//方法类型
         url: baseUrl + "pos/qal",
@@ -1288,6 +1306,12 @@ function setpEmployee() {
         "bloodType": $("select[name='pbloodType']").val(),
         "note": $("textarea[name='pnote']").val()
     };
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    if (data.email.length < 6 || !reg.test(data.email)){showError("请正确输入邮箱！");return;}
+    if (data.epassword.length < 6){showError("请正确输入密码！");return;}
+    if (data.employeeName.length === 0 || data.employeeName === "姓名"){showError("请正确输入姓名！");return;}
+    if (data.idNumber.length !== 18){showError("请正确输入身份证号！");return;}
+    if (data.phone.length !== 11){showError("请正确输入电话！");return;}
     $.ajax({
         type: "POST",
         url: baseUrl + "user/up",
@@ -1431,10 +1455,10 @@ function depSave() {
     var url = baseUrl + "dep/up";
     if (newDepId != 0) {
         url = baseUrl + "dep/ins";
-        if ($("input[name='depName']").val() === "") {
-            showError("请正确输入");
-            return;
-        }
+    }
+    if ($("input[name='depName']").val() === "") {
+        showError("请输入部门名称");
+        return;
     }
     nData = {
         "departmentId": $("input[name='depId']").val(),
@@ -2296,7 +2320,7 @@ function selectionActions(a, toUrl) {
 /*
 * 保存账号资料
 * */
-function setEmployee() {
+function setEmployee(){
     var data = {
         "employeeId": mydata.employeeId,
         "email": $("input[name='email']").val(),
@@ -2323,6 +2347,12 @@ function setEmployee() {
         "bloodType": $("select[name='bloodType']").val(),
         "note": $("textarea[name='note']").val()
     };
+    var reg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+    if (data.email.length < 6 || !reg.test(data.email)){showError("请正确输入邮箱！");return;}
+    if (data.epassword.length < 6){showError("请正确输入密码！");return;}
+    if (data.employeeName.length === 0 || data.employeeName === "姓名"){showError("请正确输入姓名！");return;}
+    if (data.idNumber.length !== 18){showError("请正确输入身份证号！");return;}
+    if (data.phone.length !== 11){showError("请正确输入电话！");return;}
     $.ajax({
         type: "POST",
         url: baseUrl + "user/up",

@@ -51,38 +51,6 @@
     });
 });*/
 
-
-$("#nnoticesDate").on("click", function (e) {
-    e.stopPropagation();
-    $(this).lqdatetimepicker({
-        css: 'datetime-day',
-        dateType: 'D',
-        date: {
-            'H' : {
-                begin : '8:00', //开始时分
-                end : '23:30', //结束时分
-                step : "30" //时分步长
-            },
-            'D' : {
-                month : new Date(), //日期默认时间
-                selected : (new Date()).getDate()
-            },
-            'M' : {
-                begin : 1, //月份开始
-                end : (new Date()).getMonth()+1 , //月份结束
-                selected : (new Date()).getMonth()+1  //月份初始
-            },
-            'Y' : {
-                begin : 2018, //年份开始
-                end : (new Date()).getFullYear(), //年份结束
-                selected : (new Date()).getFullYear() //年份初始
-            }
-        },
-        selectback: function () {
-        }
-    });
-});
-
 $(".lable-year").click(function () {
     $('.event_year>li').removeClass('current');
     $(this).parent('li').addClass('current');
