@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>由心-人事</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" href="static/assets/style/main.css">
+    <link rel="stylesheet" href="static/assets/style/public.css">
+    <link rel="stylesheet" href="static/assets/style/lq.datetimepick.css">
+    <link rel="stylesheet" href="static/assets/style/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="static/assets/style/buttons.dataTables.min.css"/>
+    <script src="static/assets/scripts/sweetalert2@9.js"></script>
+    <script src="static/assets/scripts/jquery-3.4.1.min.js"></script>
+    <script src="static/assets/scripts/jquery.dataTables.min.js"></script>
+    <script src="static/assets/scripts/dataTables.bootstrap4.min.js"></script>
+    <script src="static/assets/scripts/dataTables.buttons.min.js"></script>
+    <script src="static/assets/scripts/dataTables.fixedColumns.min.js"></script>
+    <script src="static/assets/scripts/jszip.min.js"></script>
+    <script src="static/assets/scripts/buttons.html5.min.js "></script>
+    <script src="static/assets/scripts/Chart.min.js"></script>
+
+</head>
+<body>
+<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
+    <div class="app-header header-shadow">
+        <div class="app-header__logo">
+            <div class="logo-src"></div>
+            <div class="header__pane ml-auto">
+                <div>
+                    <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                            data-class="closed-sidebar">
+                            <span class="hamburger-box">
+                                <span class="hamburger-inner"></span>
+                            </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="app-header__mobile-menu">
+            <div>
+                <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                </button>
+            </div>
+        </div>
+        <div class="app-header__menu">
+                <span>
+                    <button type="button"
+                            class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                        <span class="btn-icon-wrapper">
+                            <i class="fa fa-ellipsis-v fa-w-6"></i>
+                        </span>
+                    </button>
+                </span>
+        </div>
+        <div class="app-header__content">
+            <div class="app-header-right">
+                <div class="header-btn-lg pr-0">
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="btn-group">
+                                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                       class="p-0 btn employee-crud">
+                                        <!--头像-->
+                                        <div class="rounded-circle avat float-left"></div>
+                                        <i class="fa fa-angle-down mt-3 ml-2 opacity-8"></i>
+                                    </a>
+                                    <div tabindex="-1" role="menu" aria-hidden="true"
+                                         class="dropdown-menu dropdown-menu-right">
+                                        <button type="button" onclick="account()" tabindex="0"
+                                                class="dropdown-item">修改个人资料
+                                            <script type="text/javascript">
+                                                function account() {
+                                                    $("i[class='metismenu-icon pe-7s-user']").click()
+                                                }
+                                            </script>
+                                        </button>
+                                        <button type="button" tabindex="1" class="dropdown-item" data-toggle="modal"
+                                                data-target=".headIconChange">更换头像
+                                        </button>
+                                        <button type="button" tabindex="0" onclick="logout()" class="dropdown-item">退出
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--人物信息-->
+                            <div class="widget-content-left  ml-3 header-user-info cursor-d">
+                                <div class="widget-heading employee-name">
+                                </div>
+                                <div class="widget-subheading employee-position">
+                                </div>
+                            </div>
+                            <div class="widget-content-right header-user-info ml-3 cursor-d">
+                                <small class="text-muted">
+                                    <a id="Dates"></a>
+                                    <br>
+                                    <a id="Timer"></a>
+                                </small>
+                                <script type="text/javascript">
+                                    $(function () {
+                                        setInterval("GetTime()", 1000);
+                                    });
+
+                                    //获取时间并设置格式
+                                    function GetTime() {
+                                        var mon, day, now, hour, min, ampm, time, str, tz, end, beg, sec;
+                                        mon = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月",
+                                            "九月", "十月", "十一月", "十二月"];
+                                        day = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+                                        now = new Date();
+                                        hour = now.getHours();
+                                        min = now.getMinutes();
+                                        sec = now.getSeconds();
+                                        if (hour < 10) {
+                                            hour = "0" + hour;
+                                        }
+                                        if (min < 10) {
+                                            min = "0" + min;
+                                        }
+                                        if (sec < 10) {
+                                            sec = "0" + sec;
+                                        }
+                                        $("#Dates").html(
+                                            hour + ":" + min + ":" + sec
+                                        );
+                                        $("#Timer").html(
+                                            now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日"
+                                        );
+                                        $("input[id='staffTime']").val(now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate());
+
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app-main">
+        <div class="app-sidebar sidebar-shadow  sidebar-text-light" style="background-color: rgb(41, 63, 69)">
+            <div class="app-header__logo">
+                <div class="logo-src"></div>
+                <div class="header__pane ml-auto">
+                    <div>
+                        <button type="button" class="hamburger close-sidebar-btn hamburger--elastic"
+                                data-class="closed-sidebar">
+                                    <span class="hamburger-box">
+                                        <span class="hamburger-inner"></span>
+                                    </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="app-header__mobile-menu">
+                <div>
+                    <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                    </button>
+                </div>
+            </div>
+            <div class="app-header__menu">
+                        <span>
+                            <button type="button"
+                                    class="btn-icon btn-icon-only btn btn-primary btn-sm mobile-toggle-header-nav">
+                                <span class="btn-icon-wrapper">
+                                    <i class="fa fa-ellipsis-v fa-w-6"></i>
+                                </span>
+                            </button>
+                        </span>
+            </div>
+            <div class="scrollbar-sidebar">
+                <div class="app-sidebar__inner mt-2">
+                    <ul class="vertical-nav-menu">
+                        <li name="common">
+                            <a href="JavaScript:" id="index" onclick="selectionActions(this,'index')" class="mm-active">
+                                <i class="metismenu-icon pe-7s-home"></i>
+                                工作台
+                            </a>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">工资统计</li>
+                        <li name="admin">
+                            <a href="javascript:" id="departmental_wage"
+                               onclick="selectionActions(this,'departmental_wage')">
+                                <i class="metismenu-icon pe-7s-date"></i>
+                                部门工资统计
+                            </a>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">人事管理</li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-id"></i>
+                                员工管理
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" id="personnel_management_all"
+                                       onclick="selectionActions(this,'personnel_management_all')">
+                                        <i class="metismenu-icon"></i>
+                                        员工花名册
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" id="personnel_management_single"
+                                       onclick="selectionActions(this,'personnel_management_single')">
+                                        <i class="metismenu-icon"></i>
+                                        员工档案
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" id="personnel_department_management"
+                               onclick="selectionActions(this,'personnel_department_management')">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                部门管理
+                            </a>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" id="personnel_position_management"
+                               onclick="selectionActions(this,'personnel_position_management')">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                职位管理
+                            </a>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" id="staff_induction"
+                               onclick="selectionActions(this,'staff_induction')">
+                                <i class="metismenu-icon pe-7s-cash"></i>
+                                入职管理
+                            </a>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">工资管理</li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-credit"></i>
+                                员工工资管理
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" id="staff_salary_enquiry"
+                                       onclick="selectionActions(this,'staff_salary_enquiry')">
+                                        <i class="metismenu-icon"></i>
+                                        员工工资查询
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" id="staff_salary_update"
+                                       onclick="selectionActions(this,'staff_salary_update')">
+                                        <i class="metismenu-icon"></i>
+                                        工资信息修改
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin">
+                            <a href="javascript:" id="noticmanagerment"
+                               onclick="selectionActions(this,'noticmanagerment')">
+                                <i class="metismenu-icon pe-7s-news-paper"></i>
+                                公告管理
+                            </a>
+                        </li>
+                        <li name="admin">
+                            <a href="#">
+                                <i class="metismenu-icon pe-7s-credit"></i>
+                                工资表导入/导出
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" id="export_wage_table"
+                                       onclick="selectionActions(this,'export_wage_table')">
+                                        <i class="metismenu-icon"></i>
+                                        导出工资表
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" id="import_wage_table"
+                                       onclick="selectionActions(this,'import_wage_table')">
+                                        <i class="metismenu-icon"></i>
+                                        导入工资表
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="admin" class="app-sidebar__heading">账号管理</li>
+                        <li name="admin">
+                            <a href="javascript:" id="accounupdate" onclick="selectionActions(this,'accounupdate')">
+                                <i class="metismenu-icon pe-7s-user"></i>
+                                账号密码管理
+                            </a>
+                        </li>
+                        <li name="checker admin" class="app-sidebar__heading">考勤应用</li>
+                        <li name="checker admin">
+                            <a href="javascript:" id="add_rewardandpenalty"
+                               onclick="selectionActions(this,'add_rewardandpenalty')">
+                                <i class="metismenu-icon pe-7s-news-paper"></i>
+                                员工奖罚
+                            </a>
+                        </li>
+                        <li name="common checker admin" class="app-sidebar__heading">个人应用</li>
+                        <li name="common checker admin">
+                            <a href="#" onclick="selectionActions(this,'index')">
+                                <i class="metismenu-icon pe-7s-piggy"></i>
+                                工资
+                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="javascript:" id="wage_enquiry"
+                                       onclick="selectionActions(this,'wage_enquiry')">
+                                        <i class="metismenu-icon"></i>
+                                        工资查询
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" id="reward_and_penalty"
+                                       onclick="selectionActions(this,'reward_and_penalty')">
+                                        <i class="metismenu-icon"></i>
+                                        奖罚查询
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:" id="flow_bill" onclick="selectionActions(this,'flow_bill')">
+                                        <i class="metismenu-icon"></i>
+                                        流水账单
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li name="common checker admin">
+                            <a href="javascript:" id="account" onclick="selectionActions(this,'account')">
+                                <i class="metismenu-icon pe-7s-user"></i>
+                                账号
+                            </a>
+                        </li>
+                        <li name="common checker admin">
+                            <a href="javascript:" id="notice" onclick="selectionActions(this,'notice')">
+                                <i class="metismenu-icon pe-7s-display2"></i>
+                                公告
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-main__outer">
+            <div class="app-main__inner">
+                <!--主页-->
+                <div name="common checker admin index">
+                    <div class="index app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-wallet icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>薪资
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    name="admin index"-->
+                    <div class="row" id="amin_index">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading pl-5">待入职</div>
+                                        </div>
+                                        <div class="widget-content-right pr-5">
+                                            <div class="widget-numbers text-success"><span id="waitJob"></span>人</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading pl-5">在职</div>
+                                        </div>
+                                        <div class="widget-content-right pr-5">
+                                            <div class="widget-numbers text-warning"><span id="inJob"></span>人</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content">
+                                <div class="widget-content-outer">
+                                    <div class="widget-content-wrapper">
+                                        <div class="widget-content-left">
+                                            <div class="widget-heading">&nbsp;&nbsp;&nbsp;&nbsp;赚钱的时候不矫情，花钱的时候不磨叽，生活真的不会因为你哭泣而对你温柔，但你可以通过努力而活的风情万种。</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index row">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-vicious-stance">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">上月工资</div>
+                                        <div class="widget-subheading">总工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span id="lastMWage"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-success">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖励</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span id="lastMWageA"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-danger">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span id="lastMWageB"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="index row mt-3">
+                        <div class="col-md-12 col-lg-12">
+                            <div class="mb-3 card">
+                                <div class="card-header-tab card-header">
+                                    <div class="card-header-title">
+                                        <i class="header-icon lnr-rocket icon-gradient bg-tempting-azure"> </i>
+                                        最新公告：
+                                    </div>
+                                    <div class="card-header-title float-right" id="indexNoticeTime">
+                                    </div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active show" id="tab-eg-55">
+                                        <div class="widget-chart p-3">
+                                            <div style="height: 350px">
+                                                <div class="scroll-area-md">
+                                                    <div class="scrollbar-container ps--active-y ps">
+                                                        <pre id="indexNotice"></pre>
+                                                        <div class="ps__rail-x" style="left: 0; bottom: -165px;">
+                                                            <div class="ps__thumb-x" tabindex="0"
+                                                                 style="left: 0; width: 0;"></div>
+                                                        </div>
+                                                        <div class="ps__rail-y ps--clicking"
+                                                             style="top: 165px; height: 150px; right: 0;">
+                                                            <div class="ps__thumb-y" tabindex="0"
+                                                                 style="top: 175px; height: 125px;"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <div class="copyright row col-md-12 mt-5">
+                                            <div class="col-md-12 col-xl-12">
+                                                <div class="card mb-4 widget-content bg-light">
+                                                    <div class="widget-content-wrapper pl-10">
+                                                        <div class="text-center pl-10 text-muted">
+                                                            许可备案：桂JS201304-018(教育审批号) 桂ICP备05001211号-1(网站备案号) 桂公网安备 45090202000116号<br>
+                                                            地址：北京市朝阳区东直门外大街小关56号5幢一层110室
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                </div>
+
+                <!--工资统计-->
+                <div name="admin departmental_wage">
+                    <div class="tab-content">
+                        <div class="tab-pane tabs-animation fade active show" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">部门本年已发工资</h5>
+                                            <canvas id="myline-chart" style="width: 100%; height: 400px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="main-card mb-3 card">
+                                        <div class="card-body pt-3">
+                                            <div>
+                                                <div class="float-left"><h5 class="card-title">部门月发已发工资</h5></div>
+                                                <div class="float-right">
+                                                    <form class="form-inline">日期：
+                                                        <div class="position-relative row form-group">
+                                                            <div class="col-6">
+                                                                <select name="statisYearInput" id="statisYearInput"
+                                                                        style="height: 30px;padding-top: 0"
+                                                                        class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="position-relative row form-group">
+                                                            <div class="col-6">
+                                                                <select name="statisMonthInput" id="statisMonthInput"
+                                                                        style="height: 30px;padding-top: 0"
+                                                                        class="form-control">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <canvas id="mypie-chart" style="width: 100%; height: 400px;"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--人事管理-->
+                <!--员工花名册-->
+                <div name="admin personnel_management_all">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <table id="employeeList" class="table table-striped row-border table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>姓名</th>
+                                    <th>工号</th>
+                                    <th>部门</th>
+                                    <th>职位</th>
+                                    <th>证件号</th>
+                                    <th>手机号</th>
+                                    <th>入职时间</th>
+                                    <th>性别</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--员工档案-->
+                <div name="admin personnel_management_single">
+                    <div class="account main-card mb-3 card">
+                        <div class="card-body">
+                            <h3 class="card-title">账号信息：</h3>
+                            <div class="tab-pane tabs-animation fade active show" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body pl-5">
+                                        <form action="#" onsubmit="return false;" method="post" class="">
+                                            <div class="form-row mb-3">
+                                                <div class="col-md-3">
+                                                    <div class="mb-2 mb-sm-0 position-relative form-group form-inline">
+                                                        <label class="">员工编号：</label>
+                                                        <label name="pemployeeId" class="ml-0 badge fs-4 badge-info"
+                                                               style="width: 80px;height: 30px;"></label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-2 mb-sm-0 position-relative form-group">
+                                                        <label class="">入职职位：</label>
+                                                        <select name="ppositionId" class="ml-0 badge fs-5 badge-info"
+                                                                style="width: 120px;height: 36px;">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-2 mb-sm-0 position-relative form-group form-inline">
+                                                        <label class="">入职时间：</label>
+                                                        <input name="poinTime" type="text" readonly style="border: 0"
+                                                               class="form-control"/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-2 mb-sm-0 position-relative form-group form-inline">
+                                                        <label>角色选择:</label>
+                                                        <div class="col-6">
+                                                            <select name="permission" id="permission"
+                                                                    class="form-control">
+                                                                <option value="3616">普通员工</option>
+                                                                <option value="3615">考勤人员</option>
+                                                                <option value="3614">人事工资管理员</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PEmail"
+                                                           class=" col-3 col-form-label bg-light br-a">邮箱</label>
+                                                    <div class="col-6">
+                                                        <input name="pemail" id="PEmail" placeholder="邮箱" type="email"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PPassword"
+                                                           class=" col-3 col-form-label bg-light br-a">密码</label>
+                                                    <div class="col-6">
+                                                        <input name="pepassword" id="PPassword" placeholder="密码"
+                                                               type="password" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PName"
+                                                           class=" col-3 col-form-label bg-light br-a">姓名</label>
+                                                    <div class="col-6">
+                                                        <input name="pemployeeName" id="PName" placeholder="姓名"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PSex"
+                                                           class=" col-3 col-form-label bg-light br-a">性别</label>
+                                                    <div class="col-6">
+                                                        <select name="psex" id="PSex" class="form-control" readonly
+                                                                onfocus="this.defaultIndex=this.selectedIndex;"
+                                                                onchange="this.selectedIndex=this.defaultIndex;">
+                                                            <option value="3622">请选择</option>
+                                                            <option value="1">男</option>
+                                                            <option value="2">女</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PAge"
+                                                           class=" col-3 col-form-label bg-light br-a">年龄</label>
+                                                    <div class="col-6">
+                                                        <input name="page" id="PAge"
+                                                               readonly
+                                                               placeholder="年龄"
+                                                               type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PNationnal"
+                                                           class=" col-3 col-form-label bg-light br-a">民族</label>
+                                                    <div class="col-6">
+                                                        <select name="pnattional" id="PNationnal" class="form-control">
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENatives"
+                                                           class=" col-3 col-form-label bg-light br-a">籍贯</label>
+                                                    <div class="col-6 row m-0 " id="PNatives">
+                                                        <select name="pnatives01" id="PNatives01"
+                                                                onchange="setpNatives02(this)"
+                                                                class="col-5 form-control">
+                                                        </select>
+                                                        <select name="pnatives02" id="PNatives02"
+                                                                class="col-5 ml-2 form-control">
+                                                            <option name='7101' value='3568'>请选择</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PPol"
+                                                           class=" col-3 col-form-label bg-light br-a">政治面貌</label>
+                                                    <div class="col-6">
+                                                        <select name="ppol" id="PPol" class="form-control">
+                                                            <option value="3621">请选择</option>
+                                                            <option value="3581">共青团员</option>
+                                                            <option value="3582">党员</option>
+                                                            <option value="3583">预备党员</option>
+                                                            <option value="3584">无党派人士</option>
+                                                            <option value="3585">群众</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PBrith"
+                                                           class=" col-3 col-form-label bg-light br-a">出生日期</label>
+                                                    <div class="col-6" id="PBrith">
+                                                        <div class="form-group mb-0 float-left w-100">
+                                                            <input name="pbrith" type="text" name="datepicker"
+                                                                   readonly
+                                                                   class="form-control"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EId_Number"
+                                                           class=" col-3 col-form-label bg-light br-a">身份证</label>
+                                                    <div class="col-6">
+                                                        <input name="pidNumber" id="PId_Number" maxlength="18"
+                                                               placeholder="身份证" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EEducation"
+                                                           class=" col-3 col-form-label bg-light br-a">学历</label>
+                                                    <div class="col-6">
+                                                        <select name="peducation" id="PEducation" class="form-control">
+                                                            <option value="3620">请选择</option>
+                                                            <option value="3591">本科</option>
+                                                            <option value="3590">专科</option>
+                                                            <option value="3592">硕士研究生</option>
+                                                            <option value="3588">中专</option>
+                                                            <option value="3593">博士研究生</option>
+                                                            <option value="3589">高中</option>
+                                                            <option value="3587">初中</option>
+                                                            <option value="3586">小学</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PUniversity"
+                                                           class=" col-3 col-form-label bg-light br-a">毕业院校</label>
+                                                    <div class="col-6">
+                                                        <input name="puniversity" id="PUniversity" placeholder="毕业院校"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PMajor"
+                                                           class=" col-3 col-form-label bg-light br-a">专业</label>
+                                                    <div class="col-6">
+                                                        <input name="pmajor" id="PMajor" placeholder="专业" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PHome_Address"
+                                                           class=" col-3 pt-4 col-form-label bg-light br-a">家庭住址</label>
+                                                    <div class="col-8 row m-0" id="PHome_Address">
+                                                        <select name="phomeAddress1" id="PHome_Address01"
+                                                                onchange="setpAdd2Option(this)"
+                                                                class="col-3 form-control">
+                                                        </select>
+                                                        <select name="phomeAddress2" id="PHome_Address02"
+                                                                onchange="setpAdd3Option(this)"
+                                                                class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <select name="phomeAddress3" id="PHome_Address03"
+                                                                class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <input name="phomeNote" id="PHome_Address_Note"
+                                                               placeholder="具体街道门牌" type="text"
+                                                               class="form-control mt-1">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PPhone"
+                                                           class=" col-3 col-form-label bg-light br-a">电话</label>
+                                                    <div class="col-6">
+                                                        <input name="pphone" id="PPhone"
+                                                               oninput="value=value.replace(/[^\d]/g,'')" maxlength="11"
+                                                               placeholder="电话" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PMarriage"
+                                                           class=" col-3 col-form-label bg-light br-a">婚否</label>
+                                                    <div class="col-6">
+                                                        <select name="pmarriage" id="PMarriage" class="form-control">
+                                                            <option value="3602">是</option>
+                                                            <option value="3603">否</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PHealth"
+                                                           class=" col-3 col-form-label bg-light br-a">健康情况</label>
+                                                    <div class="col-6">
+                                                        <select name="phealth" id="PHealth" class="form-control">
+                                                            <option value="3608">健康</option>
+                                                            <option value="3609">一般</option>
+                                                            <option value="3610">较差</option>
+                                                            <option value="3611">有严重疾病、慢性疾病或身体伤残</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PBlood_Type"
+                                                           class=" col-3 col-form-label bg-light br-a">血型</label>
+                                                    <div class="col-6">
+                                                        <select name="pbloodType" id="PBlood_Type" class="form-control">
+                                                            <option value="3594">A</option>
+                                                            <option value="3598">B</option>
+                                                            <option value="3599">O</option>
+                                                            <option value="3600">AB</option>
+                                                            <option value="3601">ABO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="PNote"
+                                                           class=" col-3 pt-3 col-form-label bg-light br-a">备注</label>
+                                                    <div class="col-8">
+                                                        <textarea name="pnote" id="PNote"
+                                                                  class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"
+                                                        onclick="setpEmployee()">保存
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--部门管理-->
+                <div name="admin personnel_department_management">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <div class="">
+                                <button class="mb-2 mr-2 col-sm-1 text-center btn btn-success" data-toggle="modal"
+                                        data-target="#departmentChange" onclick="depreload()">新 增
+                                </button>
+                            </div>
+                            <table id="departmentList" class="table table-striped table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>部门编号</th>
+                                    <th>部门名称</th>
+                                    <th>部门负责人工号</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--职位管理-->
+                <div name="admin personnel_position_management">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <div class="">
+                                <button class="mb-2 mr-2 col-sm-1 text-center btn btn-success" data-toggle="modal"
+                                        data-target="#positionChange" onclick="posreload()">新 增
+                                </button>
+                            </div>
+                            <table id="positionList" class="table table-striped table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>职位编号</th>
+                                    <th>所属部门</th>
+                                    <th>职位名称</th>
+                                    <th>岗位工资</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--入职管理-->
+                <div name="admin staff_induction">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <div class="">
+                                <button class="mb-2 mr-2 col-sm-1 text-center btn btn-success" data-toggle="modal"
+                                        data-target="#staffAdd" onclick="setPosition()">新 增
+                                </button>
+                            </div>
+                            <table id="staffList" class="table table-striped row-border table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>工号</th>
+                                    <th>姓名</th>
+                                    <th>部门</th>
+                                    <th>职位</th>
+                                    <th>入职时间</th>
+                                    <th>入职情况</th>
+                                    <th width="120px">操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--工资管理-->
+                <!--员工工资管理-->
+                <!--员工工资查询-->
+                <div name="admin staff_salary_enquiry">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body" style="width: 92%;">
+                            <table id="wagesList" class="table table-striped row-border table-bordered table-hover"
+                                   cellspacing="0">
+                                <thead>
+                                <tr style="white-space: nowrap;">
+                                    <th style="background-color: #fff;">编号</th>
+                                    <th>工号</th>
+                                    <th>姓名</th>
+                                    <th>税后工资</th>
+                                    <th>发放日期</th>
+                                    <th>基本工资</th>
+                                    <th>岗位工资</th>
+                                    <th>绩效津贴</th>
+                                    <th>补助</th>
+                                    <th>奖金</th>
+                                    <th>罚扣</th>
+                                    <th>养老保险</th>
+                                    <th>医疗保险</th>
+                                    <th>失业保险</th>
+                                    <th>工伤保险</th>
+                                    <th>生育保险</th>
+                                    <th>住房公积金</th>
+                                    <th>个人所得税</th>
+                                    <th style="background-color: #fff;" width="60px">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody style="white-space: nowrap;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--工资信息修改-->
+                <div name="admin staff_salary_update">
+                    <div class="app-main__inner">
+                        <div class="row mt-12 align-items-center he-100 align-content-center pr-5">
+                            <div class="mg-center main-card mb-3 pl-4 pr-4 pt-2 pb-2 card" style="width: 360px;">
+                                <div class="card-body">
+                                    <h4 class="card-title">工资修改：</h4>
+                                    <form onsubmit="return false;" class="mt-2">
+                                        <input placeholder="工号" id="cwagesId" type="text"
+                                               class="mb-2 form-control" readonly>
+                                        <input placeholder="姓名" id="cwagesName" type="text" class="mb-2 form-control"
+                                               readonly>
+                                        <div class="divider">
+                                        </div>
+                                        <strong id="cwageTip"
+                                                style="display: block; width: 100%; margin: 0 auto; text-align: center">请在员工工资查询中选择所需修改记录</strong>
+                                        <div class="mt-4 mg-center text-center">
+                                            <input placeholder="绩效津贴" id="cjxw" type="number"
+                                                   class="mb-2 form-control">
+                                            <input placeholder="补助" id="callowance" type="number"
+                                                   class="mb-2 form-control">
+                                            <input placeholder="奖金" id="cbouns" type="number"
+                                                   class="mb-2 form-control">
+                                            <input placeholder="罚扣" id="cpenalty" type="number"
+                                                   class="mb-2 form-control">
+                                            <button id="cwageIds" class="mt-2 mb-2 mr-2 col-4 btn btn-focus" value=""
+                                                    disabled="disabled" onclick="wageUpdate()">保存
+                                            </button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="ampReset"
+                                                    type="reset">重置
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--公告管理-->
+                <div name="admin noticmanagerment">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <div class="">
+                                <button class="mb-2 mr-2 col-sm-1 text-center btn btn-success" data-toggle="modal"
+                                        data-target=".noticeChange" onclick="noticeChange('0')">新 增
+                                </button>
+                            </div>
+                            <table id="noticeList" class="table table-striped table-bordered table-hover text-center"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr>
+                                    <th>编号</th>
+                                    <th style="width: 8%;">日期</th>
+                                    <th style="width: 65%;">内容</th>
+                                    <th>发布状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--工资表导入/导出-->
+                <!--导出工资表-->
+                <div name="admin export_wage_table">
+                    <div class="main-card mb-3 pr-2 pl-2 card">
+                        <div class="card-body">
+                            <table id="exportwagesList"
+                                   class="table table-striped row-border table-bordered table-hover"
+                                   cellspacing="0"
+                                   width="100%">
+                                <thead>
+                                <tr style="white-space: nowrap;">
+                                    <th style="background-color: #fff;">编号</th>
+                                    <th>工号</th>
+                                    <th>姓名</th>
+                                    <th>发放日期</th>
+                                    <th>基本工资</th>
+                                    <th>岗位工资</th>
+                                    <th>绩效津贴</th>
+                                    <th>补助</th>
+                                    <th>奖金</th>
+                                    <th>罚扣</th>
+                                    <th>养老保险</th>
+                                    <th>医疗保险</th>
+                                    <th>失业保险</th>
+                                    <th>工伤保险</th>
+                                    <th>生育保险</th>
+                                    <th>住房公积金</th>
+                                    <th>个人所得税</th>
+                                    <th>税后工资</th>
+                                </tr>
+                                </thead>
+                                <tbody style="white-space: nowrap;"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--导入工资表-->
+                <div name="admin import_wage_table">
+
+                </div>
+
+                <!--账号密码管理-->
+                <div name="admin accounupdate">
+                    <div class="app-main__inner">
+                        <div class="row mt-13 align-items-center he-100 align-content-center pr-5">
+                            <div class="mg-center main-card mb-3 pl-4 pr-4 pt-2 pb-2 card" style="width: 360px;">
+                                <div class="card-body">
+                                    <h4 class="card-title">密码重置：</h4>
+                                    <form onsubmit="return false;" class="mt-2">
+                                        <input placeholder="工号" id="aemployeeId" type="text" oninput="checkAValid(this)"
+                                               class="mb-2 form-control">
+                                        <input placeholder="姓名" id="aemployeeName" type="text" class="mb-2 form-control"
+                                               readonly>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="mg-center text-center">
+                                            <input placeholder="账号/邮箱" name="aemail" type="email" id="aemail"
+                                                   class="mb-2 form-control" readonly>
+                                            <input placeholder="密码" name="aepassword" type="text" id="aepassword"
+                                                   class="mb-2 form-control">
+                                            <button id="accbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus"
+                                                    disabled="disabled" onclick="acctReset()">修改
+                                            </button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="accReset"
+                                                    type="reset">重置
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--员工奖罚-->
+                <div name="checkeradmin add_rewardandpenalty">
+                    <div class="app-main__inner">
+                        <div class="row mt-13 align-items-center he-100 align-content-center pr-5">
+                            <div class="mg-center main-card mb-3 pl-4 pr-4 pt-2 pb-2 card" style="width: 360px;">
+                                <div class="card-body">
+                                    <h4 class="card-title">奖罚添加：</h4>
+                                    <form onsubmit="return false;" class="mt-2">
+                                        <input placeholder="工号" id="cemployeeId" type="text" oninput="checkValid (this)"
+                                               class="mb-2 form-control">
+                                        <input placeholder="姓名" id="cemployeeName" type="text" class="mb-2 form-control"
+                                               readonly>
+                                        <div class="divider">
+                                        </div>
+                                        <div class="mb-4 form-group">
+                                            <div class="mg-center w-55">
+                                                <div class="custom-radio float-left custom-control">
+                                                    <input type="radio" value="reward" id="addRadio" name="customRadio"
+                                                           class="custom-control-input">
+                                                    <label class="custom-control-label" for="addRadio">
+                                                        奖励
+                                                    </label>
+                                                </div>
+                                                <div class="custom-radio float-right custom-control">
+                                                    <input type="radio" value="punishment" id="penaltyRadio"
+                                                           name="customRadio" class="custom-control-input">
+                                                    <label class="custom-control-label" for="penaltyRadio">
+                                                        罚扣
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 mg-center text-center">
+                                            <input placeholder="金额" name="cnumber" type="number"
+                                                   class="mb-2 form-control">
+                                            <div class="position-relative form-group">
+                                                <label for="einfo" class="text-left">具体情况</label>
+                                                <textarea name="text" id="einfo" class="form-control text-left">
+                                                </textarea>
+                                            </div>
+                                            <button id="ampbtn" class="mt-2 mb-2 mr-2 col-4 btn btn-focus"
+                                                    disabled="disabled" onclick="ampAdd()">添加
+                                            </button>
+                                            <button class="mt-2 mb-2 mr-2 col-4 btn btn-secondary" name="ampReset"
+                                                    type="reset">重置
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--个人应用-->
+                <!--工资-->
+                <!--工资查询-->
+                <div name="common checker admin wage_enquiry">
+                    <div class="wage_enquiry app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-wallet icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>上月工资
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wage_enquiry row">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card mb-3 widget-content bg-vicious-stance">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">上月工资</div>
+                                        <div class="widget-subheading">总工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-white"><span name="LastMWages"></span></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wage_enquiry row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading text-dark">基本工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages1"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">岗位工资</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages2"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">绩效津贴</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages3"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">补助</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages4"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">奖金</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages5"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">罚扣</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages6"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">养老保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages7"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading text-dark">医疗保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages8"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">失业保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages9"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">工伤保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages10"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">生育保险</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages11"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">住房公积金</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages12"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card mb-3 widget-content bg-light">
+                                <div class="widget-content-wrapper text-dark">
+                                    <div class="widget-content-left">
+                                        <div class="widget-heading">个人所得税</div>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <div class="widget-numbers text-focus"><span id="LastMWages13"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col-lg-12 mt-4 col-xl-12'></div>
+                    </div>
+                </div>
+
+                <!--奖罚查询-->
+                <div name="common checker admin reward_and_penalty">
+                    <div class="reward_and_penalty app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-filter icon-gradient bg-warm-flame">
+                                    </i>
+                                </div>
+                                <div>奖罚查询
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reward_and_penalty row">
+                    </div>
+                </div>
+
+                <!--工资台账-->
+                <div name="common checker admin flow_bill">
+                    <div class="flow_bill app-page-title pl-5">
+                        <div class="page-title-wrapper pl-4">
+                            <div class="page-title-heading">
+                                <div>工资台账
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow_bill row rowlist">
+                        <div class="col-md-6 col-xl-12 box">
+                            <ul class="event_list">
+                                <div id="flowlist">
+                                </div>
+                            </ul>
+                        </div>
+                        <!--版权信息-->
+                        <!--                        <div class="row col-md-12 mt-5">
+                                                    <div class="col-md-12 col-xl-12">
+                                                        <div class="card mb-4 widget-content bg-light">
+                                                            <div class="widget-content-wrapper pl-10">
+                                                                <div class="text-center pl-10 text-muted">
+                                                                    许可备案：桂JS201304-018(教育审批号) 桂ICP备05001211号-1(网站备案号) 桂公网安备 45090202000116号<br>
+                                                                    地址：北京市朝阳区东直门外大街小关56号5幢一层110室
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>-->
+                    </div>
+                </div>
+
+                <!--账号-->
+                <div name="common checker admin account">
+                    <div class="account main-card mb-3 card">
+                        <div class="card-body">
+                            <h3 class="card-title">账号信息：</h3>
+                            <form class="form-inline">
+                                <div class="col-12 float-left">
+                                    <div class="form-row">
+                                        <div class="col-md-4">
+                                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                <label class="">员工编号：</label>
+                                                <label name="employeeId" class="ml-0 badge badge-info"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                <label class="">入职职位：</label>
+                                                <label name="positionId" class="ml-0 badge badge-info"></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                                <label class="">入职时间：</label>
+                                                <label name="oinTime" class="ml-0 badge badge-info"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </form>
+                            <div class="tab-pane tabs-animation fade active show" role="tabpanel">
+                                <div class="main-card mb-3 card">
+                                    <div class="card-body pl-5">
+                                        <form action="#" onsubmit="return false;" method="post" class="">
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EEmail"
+                                                           class=" col-3 col-form-label bg-light br-a">邮箱</label>
+                                                    <div class="col-6">
+                                                        <input name="email" id="EEmail" placeholder="邮箱" type="email"
+                                                               autocomplete="off"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EPassword"
+                                                           class=" col-3 col-form-label bg-light br-a">密码</label>
+                                                    <div class="col-6">
+                                                        <input name="epassword" id="EPassword" placeholder="密码"
+                                                               autocomplete="off"
+                                                               type="password" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EName"
+                                                           class=" col-3 col-form-label bg-light br-a">姓名</label>
+                                                    <div class="col-6">
+                                                        <input name="employeeName" id="EName" placeholder="姓名"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ESex"
+                                                           class=" col-3 col-form-label bg-light br-a">性别</label>
+                                                    <div class="col-6">
+                                                        <select name="sex" id="ESex" class="form-control" readonly
+                                                                onfocus="this.defaultIndex=this.selectedIndex;"
+                                                                onchange="this.selectedIndex=this.defaultIndex;">
+                                                            <option value="3622">请选择</option>
+                                                            <option value="1">男</option>
+                                                            <option value="2">女</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EAge"
+                                                           class=" col-3 col-form-label bg-light br-a">年龄</label>
+                                                    <div class="col-6">
+                                                        <input name="age" id="EAge"
+                                                               readonly
+                                                               placeholder="年龄"
+                                                               type="text" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENationnal"
+                                                           class=" col-3 col-form-label bg-light br-a">民族</label>
+                                                    <div class="col-6">
+                                                        <select name="nattional" id="ENationnal" class="form-control">
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENatives"
+                                                           class=" col-3 col-form-label bg-light br-a">籍贯</label>
+                                                    <div class="col-6 row m-0 " id="ENatives">
+                                                        <select name="natives01" id="Natives01"
+                                                                onchange="setNatives02(this)"
+                                                                class="col-5 form-control">
+                                                        </select>
+                                                        <select name="natives02" id="Natives02"
+                                                                class="col-5 ml-2 form-control">
+                                                            <option name='7101' value='3568'>请选择</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EPol"
+                                                           class=" col-3 col-form-label bg-light br-a">政治面貌</label>
+                                                    <div class="col-6">
+                                                        <select name="pol" id="EPol" class="form-control">
+                                                            <option value="3621">请选择</option>
+                                                            <option value="3581">共青团员</option>
+                                                            <option value="3582">党员</option>
+                                                            <option value="3583">预备党员</option>
+                                                            <option value="3584">无党派人士</option>
+                                                            <option value="3585">群众</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EBrith"
+                                                           class=" col-3 col-form-label bg-light br-a">出生日期</label>
+                                                    <div class="col-6" id="EBrith">
+                                                        <div class="form-group mb-0 float-left w-100">
+                                                            <input name="brith" type="text"
+                                                                   readonly
+                                                                   class="form-control" value="1990-1-1"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EId_Number"
+                                                           class=" col-3 col-form-label bg-light br-a">身份证</label>
+                                                    <div class="col-6">
+                                                        <input name="idNumber" id="EId_Number" maxlength="18"
+                                                               placeholder="身份证" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row float-left col-6">
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EEducation"
+                                                           class=" col-3 col-form-label bg-light br-a">学历</label>
+                                                    <div class="col-6">
+                                                        <select name="education" id="EEducation" class="form-control">
+                                                            <option value="3620">请选择</option>
+                                                            <option value="3591">本科</option>
+                                                            <option value="3590">专科</option>
+                                                            <option value="3592">硕士研究生</option>
+                                                            <option value="3588">中专</option>
+                                                            <option value="3593">博士研究生</option>
+                                                            <option value="3589">高中</option>
+                                                            <option value="3587">初中</option>
+                                                            <option value="3586">小学</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EUniversity"
+                                                           class=" col-3 col-form-label bg-light br-a">毕业院校</label>
+                                                    <div class="col-6">
+                                                        <input name="university" id="EUniversity" placeholder="毕业院校"
+                                                               type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EMajor"
+                                                           class=" col-3 col-form-label bg-light br-a">专业</label>
+                                                    <div class="col-6">
+                                                        <input name="major" id="EMajor" placeholder="专业" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EHome_Address"
+                                                           class=" col-3 pt-4 col-form-label bg-light br-a">家庭住址</label>
+                                                    <div class="col-8 row m-0" id="EHome_Address">
+                                                        <select name="homeAddress1" id="Home_Address01"
+                                                                onchange="setAdd2Option(this)"
+                                                                class="col-3 form-control">
+                                                        </select>
+                                                        <select name="homeAddress2" id="Home_Address02"
+                                                                onchange="setAdd3Option(this)"
+                                                                class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <select name="homeAddress3" id="Home_Address03"
+                                                                class="col-3 ml-2 form-control">
+                                                        </select>
+                                                        <input name="homeNote" id="Home_Address_Note"
+                                                               placeholder="具体街道门牌" type="text"
+                                                               class="form-control mt-1">
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EPhone"
+                                                           class=" col-3 col-form-label bg-light br-a">电话</label>
+                                                    <div class="col-6">
+                                                        <input name="phone" id="EPhone"
+                                                               oninput="value=value.replace(/[^\d]/g,'')" maxlength="11"
+                                                               placeholder="电话" type="text"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EMarriage"
+                                                           class=" col-3 col-form-label bg-light br-a">婚否</label>
+                                                    <div class="col-6">
+                                                        <select name="marriage" id="EMarriage" class="form-control">
+                                                            <option value="3602">是</option>
+                                                            <option value="3603">否</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EHealth"
+                                                           class=" col-3 col-form-label bg-light br-a">健康情况</label>
+                                                    <div class="col-6">
+                                                        <select name="health" id="EHealth" class="form-control">
+                                                            <option value="3608">健康</option>
+                                                            <option value="3609">一般</option>
+                                                            <option value="3610">较差</option>
+                                                            <option value="3611">有严重疾病、慢性疾病或身体伤残</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="EBlood_Type"
+                                                           class=" col-3 col-form-label bg-light br-a">血型</label>
+                                                    <div class="col-6">
+                                                        <select name="bloodType" id="EBlood_Type" class="form-control">
+                                                            <option value="3594">A</option>
+                                                            <option value="3598">B</option>
+                                                            <option value="3599">O</option>
+                                                            <option value="3600">AB</option>
+                                                            <option value="3601">ABO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="position-relative row w-100 form-group">
+                                                    <label for="ENote"
+                                                           class=" col-3 pt-3 col-form-label bg-light br-a">备注</label>
+                                                    <div class="col-8">
+                                                        <textarea name="note" id="ENote"
+                                                                  class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row col-12">
+                                                <button class="mt-4 col-3 center-svg  btn btn-primary" type="submit"
+                                                        onclick="setEmployee()">保存
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--公告-->
+                <div name="common checker admin notice">
+                    <div class="notice app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-wallet icon-gradient bg-mean-fruit">
+                                    </i>
+                                </div>
+                                <div>薪资
+                                    <div class="page-title-subheading">
+                                        在这个世界上，最渺小的人与最伟大人同样有一种责任。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title" name="notices1">公告</h5>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <pre name="notices1"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title" name="notices2">公告</h5>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <pre name="notices2"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title" name="notices3">公告</h5>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <pre name="notices3"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title" name="notices4">公告</h5>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <pre name="notices4"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="notice col-md-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body"><h5 class="card-title" name="notices5">公告</h5>
+                                <div class="alert alert-success fade show" role="alert">
+                                    <pre name="notices5"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--修改头像模态框-->
+<div class="modal fade headIconChange" tabindex="-1" role="dialog" id="tab-content-1"
+     aria-labelledby="myLargeModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">修改头像</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane tabs-animation fade active show" role="tabpanel">
+                    <div class="main-card mb-3 card">
+                        <div class="card-body header-icons">
+                            <h5 class="card-title"></h5>
+                            <div name="1" id="bavatar1" onclick="headicon(this)" class="bavat"></div>
+                            <div name="2" id="bavatar2" onclick="headicon(this)" class="bavat"></div>
+                            <div name="3" id="bavatar3" onclick="headicon(this)" class="bavat"></div>
+                            <div name="4" id="bavatar4" onclick="headicon(this)" class="bavat"></div>
+                            <div name="5" id="bavatar5" onclick="headicon(this)" class="bavat"></div>
+                            <div name="6" id="bavatar6" onclick="headicon(this)" class="bavat"></div>
+                            <div name="7" id="bavatar7" onclick="headicon(this)" class="bavat"></div>
+                            <div name="8" id="bavatar8" onclick="headicon(this)" class="bavat"></div>
+                            <div name="9" id="bavatar9" onclick="headicon(this)" class="bavat"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">关 闭</button>
+                            <button type="button" onclick="headicon_save()" class="btn btn-primary">保 存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--部门信息修改模态框-->
+<div class="modal fade mt-14" id="departmentChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">部门信息：</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-4">
+                        <div class="position-relative form-group">
+                            <label for="depId" class="">部门编号</label>
+                            <input name="depId" id="depId" type="number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="position-relative form-group">
+                            <label for="depName" class="">部门名称</label>
+                            <input name="depName" id="depName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="position-relative form-group">
+                            <label for="depChargeId" class="">部门负责人工号</label>
+                            <input name="depChargeId" id="depChargeId" type="number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="depSave()">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--部门信息修改模态框-->
+<div class="modal fade mt-14" id="positionChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">职位信息：</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-5 float-left ml-3">
+                        <div class="position-relative form-group">
+                            <label for="posId" class="">职位编号</label>
+                            <input name="posId" id="posId" type="number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-right mr-3">
+                        <div class="position-relative form-group">
+                            <label for="posDep" class="">所属部门</label>
+                            <select name="posDep" id="posDep" class="form-control">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5 float-left ml-3">
+                        <div class="position-relative form-group">
+                            <label for="posName" class="">职位名称</label>
+                            <input name="posName" id="posName" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-right mr-3">
+                        <div class="position-relative form-group">
+                            <label for="posPay" class="">岗位工资</label>
+                            <input name="posPay" id="posPay" type="number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="posSave()">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--员工入职情况修改模态框-->
+<div class="modal fade show mt-14" id="staffChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">入职情况修改</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select name="seLock" class="form-control">
+                    <option value="3624">待入职</option>
+                    <option value="3618">在职</option>
+                    <option value="3619">已离职</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="staffSave()">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--新增入职模态框-->
+<div class="modal fade" id="staffAdd" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">员工信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return false;" class="">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffId" class="">工号</label>
+                                <input name="staffId" id="staffId" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffName" class="">姓名</label>
+                                <input name="staffName" id="staffName" type="text" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="position-relative form-group">
+                                <label for="staffIdCard" class="">身份证号</label>
+                                <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18"
+                                       class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffPos" class="">职位</label>
+                                <select name="staffPos" id="staffPos" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffTime" class="">入职时间</label>
+                                <input name="staffTime" id="staffTime" type="text" class="form-control" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffEmail" class="">邮箱</label>
+                                <input name="staffEmail" id="staffEmail" placeholder="Email..." type="email"
+                                       autocomplete="off"
+                                       class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="position-relative form-group">
+                                <label for="staffPwd" class="">密码</label>
+                                <input name="staffPwd" id="staffPwd" placeholder="Password..." type="text"
+                                       autocomplete="off"
+                                       class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="staffAdd()">添加</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--公告模态框-->
+<div class="modal fade noticeChange" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noticeChange">公告信息</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="nnoticesDate" class="">日期</label>
+                            <input name="nnoticesDate" type="text" name="datepicker"
+                                   id="nnoticesDate" class="form-control" readonly="readonly"
+                                   class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="depChargeId" class="">发布状态</label>
+                            <select name="nstate" class="form-control">
+                                <option value="待发布">待发布</option>
+                                <option value="已发布">已发布</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="position-relative form-group">
+                            <label for="nnotices" class="">内容</label>
+                            <textarea name="nnotices" id="nnotices" style="height: 200px;"
+                                      class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="noticeSave()">保存</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="static/assets/scripts/main.js"></script>
+<script src="static/assets/scripts/lq.datetimepick.js"></script>
+<script src="static/assets/scripts/public.js"></script>
+<script src="static/assets/scripts/interaction.js"></script>
+</body>
+</html>

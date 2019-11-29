@@ -9,6 +9,7 @@ var wdata = "";
 var staffTable;
 var sdata = "";
 var depTable;
+var posTable;
 var noticeTable;
 var nodate;
 
@@ -89,6 +90,9 @@ $("#departmental_wage").one("click", function () {
 });
 $("#personnel_department_management").on("click", function () {
     setDepartment()
+});
+$("#personnel_position_management").on("click", function () {
+    setPositions()
 });
 $("#noticmanagerment").on("click", function () {
     setNoticesList()
@@ -285,6 +289,178 @@ function myChart2Change() {
         },
         error: function () {
             showError("后台错误，请联系管理员！");
+        }
+    });
+}
+
+/*职位管理*/
+function setPositions() {
+    posTable = $('#positionList').DataTable({
+        language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项结果",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+        "retrieve": "true",
+        "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
+            "url": baseUrl + "pos/qal",
+            "type": "POST",
+            "dataSrc": "data"
+        },
+        "columns": [
+            {"data": "positionId"},
+            {
+                "data": "departmentId.departmentName"
+            },
+            {
+                "data": "positionName",
+                "orderable": false
+            },
+            {
+                "data": "positionBasePay"
+            },
+            {
+                "data": "positionId",
+                "orderable": false,
+                "mRender": function (data, type, full) {
+                    var posData = [full.positionId,full.departmentId.departmentId,"\"" + full.positionName + "\"",full.positionBasePay];
+                    return "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info' data-toggle='modal' data-target='#positionChange' onclick='posChange(" + posData + ")'>修改</button>" +
+                        "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info btn-outline-danger ml-2' data-toggle='modal' data-target='.confirm' onclick='posDel(" + data + ")'>删除</button>";
+                }
+            }
+        ]
+    });
+    $("select[name='posDep']").empty();
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
+        type: "POST",//方法类型
+        url: baseUrl + "dep/qal",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify({}),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                var natdata = result.data;
+                for (i = 0; i < natdata.length; i++) {
+                    var option = "<option value = '" + natdata[i].departmentId + "'>" + natdata[i].departmentName + "</option>";
+                    $("select[name='posDep']").append(option);
+                }
+            }
+        }
+    });
+}
+
+function posDel(a) {
+    Swal.fire({
+        title: '确定删除?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: '确认'
+    }).then((result) => {
+        if (result.value) {
+        $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
+            type: "POST",//方法类型
+            url: baseUrl + "pos/del",
+            dataType: "json",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify({"positionId": a}),
+            success: function (result) {
+                if (result.resultCode === 200) {
+                    showSuccess("删除成功！");
+                    posTable.ajax.reload(null, false);
+                } else {
+                    showError(result.message)
+                }
+            },
+            error: function () {
+                showError("后台错误，请联系管理员！");
+            }
+        });
+    }
+})
+}
+var posStatu = 0;
+function posChange() {
+    $("#posId").val(arguments[0]);
+    $("select[name='posDep'] > option[value='" + arguments[1] + "']").attr("selected", "selected");
+    $("#posName").val(arguments[2]);
+    $("#posPay").val(arguments[3]);
+    posStatu = 1;
+}
+function posreload() {
+    $("#posId").val("");
+    $("select[name='posDep']").removeAttr("selected");
+    $("#posName").val("");
+    $("#posPay").val("");
+    posStatu = 0;
+}
+function posSave() {
+    var posData = "";
+    var posUrl = "";
+    if (posStatu === 0){
+        if ($("select[name='posDep']").val() === "" || $("#posName").val() === "" || $("#posPay").val() === ""){
+            showError("请输入正确内容！");
+            return;
+        }
+        posUrl = "pos/ins";
+        posData = {
+            "departmentId" : $("select[name='posDep']").val(),
+            "positionName" : $("#posName").val(),
+            "positionBasePay" : $("#posPay").val()
+        }
+    }else{
+        posUrl = "pos/up";
+        posData = {
+            "positionId" : $("#posId").val(),
+            "departmentId" : $("select[name='posDep']").val(),
+            "positionName" : $("#posName").val(),
+            "positionBasePay" : $("#posPay").val()
+        }
+    }
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
+        type: "POST",
+        url: baseUrl + posUrl,
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        data: JSON.stringify(posData),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                showSuccess("保存成功");
+                posTable.ajax.reload(null, false);
+                $("#positionChange > div > div > div.modal-footer > button.btn.btn-secondary").click();
+            }
         }
     });
 }

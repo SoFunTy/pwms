@@ -1,6 +1,8 @@
 
 // var baseUrl = "http://pwms.xyz/";
 var baseUrl = "http://localhost:8080/pwms/";
+localStorage.setItem('pwmsToken', "");
+localStorage.setItem('pwmsempId', "");
 /**
  * 判空
  *
@@ -95,7 +97,7 @@ function login() {
                 localStorage.setItem('pwmsToken', resDate.token);
                 localStorage.setItem('pwmsempId', resDate.employeeId);
                 setTimeout(function () {
-                    window.location.href = "static/pages/index.html";
+                    window.location.href = "index.html";
                 }, 1500);
                 return;
             }
