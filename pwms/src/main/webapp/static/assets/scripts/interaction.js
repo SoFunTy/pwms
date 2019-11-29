@@ -1,6 +1,5 @@
-var mydata = JSON.parse(window.sessionStorage.getItem("mydata"));
+var mydata = "";
 // var baseUrl = "http://pwms.xyz/";
-// var baseUrl = "http://localhost:8080/pwms/";
 var baseUrl = "http://localhost:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
@@ -13,10 +12,30 @@ var depTable;
 var noticeTable;
 var nodate;
 
-//登录验证
-if (mydata == null || mydata === ""){
+if (localStorage.getItem("pwmsToken") === null){
     window.location.href = baseUrl;
 }
+
+$.ajax({
+    headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+    },
+    type: "POST",
+    url: baseUrl + "user/qby",
+    dataType: "json",
+    async: false,
+    contentType: "application/json;charset=UTF-8",
+    data: JSON.stringify({"employeeId":localStorage.getItem("pwmsempId")}),
+    success: function (result) {
+        if (result.resultCode === 200) {
+            mydata = result.data;
+            localStorage.setItem("mydata",mydata)
+        }
+    },
+    error: function () {
+        showError("后台错误，请联系管理员！");
+    }
+});
 
 setData();
 userTypeCheck(mydata.permission.dicValue);
@@ -48,7 +67,9 @@ function userTypeCheck(a) {
 
 /*登出*/
 function logout() {
-    window.sessionStorage.removeItem('mydata');
+    localStorage.removeItem('mydata');
+    localStorage.removeItem('pwmsToken');
+    localStorage.removeItem('pwmsempId');
     window.location.href = baseUrl;
 }
 
@@ -105,6 +126,9 @@ function setStatistics() {
     var timeYm = new Date().getFullYear() + "-" + (new Date().getMonth() + 1);
     $("#statisMonthInput").val(timeYm);
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "statis/sTheYear",
         dataType: "json",
@@ -155,6 +179,9 @@ function setStatistics() {
         }
     });
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "statis/sTheMonth",
         dataType: "json",
@@ -214,6 +241,9 @@ $("#statisMonthInput").on("change", function () {
 
 function myChart2Change() {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "statis/sTheMonth",
         dataType: "json",
@@ -291,6 +321,9 @@ function setNoticesList() {
         },
         "retrieve": "true",
         "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             "url": baseUrl + "notice/qal",
             "type": "POST",
             "dataSrc": "data"
@@ -327,6 +360,9 @@ function noticeChange(a) {
     $("select[name='nstate'] > options[selected='selected']").removeAttr("selected")
     if (a !== "0")
         $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             type: "POST",//方法类型
             url: baseUrl + "notice/qli",
             dataType: "json",
@@ -373,6 +409,9 @@ function noticeDel(a) {
     }).then((result) => {
         if (result.value) {
             $.ajax({
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+                },
                 type: "POST",//方法类型
                 url: baseUrl + "notice/del",
                 dataType: "json",
@@ -418,6 +457,9 @@ function noticeSave() {
         return;
     }
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: url,
         dataType: "json",
@@ -481,6 +523,9 @@ function setLastWages() {
         "recodingTime": year + "-" + mon + "-" + date
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "wage/qli",
         dataType: "json",
@@ -522,6 +567,9 @@ function setLastWages() {
         }
     });
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "rap/qli",
         dataType: "json",
@@ -601,6 +649,9 @@ function setRap() {
         "employeeId": mydata.employeeId
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "rap/qli",
         dataType: "json",
@@ -700,6 +751,9 @@ function loadJs() {
 function checkAValid(a) {
     if ($(a).val() !== "" || $(a).val().length > 4) {
         $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             type: "POST",
             url: baseUrl + "user/qbyname",
             dataType: "json",
@@ -744,6 +798,9 @@ function acctReset() {
         return;
     }
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "user/up",
         dataType: "json",
@@ -764,6 +821,9 @@ function acctReset() {
 function checkValid(a) {
     if ($(a).val() !== "" || $(a).val().length > 5) {
         $.ajax({
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             type: "POST",
             url: baseUrl + "user/qbyname",
             dataType: "json",
@@ -806,6 +866,9 @@ function ampAdd() {
         "punishment": punishment
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "rap/ins",
         dataType: "json",
@@ -823,6 +886,9 @@ function ampAdd() {
 /*设置在职情况*/
 function setInJob() {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "statis/sInJob",
         dataType: "json",
@@ -840,6 +906,9 @@ function setInJob() {
 *设置主页工资信息*/
 function setIndexWages() {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "wage/qmy",
         dataType: "json",
@@ -865,6 +934,9 @@ function setIndexWages() {
 *设置主页公告信息*/
 function setNewNotice() {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "notice/qne",
         dataType: "json",
@@ -921,6 +993,9 @@ function setDataInto() {
 *初始化数据从加载*/
 function onloadSet() {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "user/qby",
         dataType: "json",
@@ -930,7 +1005,7 @@ function onloadSet() {
         success: function (result) {
             if (result.resultCode === 200) {
                 mydata = result.data;
-                window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
+                localStorage.setItem('mydata', JSON.stringify(result.data));
                 setData();
             }
         }
@@ -942,6 +1017,9 @@ function onloadSet() {
 * */
 function setNotices() {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "notice/qli",
         dataType: "json",
@@ -989,6 +1067,9 @@ function setempTable() {
         },
         "retrieve": "true",
         "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             "url": baseUrl + "user/qal",
             "dataType": "json",
             "data": JSON.stringify({}),
@@ -1047,6 +1128,9 @@ function record(a) {
         .removeAttr("checked")
         .removeAttr("selected");
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "user/qby",
         dataType: "json",
@@ -1114,6 +1198,9 @@ function setPosition() {
     $("select[name='ppositionId']").empty();
     $("select[name='staffPos']").empty();
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "pos/qal",
         dataType: "json",
@@ -1139,6 +1226,9 @@ function setpNatOption() {
     $("#PNationnal").empty();
     $("#PNationnal").append("<option value = '3623'>请选择</option>");
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -1169,6 +1259,9 @@ function setpAdd1Option() {
     $("#PHome_Address02").append("<option name='7101' value = '3568'>请选择</option>");
     $("#PHome_Address03").append("<option name='7101' value = '3568'>请选择</option>");
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -1205,6 +1298,9 @@ function setpAdd2Option(a) {
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -1232,6 +1328,9 @@ function setpAdd3Option(a) {
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -1258,6 +1357,9 @@ function setpNatives02(a) {
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -1313,6 +1415,9 @@ function setpEmployee() {
     if (data.idNumber.length !== 18){showError("请正确输入身份证号！");return;}
     if (data.phone.length !== 11){showError("请正确输入电话！");return;}
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "user/up",
         dataType: "json",
@@ -1360,6 +1465,9 @@ function setDepartment() {
         },
         "retrieve": "true",
         "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             "url": baseUrl + "dep/qal",
             "type": "POST",
             "dataSrc": "data"
@@ -1400,6 +1508,9 @@ function depreload() {
 function depChange(a) {
     newDepId = 0;
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dep/qby",
         dataType: "json",
@@ -1430,6 +1541,9 @@ function depDel(a) {
     }).then((result) => {
         if (result.value) {
             $.ajax({
+                headers: {
+                    'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+                },
                 type: "POST",//方法类型
                 url: baseUrl + "dep/del",
                 dataType: "json",
@@ -1466,6 +1580,9 @@ function depSave() {
         "departmentCharge": $("input[name='depChargeId']").val()
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: url,
         dataType: "json",
@@ -1520,6 +1637,9 @@ function setstaffTable() {
         },
         "retrieve": "true",
         "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             "url": baseUrl + "user/qal",
             "dataType": "json",
             "data": JSON.stringify({}),
@@ -1565,6 +1685,9 @@ function setstaffTable() {
 /*加载数据模态框*/
 function srecord(a) {
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "user/qby",
         dataType: "json",
@@ -1587,6 +1710,9 @@ function staffSave() {
         "elock": $("select[name='seLock']").val()
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "user/up",
         dataType: "json",
@@ -1615,6 +1741,9 @@ function staffAdd() {
         "epassword": $("input[name='staffPwd']").val()
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "user/ins",
         dataType: "json",
@@ -1665,6 +1794,9 @@ function setwagesTable() {
         },
         "retrieve": "true",
         "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             "url": baseUrl + "wage/qal",
             "dataType": "json",
             "type": "POST",
@@ -1787,6 +1919,9 @@ function wageUpdate() {
         "penalty" : $("#cpenalty").val()
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "wage/up",
         dataType: "json",
@@ -1807,6 +1942,9 @@ function setFlowBill() {
         "employeeId": mydata.employeeId
     };
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "wage/qli",
         dataType: "json",
@@ -2081,6 +2219,9 @@ function setwageTable() {
         },
         "retrieve": "true",
         "ajax": {
+            "headers": {
+                'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+            },
             "url": baseUrl + "wage/qal",
             "dataType": "json",
             "type": "POST",
@@ -2174,6 +2315,9 @@ function setNatOption() {
     $("#ENationnal").empty();
     $("#ENationnal").append("<option value = '3623'>请选择</option>");
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -2203,6 +2347,9 @@ function setAdd1Option() {
     $("#Home_Address02").append("<option name='7101' value = '3568'>请选择</option>");
     $("#Home_Address03").append("<option name='7101' value = '3568'>请选择</option>");
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -2237,6 +2384,9 @@ function setAdd2Option(a) {
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -2264,6 +2414,9 @@ function setAdd3Option(a) {
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -2290,6 +2443,9 @@ function setNatives02(a) {
         return;
     data = {"dicRelation": $(a.options[a.selectedIndex]).attr("name")};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "dic/qli",
         dataType: "json",
@@ -2354,6 +2510,9 @@ function setEmployee(){
     if (data.idNumber.length !== 18){showError("请正确输入身份证号！");return;}
     if (data.phone.length !== 11){showError("请正确输入电话！");return;}
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",
         url: baseUrl + "user/up",
         dataType: "json",
@@ -2376,6 +2535,9 @@ function headicon_save() {
     var nheadIcon = $("div[class*='header-icons'] > div[class='bavatcheak']").attr("name");
     var datas = {"employeeId": mydata.employeeId, "headIcon": nheadIcon};
     $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
         type: "POST",//方法类型
         url: baseUrl + "user/up",
         dataType: "json",

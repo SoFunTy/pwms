@@ -1,6 +1,4 @@
-// $(document).ready(function () {
-//     window.sessionStorage.setItem('data', "");
-// });
+
 // var baseUrl = "http://pwms.xyz/";
 var baseUrl = "http://localhost:8080/pwms/";
 /**
@@ -93,7 +91,9 @@ function login() {
         success: function (result) {
             if (result.resultCode === 200) {
                 showSuccess();
-                window.sessionStorage.setItem('mydata', JSON.stringify(result.data));
+                var resDate = JSON.parse(result.data);
+                localStorage.setItem('pwmsToken', resDate.token);
+                localStorage.setItem('pwmsempId', resDate.employeeId);
                 setTimeout(function () {
                     window.location.href = "static/pages/index.html";
                 }, 1500);

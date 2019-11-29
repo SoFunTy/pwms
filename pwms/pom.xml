@@ -15,16 +15,17 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <spring.version>4.2.4.RELEASE</spring.version>
     <java.version>1.8</java.version>
-    <jdbc.driver.version>5.1.47</jdbc.driver.version>
+    <jdbc.driver.version>8.0.18</jdbc.driver.version>
     <aspectj.version>1.7.4</aspectj.version>
     <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
     <jsp-api.version>2.2</jsp-api.version>
     <jstl.version>1.2</jstl.version>
-    <jackson.version>2.5.3</jackson.version>
+    <jackson.version>2.9.6</jackson.version>
     <mybatis.version>3.2.5</mybatis.version>
     <mybatis-spring.version>1.2.2</mybatis-spring.version>
     <maven.test.skip>true</maven.test.skip>
     <druid.version>1.1.14</druid.version>
+    <jjwt.version>0.9.1</jjwt.version>
   </properties>
 
   <dependencies>
@@ -127,7 +128,14 @@
       <artifactId>druid</artifactId>
       <version>${druid.version}</version>
     </dependency>
-
+    <!-- Start: jwt -->
+    <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>${jjwt.version}</version>
+    </dependency>
+    <!-- End: jwt -->
   </dependencies>
 
   <build>

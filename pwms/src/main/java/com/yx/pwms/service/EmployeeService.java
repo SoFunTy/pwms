@@ -41,7 +41,7 @@ public interface EmployeeService {
      * parm String account, String password
      * return Employee
      * */
-    Employee login(String account, String password);
+    String login(String account, String password);
 
     /**
      * description:

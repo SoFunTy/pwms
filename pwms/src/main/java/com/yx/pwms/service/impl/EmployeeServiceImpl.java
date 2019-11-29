@@ -3,6 +3,7 @@ package com.yx.pwms.service.impl;
 import com.yx.pwms.dao.EmployeeDao;
 import com.yx.pwms.entity.Employee;
 import com.yx.pwms.service.EmployeeService;
+import com.yx.pwms.utils.JWTUtils;
 import com.yx.pwms.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public List<Employee> queryList(Map<String, Object> map) {
+        if (!Objects.isNull(map.get("epassword"))){
+            map.put("epassword", MD5Util.MD5Encode(map.get("epassword").toString(), "UTF-8"));
+        }
         return employeeDao.queryList(map);
     }
 
@@ -41,11 +45,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee login(String account, String epassword) {
+    public String login(String account, String epassword) {
         Map<String, Object> map = new HashMap<>();
         map.put("email", account);
-        map.put("epassword", MD5Util.MD5Encode(epassword,"UTF-8"));
-        return employeeDao.queryByAccountAndPassword(map);
+        map.put("epassword", MD5Util.MD5Encode(epassword, "UTF-8"));
+        if (employeeDao.queryByAccountAndPassword(map) == null) {
+            return null;
+        } else {
+            Map<String, Object> payload = new HashMap<String, Object>();
+            payload.put("employeeId", employeeDao.queryByAccountAndPassword(map).getEmployeeId());
+            try {
+                String jwt = JWTUtils.createJWT("jwt", "", payload);
+                return jwt;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     @Override

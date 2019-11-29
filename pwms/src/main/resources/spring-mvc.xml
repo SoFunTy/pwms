@@ -9,6 +9,22 @@
     <!-- 使用注解的包，包括子集 -->
     <context:component-scan base-package="com.yx.pwms.controller"/>
 
+    <mvc:interceptors>
+        <!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
+        <!-- <bean class="com.bybo.aca.web.interceptor.Login"/> -->
+        <mvc:interceptor>
+            <!-- 进行拦截：/**表示拦截所有controller -->
+            <mvc:mapping path="/**"/>
+            <!-- 不进行拦截 -->
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/login.html"/>
+            <mvc:exclude-mapping path="/static/assets/**"/>
+            <mvc:exclude-mapping path="/static/pages/**"/>
+            <mvc:exclude-mapping path="/user/login"/>
+            <bean class="com.yx.pwms.controller.common.JWTInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <!-- Start: 配置json消息转换器 & 参数解析-->
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">
         <property name="dateFormat">

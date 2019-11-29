@@ -85,15 +85,19 @@ public class EmployeeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Result login(@RequestBody Map<String, String> map) {
-        if (Objects.isNull(map.get("email")) || Objects.isNull(map.get("epassword"))){
+    public Result login(@RequestBody Map<String, Object> map) {
+        if (Objects.isNull(map.get("email")) || Objects.isNull(map.get("epassword"))) {
             return ResultGenerator.genErrorResult(410, "检查输入");
         }
-        if(employeeService.queryExist(null, map.get("email")) == 1) {
-        Employee employee = employeeService.login(map.get("email"), map.get("epassword"));
-        return Checker.check(employee);
-        }
-        return ResultGenerator.genErrorResult(410, "账号或密码错误");
+        if (employeeService.queryExist(null, (String) map.get("email")) == 1) {
+            String token = employeeService.login((String) map.get("email"), (String) map.get("epassword"));
+            if (token == null)
+                return ResultGenerator.genErrorResult(410, "账号或密码错误");
+            else {
+                Object resDate = "{\"token\":\"" + token +"\",\"employeeId\":\"" + employeeService.queryList(map).get(0).getEmployeeId() + "\"}";
+                return Checker.check(resDate);
+            }
+        } else return ResultGenerator.genErrorResult(410, "账号或密码错误");
     }
 
     /**
