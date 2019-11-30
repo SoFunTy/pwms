@@ -11,6 +11,12 @@
     </welcome-file-list>
     <!--End 欢迎页-->
 
+<!--    <error-page>-->
+<!--        <error-code>404</error-code>-->
+<!--        <location>/static/404.html</location>-->
+<!--    </error-page>-->
+
+    
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:applicationContext.xml</param-value>

@@ -36,13 +36,9 @@ public class PositionController {
      */
     @RequestMapping(value = "/ins", method = RequestMethod.POST)
     @ResponseBody
-    public Result inserDepartment(@RequestBody Map<String, String> map) {
-        Positions positions = check(map);
-        if (positions == null) return ResultGenerator.genErrorResult(406, "输入错误");
-        if (positionsService.queryExist(positions.getPositionId()) == 1) {
-            return ResultGenerator.genErrorResult(407, "职位已存在");
-        }
-        int statu = positionsService.insertPositions(positions);
+    public Result inserDepartment(@RequestBody Map<String, Object> map) {
+        if (map == null) return ResultGenerator.genErrorResult(406, "输入错误");
+        int statu = positionsService.insertPositions(map);
         return Checker.check(statu);
     }
 

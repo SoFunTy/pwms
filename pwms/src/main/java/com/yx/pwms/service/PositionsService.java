@@ -3,6 +3,7 @@ package com.yx.pwms.service;
 import com.yx.pwms.entity.Positions;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PositionsService {
     /**
@@ -10,7 +11,7 @@ public interface PositionsService {
      * @params Positions position
      * @return int
      */
-    int insertPositions(Positions position);
+    int insertPositions(Map<String, Object> map);
 
     /**
      * description: 删除职位

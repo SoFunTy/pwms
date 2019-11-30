@@ -16,8 +16,8 @@ public class PositionsServiceImpl implements PositionsService {
     @Autowired
     private PositionsDao positionsDao;
     @Override
-    public int insertPositions(Positions position) {
-        return positionsDao.insertPositions(getMap(position));
+    public int insertPositions(Map<String, Object> map) {
+        return positionsDao.insertPositions(map);
     }
 
     @Override

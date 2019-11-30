@@ -7,6 +7,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.Objects;
 
 public class JWTInterceptor implements HandlerInterceptor {
 
@@ -19,18 +21,20 @@ public class JWTInterceptor implements HandlerInterceptor {
     }
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object arg2) {
-        try {
-            String jwt = request.getHeader("Authorization").substring(7);
-            if (jwt == null) {
+        if (Objects.nonNull(request.getHeader("Authorization"))) {
+            try {
+                String jwt = request.getHeader("Authorization").substring(7);
+                if (jwt != null) {
+                    Claims c;
+                    c = JWTUtils.parseJWT(jwt);
+                    if (new Date().getTime() - c.getExpiration().getTime() <= 0)
+                        return true;
+                }
                 response.sendRedirect("/pwms/");
-            } else {
-                Claims c;
-                c = JWTUtils.parseJWT(jwt);
-                return true;
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            response.sendRedirect("/pwms/");
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return false;
     }

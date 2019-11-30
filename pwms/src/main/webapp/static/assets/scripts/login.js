@@ -1,5 +1,5 @@
 
-// var baseUrl = "http://pwms.xyz/";
+// var baseUrl = "http://sy.pwms.xyz/";
 var baseUrl = "http://localhost:8080/pwms/";
 localStorage.setItem('pwmsToken', "");
 localStorage.setItem('pwmsempId', "");
