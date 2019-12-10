@@ -138,7 +138,7 @@
 
             <tx:method name="query*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="insert*" propagation="REQUIRED"/>
-            <tx:method name="del*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="del*" propagation="REQUIRED"/>
             <tx:method name="update*" propagation="REQUIRED"/>
             <tx:method name="login*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="stsatis*" propagation="REQUIRED" read-only="true"/>
