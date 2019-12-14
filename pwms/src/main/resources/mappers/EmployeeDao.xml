@@ -359,6 +359,12 @@
         where LENGTH(id_number) = 18;
     </update>
 
+    <update id="updatePasswd" parameterType="java.util.Map">
+        update EMPLOYEE
+        set EPASSWORD = #{epassword}
+        where EMAIL = #{email}
+    </update>
+
     <update id="updateEmployee" parameterType="java.util.Map">
         update EMPLOYEE
         <set>

@@ -192,7 +192,7 @@
                         <li name="admin">
                             <a href="javascript:" id="departmental_wage"
                                onclick="selectionActions(this,'departmental_wage')">
-                                <i class="metismenu-icon pe-7s-date"></i>
+                                <i class="metismenu-icon pe-7s-graph"></i>
                                 部门工资统计
                             </a>
                         </li>
@@ -223,21 +223,21 @@
                         <li name="admin">
                             <a href="javascript:" id="personnel_department_management"
                                onclick="selectionActions(this,'personnel_department_management')">
-                                <i class="metismenu-icon pe-7s-cash"></i>
+                                <i class="metismenu-icon pe-7s-graph3"></i>
                                 部门管理
                             </a>
                         </li>
                         <li name="admin">
                             <a href="javascript:" id="personnel_position_management"
                                onclick="selectionActions(this,'personnel_position_management')">
-                                <i class="metismenu-icon pe-7s-cash"></i>
+                                <i class="metismenu-icon pe-7s-users"></i>
                                 职位管理
                             </a>
                         </li>
                         <li name="admin">
                             <a href="javascript:" id="staff_induction"
                                onclick="selectionActions(this,'staff_induction')">
-                                <i class="metismenu-icon pe-7s-cash"></i>
+                                <i class="metismenu-icon pe-7s-settings"></i>
                                 入职管理
                             </a>
                         </li>
@@ -273,27 +273,11 @@
                             </a>
                         </li>
                         <li name="admin">
-                            <a href="#">
-                                <i class="metismenu-icon pe-7s-credit"></i>
-                                工资表导入/导出
-                                <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                            </a>
-                            <ul>
-                                <li>
                                     <a href="javascript:" id="export_wage_table"
                                        onclick="selectionActions(this,'export_wage_table')">
-                                        <i class="metismenu-icon"></i>
+                                        <i class="metismenu-icon pe-7s-cloud-download"></i>
                                         导出工资表
                                     </a>
-                                </li>
-                                <li>
-                                    <a href="javascript:" id="import_wage_table"
-                                       onclick="selectionActions(this,'import_wage_table')">
-                                        <i class="metismenu-icon"></i>
-                                        导入工资表
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li name="admin" class="app-sidebar__heading">账号管理</li>
                         <li name="admin">
@@ -524,7 +508,7 @@
                                     <div class="main-card mb-3 card">
                                         <div class="card-body pt-3">
                                             <div>
-                                                <div class="float-left"><h5 class="card-title">部门月发已发工资</h5></div>
+                                                <div class="float-left"><h5 class="card-title">部门上月已发工资</h5></div>
                                                 <div class="float-right">
                                                     <form class="form-inline">日期：
                                                         <div class="position-relative row form-group">
@@ -1948,7 +1932,7 @@
                         <div class="col-md-12">
                             <div class="position-relative form-group">
                                 <label for="staffIdCard" class="">身份证号</label>
-                                <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18"
+                                <input name="staffIdCard" id="staffIdCard" type="text" maxlength="18" oninput="setPasswd(this)"
                                        class="form-control">
                             </div>
                         </div>
@@ -1980,7 +1964,7 @@
                         <div class="col-md-6">
                             <div class="position-relative form-group">
                                 <label for="staffPwd" class="">密码</label>
-                                <input name="staffPwd" id="staffPwd" placeholder="Password..." type="text"
+                                <input name="staffPwd" id="staffPwd" placeholder="Password..." type="text" readonly
                                        autocomplete="off"
                                        class="form-control">
                             </div>

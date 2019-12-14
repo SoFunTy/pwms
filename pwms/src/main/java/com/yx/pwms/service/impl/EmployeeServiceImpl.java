@@ -73,6 +73,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public int queryExistByEmail(String email) {
+        HashMap<String, Object> map = new HashMap<>();
+        if (email != null && !email.equals("")) map.put("email",email);
+        if ( employeeDao.queryList(map).size() != 0){
+            return 1;
+        }
+        return 0;
+    }
+
+    @Override
     public int queryExist(String employeeId, String email) {
         HashMap<String, Object> map = new HashMap<>();
         if (email != null && !email.equals("")) map.put("email",email);
@@ -102,6 +112,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Map>  stsatisEmployee() {
         return employeeDao.stsatisEmployee();
+    }
+
+    @Override
+    public int updatePasswd(String email) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("email",email);
+        Employee employee = employeeDao.queryList(map).get(0);
+        map.put("epassword", MD5Util.MD5Encode(employee.getIdNumber().substring(12,18), "UTF-8"));
+        employeeDao.updatePasswd(map);
+        return 1;
     }
 
 }

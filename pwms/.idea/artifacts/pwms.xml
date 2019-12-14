@@ -34,6 +34,8 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.9.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.2.4.RELEASE" />
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.18" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.6.1" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="pwms/web/Web" />

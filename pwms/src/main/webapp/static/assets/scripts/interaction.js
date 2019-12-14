@@ -1907,6 +1907,10 @@ function staffSave() {
 /*
 * 员工入职信息添加*/
 function staffAdd() {
+    if ($("input[name='staffName']").val() === "" || $("input[name='staffIdCard']").val().length !== 18 || $("input[name='staffEmail']").val() ===""){
+        showError("请检查输入！");
+        return;
+    }
     var data = {
         "employeeId": $("input[name='staffId']").val(),
         "employeeName": $("input[name='staffName']").val(),
@@ -1937,7 +1941,12 @@ function staffAdd() {
         }
     });
 }
-
+/*初始密碼*/
+function setPasswd(a) {
+    if ($(a).val().length === 18){
+        $("#staffPwd").val($(a).val().substr(12,6));
+    }
+}
 
 /*
 * 员工工资表

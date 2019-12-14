@@ -21,9 +21,12 @@
             <mvc:exclude-mapping path="/static/**"/>
             <mvc:exclude-mapping path="/index.html"/>
             <mvc:exclude-mapping path="/user/login"/>
+            <mvc:exclude-mapping path="/user/resetpw"/>
+            <mvc:exclude-mapping path="/user/passwdReset"/>
             <bean class="com.yx.pwms.controller.common.JWTInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
 
     <!-- Start: 配置json消息转换器 & 参数解析-->
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper">

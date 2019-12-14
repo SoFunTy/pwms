@@ -62,7 +62,7 @@
 </div>
 <div class="col-8 main-card card float-left pl-2 z-2">
     <div class="pl-1">
-        <h2 class="ml-4 toast-title font-size-xlg fs-10">由心 - 人事工资管理平台</h2>
+        <h2 class="ml-4 toast-title font-size-xlg fs-10">基于SSM的人事工资管理平台</h2>
         <br><br>
         <p class="pl-5 pr-2" style="line-height: 1em; background-color: rgba(0,0,0,0); border: 0px;">欢迎回来！</p>
     </div>
@@ -80,6 +80,11 @@
                        style="border-color: rgba(0,0,0,0.2);">
             </div>
             <div class="divider row ml-1"></div>
+            <div class="float-left ml-4">
+                <a class="mb-2 mr-2 col-sm-4 text-center btn col-12" style="display: block;width: 280px;" data-toggle="modal"
+                            data-target="#LostPasswd">忘记密码
+                </a>
+            </div>
             <button class="mt-2 float-right btn btl-4 btn-primary btn-lg" type="submit" onclick="login()">登录</button>
         </form>
     </div>
@@ -89,6 +94,32 @@
         许可备案：桂JS201304-018(教育审批号) 桂ICP备05001211号-1(网站备案号) 桂公网安备 45090202000116号<br>
         地址：北京市朝阳区东直门外大街小关56号5幢一层110室
     </p>
+</div>
+<!--部门信息修改模态框-->
+<div class="modal fade mt-14" id="LostPasswd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">密码重置</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="form-row">
+                <div class="col-md-11 float-left ml-3">
+                    <div class="position-relative form-group">
+                        <label for="resetEmail" class="">邮箱：</label>
+                        <input name="resetEmail" id="resetEmail" type="email" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="resetPasswd()">重置密码</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="static/assets/scripts/main.js"></script>
 <script src="static/assets/scripts/login.js"></script>

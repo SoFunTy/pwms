@@ -49,6 +49,7 @@ public interface EmployeeService {
      * @return int
      */
     int queryExist(String employeeId);
+    int queryExistByEmail(String email);
     int queryExist(String employeeId, String email);
 
     /**
@@ -64,4 +65,6 @@ public interface EmployeeService {
      * @return
      */
     List<Map>  stsatisEmployee();
+
+    int updatePasswd(String email);
 }

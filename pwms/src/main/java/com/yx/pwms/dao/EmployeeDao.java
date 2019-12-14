@@ -59,4 +59,6 @@ public interface EmployeeDao {
      * @return
      */
     List<Map> stsatisEmployee();
+
+    int updatePasswd(Map<String, Object> map);
 }

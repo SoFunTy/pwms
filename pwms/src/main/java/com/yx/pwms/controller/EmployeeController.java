@@ -6,6 +6,9 @@ import com.yx.pwms.controller.common.ResultGenerator;
 import com.yx.pwms.entity.Employee;
 import com.yx.pwms.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -143,6 +146,27 @@ public class EmployeeController {
         if (!Objects.isNull(employee))
             return Checker.check(employee.getEmail());
         return ResultGenerator.genErrorResult(408, "");
+    }
+
+    /**
+     * 重置链接发送
+     */
+    @RequestMapping(value = "/resetpw", method = RequestMethod.POST)
+    @ResponseBody
+    public Result RestPassword(@RequestBody Map<String, String> map) {
+        if (employeeService.queryExistByEmail(map.get("email")) == 0) {
+            return ResultGenerator.genErrorResult(408, "无此数据");
+        }
+        String emailUrl = "<a href='http://127.0.0.1:8080/pwms/user/passwdReset?email="+map.get("email")+"'>人事工资管理系统密码重置</a>";
+        com.ys.mail.EmailSenderUtils.sendEmial(map.get("email"),emailUrl);
+        return Checker.check("发送成功");
+    }
+
+    @RequestMapping(value = "/passwdReset", method = RequestMethod.GET)
+    @ResponseBody
+    public String PasswordRest(String email) {
+        employeeService.updatePasswd(email);
+        return "Reset the success!";
     }
 
     /**

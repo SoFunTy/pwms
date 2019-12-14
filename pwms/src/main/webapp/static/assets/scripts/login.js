@@ -113,3 +113,33 @@ function login() {
         }
     });
 }
+
+/**
+ * 密码重置
+ */
+function resetPasswd() {
+    var data = {email: $("#resetEmail").val()};
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "user/resetpw",
+        dataType:"json",
+        contentType : "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    icon: 'success',
+                    title: "请检查邮箱邮件"
+                });
+            }
+        },
+        error: function () {
+            showError("异常，请联系管理员！");
+            return;
+        }
+    });
+}

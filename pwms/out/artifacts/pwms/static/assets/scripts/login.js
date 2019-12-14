@@ -1,6 +1,5 @@
 
-// var baseUrl = "http://vu.pwms.xyz/";
-// var baseUrl = "http://149.28.134.240:80/pwms/";
+// var baseUrl = "http://ad.pwms.xyz/";
 var baseUrl = "http://localhost:8080/pwms/";
 localStorage.setItem('mydata', "");
 localStorage.setItem('pwmsToken', "");
@@ -106,6 +105,36 @@ function login() {
             if (result.resultCode === 409 || result.resultCode === 410 ) {
                 showError("登陆失败!请检查账号和密码！");
                 return;
+            }
+        },
+        error: function () {
+            showError("异常，请联系管理员！");
+            return;
+        }
+    });
+}
+
+/**
+ * 密码重置
+ */
+function resetPasswd() {
+    var data = {email: $("#resetEmail").val()};
+    $.ajax({
+        type: "POST",//方法类型
+        url: baseUrl + "user/resetpw",
+        dataType:"json",
+        contentType : "application/json;charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function (result) {
+            if (result.resultCode === 200) {
+                Swal.fire({
+                    toast: true,
+                    position: 'top',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    icon: 'success',
+                    title: "请检查邮箱邮件"
+                });
             }
         },
         error: function () {
