@@ -1205,7 +1205,7 @@ function setNotices() {
             if (result.resultCode === 200) {
                 for (var i = 1; i <= 5; i++) {
                     $("h5[name=notices" + i + "]").html(result.data[i - 1].noticesDate);
-                    $("pre[name=notices" + i + "]").html(result.data[i - 1].notices);
+                    $("p[name=notices" + i + "]").html(result.data[i - 1].notices);
                 }
             }
         }
