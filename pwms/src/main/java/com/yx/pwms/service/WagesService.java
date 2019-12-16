@@ -12,7 +12,7 @@ public interface WagesService {
      * @params Map<String, Object> map
      * @return int
      */
-    int insertWages(Map<String, Object> map);
+    String insertWages();
 
     /**
      * description: 查询

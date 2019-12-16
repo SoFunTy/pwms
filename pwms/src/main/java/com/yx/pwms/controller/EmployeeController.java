@@ -157,7 +157,8 @@ public class EmployeeController {
         if (employeeService.queryExistByEmail(map.get("email")) == 0) {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
-        String emailUrl = "<a href='http://127.0.0.1:8080/pwms/user/passwdReset?email="+map.get("email")+"'>人事工资管理系统密码重置</a>";
+//        String emailUrl = "<a href='http://www.bs.pwms.xyz/pwms/user/passwdReset?email="+map.get("email")+"'>点击重置</a>";
+        String emailUrl = "<a href='http://127.0.0.1:8080/pwms/user/passwdReset?email="+map.get("email")+"'>点击重置</a>";
         com.ys.mail.EmailSenderUtils.sendEmial(map.get("email"),emailUrl);
         return Checker.check("发送成功");
     }
@@ -166,7 +167,7 @@ public class EmployeeController {
     @ResponseBody
     public String PasswordRest(String email) {
         employeeService.updatePasswd(email);
-        return "Reset the success!";
+        return "http://www.bs.pwms.xyz";
     }
 
     /**

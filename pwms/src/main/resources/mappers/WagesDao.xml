@@ -26,21 +26,6 @@
     IIT_FEELS_COLD, WAGE_DEDUCTED_TAX
   </sql>
 
-    <insert id="insertWages" parameterType="java.util.Map">
-    insert into WAGES (WAGES_ID, EMPLOYEE_ID, RELEASE_TIME,
-      BASE_PAY, POST_WAGE, JXW,
-      ALLOWANCE, BOUNS, PENALTY,
-      E_INSURANCE, I_INSURANCE, U_INSURANCE,
-      W_INSURANCE, M_INSURANCE, HOUSING_FUND,
-      IIT_FEELS_COLD, WAGE_DEDUCTED_TAX)
-    values (#{wagesId,jdbcType=INTEGER}, #{employeeId,jdbcType=VARCHAR}, #{releaseTime,jdbcType=DATE},
-      #{basePay,jdbcType=DOUBLE}, #{postWage,jdbcType=DOUBLE}, #{jxw,jdbcType=DOUBLE},
-      #{allowance,jdbcType=DOUBLE}, #{bouns,jdbcType=DOUBLE}, #{penalty,jdbcType=DOUBLE},
-      #{eInsurance,jdbcType=DOUBLE}, #{iInsurance,jdbcType=DOUBLE}, #{uInsurance,jdbcType=DOUBLE},
-      #{wInsurance,jdbcType=DOUBLE}, #{mInsurance,jdbcType=DOUBLE}, #{housingFund,jdbcType=DOUBLE},
-      #{iitFeelsCold,jdbcType=DOUBLE}, #{wageDeductedTax,jdbcType=DOUBLE})
-  </insert>
-
     <delete id="deleteWages" parameterType="java.lang.Integer">
     delete from WAGES
     where WAGES_ID = #{wagesId}
@@ -195,6 +180,83 @@
         </set>
         where WAGES_ID = #{wagesId}
     </update>
+
+    <insert id="insertNewWages" parameterType="java.lang.String">
+        insert into WAGES (employee_id,bouns,penalty)
+        select a.employee_id,reward,punishment from EMPLOYEE a left join (select employee_id,sum(reward) reward,sum(punishment) punishment FROM pwms.REWARD_AND_PUNISHMENT
+        where PERIOD_DIFF(date_format(#{time}, '%Y%m' ) , date_format(recoding_time, '%Y%m' ) ) = 0
+        group by employee_id) b on a.employee_id = b.employee_id;
+    </insert>
+    <update id="updateNewWagesTime" parameterType="java.lang.String">
+        update WAGES set release_time = #{time} where release_time is null;
+    </update>
+    <update id="updateNewWagesBasePay" parameterType="java.lang.Double">
+        update WAGES set base_pay = #{basePay} where base_pay = 0;
+    </update>
+    <update id="updateNewWagesJwx" parameterType="java.lang.Double">
+        update WAGES set JXW = #{Jwx} where JXW = 0;
+    </update>
+    <update id="updateNewWagesAllowance" parameterType="java.lang.Double">
+        update WAGES set ALLOWANCE = #{Allowance} where ALLOWANCE = 0;
+    </update>
+    <update id="updateNewWagesPostWage">
+        update WAGES b left join
+        (select EMPLOYEE_ID,POSITION_BASE_PAY from EMPLOYEE,POSITIONS where EMPLOYEE.POSITION_ID = POSITIONS.POSITION_ID) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set b.post_wage = a.POSITION_BASE_PAY
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID;
+    </update>
+    <update id="updateNewWagesInsurance" parameterType="java.lang.String">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = #{time}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set b.E_INSURANCE = a.total*0.08,b.I_INSURANCE = a.total*0.02,b.U_INSURANCE = a.total*0.005,b.W_INSURANCE = a.total*0.002,b.M_INSURANCE = a.total*0.01,
+        b.HOUSING_FUND = a.total*0.08
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID;
+    </update>
+    <update id="updateNewWagesCold1" parameterType="java.lang.String">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = #{time}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = 0
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 0 and 5000;
+    </update>
+    <update id="updateNewWagesCold2" parameterType="java.lang.String">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = #{time}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = (a.total-5000)*0.03
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 5001 and 8000;
+    </update>
+    <update id="updateNewWagesCold3" parameterType="java.lang.String">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = #{time}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = (a.total-5000)*0.1
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 8001 and 17000;
+    </update>
+    <update id="updateNewWagesCold4" parameterType="java.lang.String">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty total from WAGES where release_time = #{time}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set IIT_FEELS_COLD = (a.total-5000)*0.2
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        and a.total between 17001 and 30000;
+    </update>
+    <update id="updateNewWagesDeductrdTax" parameterType="java.lang.String">
+        update WAGES b left join
+        (select employee_id,base_pay+post_wage+jxw+allowance+bouns-penalty
+        -E_INSURANCE-I_INSURANCE-U_INSURANCE-W_INSURANCE-M_INSURANCE-HOUSING_FUND-IIT_FEELS_COLD total
+        from WAGES where release_time = #{time}) as a
+        on b.EMPLOYEE_ID = a.EMPLOYEE_ID
+        set WAGE_DEDUCTED_TAX = a.total
+        where b.EMPLOYEE_ID = a.EMPLOYEE_ID;
+    </update>
+
+
 
     <update id="calculateWageById1" parameterType="java.lang.Integer">
         update WAGES b left join

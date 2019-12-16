@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class WagesServiceImpl implements WagesService {
@@ -19,8 +18,32 @@ public class WagesServiceImpl implements WagesService {
     private WagesDao wagesDao;
 
     @Override
-    public int insertWages(Map<String, Object> map) {
-        return wagesDao.insertWages(map);
+    public String insertWages() {
+        Date a = new Date();
+        DateFormat df1 = DateFormat.getDateInstance();
+        String time = df1.format(a);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(a);
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
+        String lastTime = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
+        Map<String, Object> map = new HashMap<>();
+        map.put("releaseTime", time);
+        if (queryList(map).size() == 0) {
+            wagesDao.insertNewWages(lastTime);
+            wagesDao.updateNewWagesTime(time);
+            wagesDao.updateNewWagesBasePay(3000.0);
+            wagesDao.updateNewWagesJwx(500.0);
+            wagesDao.updateNewWagesAllowance(200.0);
+            wagesDao.updateNewWagesPostWage();
+            wagesDao.updateNewWagesInsurance(time);
+            wagesDao.updateNewWagesCold1(time);
+            wagesDao.updateNewWagesCold2(time);
+            wagesDao.updateNewWagesCold3(time);
+            wagesDao.updateNewWagesCold4(time);
+            wagesDao.updateNewWagesDeductrdTax(time);
+            return "200";
+        } else
+            return "407";
     }
 
     @Override
@@ -40,7 +63,7 @@ public class WagesServiceImpl implements WagesService {
 
     @Override
     public int queryExist(Integer wagesId) {
-        if (!Objects.isNull(queryList((Map<String, Object>) new HashMap<>().put("wagesId",wagesId)))){
+        if (!Objects.isNull(queryList((Map<String, Object>) new HashMap<>().put("wagesId", wagesId)))) {
             return 1;
         }
         return 0;
