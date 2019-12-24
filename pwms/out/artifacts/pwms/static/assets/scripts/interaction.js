@@ -369,7 +369,8 @@ function setPositions() {
                         "<button  class='mb-2 mr-2 border-0 btn-transition btn btn-outline-info btn-outline-danger ml-2' data-toggle='modal' data-target='.confirm' onclick='posDel(" + data + ")'>删除</button>";
                 }
             }
-        ]
+        ],
+        "order": [[0, "desc"]]
     });
     $("select[name='posDep']").empty();
     $.ajax({
@@ -435,8 +436,12 @@ function posChange() {
     $("#posPay").val(arguments[3]);
     posStatu = 1;
 }
+var nposId = 0;
 function posreload() {
-    $("#posId").val("");
+    $("#positionList > tbody > tr > td:nth-child(1)").each(function () {
+        if (parseInt($(this).html()) > nposId) nposId = parseInt($(this).html())
+    });
+    $("input[name='posId']").val(parseInt(nposId) + 1);
     $("select[name='posDep']").removeAttr("selected");
     $("#posName").val("");
     $("#posPay").val("");
@@ -861,6 +866,7 @@ function setRap() {
                         if (resdata[i].reward !== 0) {
                             if (ntime.substr(0, 7) !== resdata[i].recodingTime.substr(0, 7)) {
                                 $("div.reward_and_penalty.row").append("<div class='col-lg-12 mt-4 col-xl-12'></div>");
+                                ntime = resdata[i].recodingTime
                             } else {
                                 ntime = resdata[i].recodingTime
                             }
