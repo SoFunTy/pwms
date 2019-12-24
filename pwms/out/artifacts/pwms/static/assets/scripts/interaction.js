@@ -1,6 +1,6 @@
 var mydata = "";
-// var baseUrl = "http://ad.pwms.xyz/";
-var baseUrl = "http://localhost:8080/pwms/";
+// var baseUrl = "http://bs.pwms.xyz/";
+var baseUrl = "http://192.168.16.123:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
 var ndata = "";
@@ -122,6 +122,25 @@ $("#export_wage_table").on("click", function () {
     setwageTable()
 });
 
+function newWage() {
+    $.ajax({
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem("pwmsToken")
+        },
+        type: "POST",//方法类型
+        url: baseUrl + "wage/ins",
+        dataType: "json",
+        contentType: "application/json;charset=UTF-8",
+        success: function (result) {
+            if (result.data === "200"){
+                showSuccess("计算成功！");
+            }else showError("已计算，请误重复操作");
+        },
+        error: function () {
+            showError("后台错误，请联系管理员！");
+        }
+    });
+}
 
 /*统计*/
 var myChart1, myChart2;
@@ -1205,7 +1224,7 @@ function setNotices() {
             if (result.resultCode === 200) {
                 for (var i = 1; i <= 5; i++) {
                     $("h5[name=notices" + i + "]").html(result.data[i - 1].noticesDate);
-                    $("pre[name=notices" + i + "]").html(result.data[i - 1].notices);
+                    $("p[name=notices" + i + "]").html(result.data[i - 1].notices);
                 }
             }
         }
@@ -2072,6 +2091,7 @@ function setwagesTable() {
         "autoWidth": true,
         "scrollX": true,//x方向滚动
         "scrollCollapse": true,
+        "order": [[ 0, "desc" ]],
         "fixedColumns": {
             "leftColumns": 1,
             "rightColumns": 1

@@ -1,6 +1,6 @@
 var mydata = "";
 // var baseUrl = "http://bs.pwms.xyz/";
-var baseUrl = "http://localhost:8080/pwms/";
+var baseUrl = "http://192.168.16.123:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
 var ndata = "";
