@@ -158,7 +158,7 @@ public class EmployeeController {
             return ResultGenerator.genErrorResult(408, "无此数据");
         }
 //        String emailUrl = "<a href='http://www.bs.pwms.xyz/pwms/user/passwdReset?email="+map.get("email")+"'>点击重置</a>";
-        String emailUrl = "<a href='http://192.168.16.123:8080/pwms/user/passwdReset?email="+map.get("email")+"'>点击重置</a>";
+        String emailUrl = "<a href='http://127.0.0.1:8080/pwms/user/passwdReset?email="+map.get("email")+"'>点击重置</a>";
         com.ys.mail.EmailSenderUtils.sendEmial(map.get("email"),emailUrl);
         return Checker.check("发送成功");
     }

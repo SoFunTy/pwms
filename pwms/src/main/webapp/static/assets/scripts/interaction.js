@@ -1,6 +1,6 @@
 var mydata = "";
 // var baseUrl = "http://bs.pwms.xyz/";
-var baseUrl = "http://192.168.16.123:8080/pwms/";
+var baseUrl = "http://localhost:8080/pwms/";
 /*数据表格对象以及临时数据保存对象*/
 var empTable;
 var ndata = "";
@@ -113,7 +113,8 @@ $("#notice").on("click", function () {
     setNotices()
 });
 $("#staff_salary_enquiry").on("click", function () {
-    setwagesTable()
+    setwagesTable();
+    wageTable.ajax.reload(null, false);
 });
 $("#flow_bill").one("click", function () {
     setFlowBill()
@@ -121,6 +122,10 @@ $("#flow_bill").one("click", function () {
 $("#export_wage_table").on("click", function () {
     setwageTable()
 });
+$("#add_rewardandpenalty").on("click", function () {
+    $("einfo").innerHTML ="";
+});
+
 
 function newWage() {
     $.ajax({
@@ -959,21 +964,10 @@ function checkAValid(a) {
             url: baseUrl + "user/qbyname",
             dataType: "json",
             contentType: "application/json;charset=UTF-8",
-            async: false,
             data: JSON.stringify({"employeeId": $(a).val()}),
             success: function (result) {
                 if (result.resultCode === 200 || result.data !== "") {
                     $("#aemployeeName").val(result.data);
-                    $.ajax({
-                        type: "POST",
-                        url: baseUrl + "user/qbyemail",
-                        dataType: "json",
-                        contentType: "application/json;charset=UTF-8",
-                        data: JSON.stringify({"employeeId": $(a).val()}),
-                        success: function (result) {
-                            $("input[name='aemail']").val(result.data);
-                        }
-                    });
                     $("#accbtn").removeAttr("disabled")
                 }
                 if (result.resultCode === 408) {
@@ -1079,7 +1073,12 @@ function ampAdd() {
             if (result.resultCode === 200) {
                 showSuccess("添加成功");
                 $("button[name='ampReset']").click()
+            }else {
+                showError("请检查输入")
             }
+        },
+        error:function (r) {
+          showError("请检查输入")
         }
     });
 }
@@ -1587,6 +1586,7 @@ function setpEmployee() {
     var data = {
         "employeeId": ndata.employeeId,
         "permission": $("select[name='permission']").val(),
+        "positionId": $("select[name='ppositionId']").val(),
         "email": $("input[name='pemail']").val(),
         "epassword": $("input[name='pepassword']").val(),
         "employeeName": $("input[name='pemployeeName']").val(),

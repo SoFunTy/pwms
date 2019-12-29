@@ -1,6 +1,6 @@
 
 // var baseUrl = "http://bs.pwms.xyz/";
-var baseUrl = "http://192.168.16.123:8080/pwms/";
+var baseUrl = "http://localhost:8080/pwms/";
 localStorage.setItem('mydata', "");
 localStorage.setItem('pwmsToken', "");
 localStorage.setItem('pwmsempId', "");
